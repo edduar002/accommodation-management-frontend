@@ -1,0 +1,16 @@
+export class User {
+  constructor(
+    public id: number,
+    public name: string,
+    public surname: string,
+    public email: string,
+    public password: string,
+    public phone: string,
+    public birthday: Date,
+    public imgUrl: string,
+    public rolesId: number,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public active: boolean
+  ) {}
+}
