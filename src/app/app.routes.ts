@@ -19,6 +19,8 @@ import { CreateReservationComponent } from './components/create-reservation/crea
 import { EditProfileAdminComponent } from './components/edit-profile-admin/edit-profile-admin.component';
 import { EditProfileHostComponent } from './components/edit-profile-host/edit-profile-host.component';
 import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
+import { CreateRoleComponent } from './components/create-role/create-role.component';
+import { CreateServiceComponent } from './components/create-service/create-service.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -41,4 +43,6 @@ export const routes: Routes = [
   { path: 'editProfileAdmin', component: EditProfileAdminComponent },
   { path: 'editProfileHost', component: EditProfileHostComponent },
   { path: 'editProfileUser', component: EditProfileUserComponent },
+  { path: 'createRole', component: CreateRoleComponent },
+  { path: 'createService', component: CreateServiceComponent },
 ];
