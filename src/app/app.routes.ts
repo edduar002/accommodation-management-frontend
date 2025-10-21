@@ -25,6 +25,12 @@ import { ManagementDepartmentComponent } from './components/management-departmen
 import { ManagementCityComponent } from './components/management-city/management-city.component';
 import { ManagementServiceComponent } from './components/management-service/management-service.component';
 import { ManagementRoleComponent } from './components/management-role/management-role.component';
+import { ManagementAccommodationsComponent } from './components/management-accommodations/management-accommodations.component';
+import { EditCityComponent } from './components/edit-city/edit-city.component';
+import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
+import { EditAccommodationComponent } from './components/edit-accommodation/edit-accommodation.component';
+import { EditServiceComponent } from './components/edit-service/edit-service.component';
+import { EditRoleComponent } from './components/edit-role/edit-role.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -53,4 +59,10 @@ export const routes: Routes = [
   { path: 'managementCity', component: ManagementCityComponent },
   { path: 'managementService', component: ManagementServiceComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
+  { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
+  { path: 'editCity', component: EditCityComponent },
+  { path: 'editDepartment', component: EditDepartmentComponent },
+  { path: 'editAccommodation', component: EditAccommodationComponent },
+  { path: 'editService', component: EditServiceComponent },
+  { path: 'editRole', component: EditRoleComponent },
 ];

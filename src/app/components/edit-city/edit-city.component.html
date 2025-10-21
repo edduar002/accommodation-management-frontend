@@ -1,0 +1,52 @@
+<div class="ciudad-section mt-5">
+  <h2 class="text-center mb-5 fw-bold text-primary">✏️ Editar ciudad existente</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-sm border-0 rounded-4 p-4">
+        <div class="card-body">
+          <form>
+            <!-- Nombre de la ciudad -->
+            <div class="mb-3">
+              <label for="cityName" class="form-label fw-semibold">Nombre de la ciudad</label>
+              <input
+                type="text"
+                id="cityName"
+                class="form-control"
+                value="Medellín"
+              />
+            </div>
+
+            <!-- Departamento -->
+            <div class="mb-3">
+              <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
+              <select id="departmentsId" class="form-select">
+                <option>Antioquia</option>
+                <option>Atlántico</option>
+                <option selected>Bolívar</option>
+                <option>Boyacá</option>
+                <option>Cundinamarca</option>
+                <option>Quindío</option>
+                <option>Santander</option>
+              </select>
+            </div>
+
+            <!-- Botón para guardar -->
+            <div class="d-grid mt-4">
+              <button type="button" class="btn btn-warning btn-lg rounded-pill text-white">
+                💾 Guardar cambios
+              </button>
+            </div>
+
+            <!-- Enlace para volver -->
+            <div class="text-center mt-3">
+              <a routerLink="/managementCity" class="text-decoration-none text-secondary fw-semibold">
+                ← Volver a la gestión de ciudades
+              </a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

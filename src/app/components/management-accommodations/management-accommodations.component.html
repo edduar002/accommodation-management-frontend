@@ -1,0 +1,79 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-5 fw-bold">🏠 Gestión de Alojamientos</h2>
+
+  <div class="card shadow-sm border-0 rounded-4">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle text-center">
+          <thead class="table-success text-dark">
+            <tr>
+              <th>ID</th>
+              <th>Descripción</th>
+              <th>Dirección</th>
+              <th>Departamento</th>
+              <th>Precio (COP)</th>
+              <th>Capacidad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>001</td>
+              <td>Cabaña en el bosque con chimenea</td>
+              <td>Vereda El Retiro, Km 5</td>
+              <td>Antioquia</td>
+              <td>250.000</td>
+              <td>6</td>
+              <td>
+                <a routerLink="/editAccommodation" class="text-primary me-3 text-decoration-none fw-semibold">
+                  ✏️ Editar
+                </a>
+                <a href="#" class="text-danger text-decoration-none fw-semibold">
+                  🗑️ Eliminar
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>002</td>
+              <td>Apartamento moderno con vista al mar</td>
+              <td>Bocagrande, Cartagena</td>
+              <td>Bolívar</td>
+              <td>480.000</td>
+              <td>4</td>
+              <td>
+                <a routerLink="/editAccommodation" class="text-primary me-3 text-decoration-none fw-semibold">
+                  ✏️ Editar
+                </a>
+                <a href="#" class="text-danger text-decoration-none fw-semibold">
+                  🗑️ Eliminar
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td>003</td>
+              <td>Casa campestre con piscina</td>
+              <td>La Tebaida, Armenia</td>
+              <td>Quindío</td>
+              <td>320.000</td>
+              <td>8</td>
+              <td>
+                <a routerLink="/editAccommodation" class="text-primary me-3 text-decoration-none fw-semibold">
+                  ✏️ Editar
+                </a>
+                <a href="#" class="text-danger text-decoration-none fw-semibold">
+                  🗑️ Eliminar
+                </a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center mt-4">
+        <a routerLink="/createAccommodation" class="btn btn-success btn-lg rounded-pill px-4">
+          ➕ Crear nuevo alojamiento
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
