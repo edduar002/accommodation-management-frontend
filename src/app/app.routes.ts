@@ -21,6 +21,10 @@ import { EditProfileHostComponent } from './components/edit-profile-host/edit-pr
 import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
 import { CreateRoleComponent } from './components/create-role/create-role.component';
 import { CreateServiceComponent } from './components/create-service/create-service.component';
+import { ManagementDepartmentComponent } from './components/management-department/management-department.component';
+import { ManagementCityComponent } from './components/management-city/management-city.component';
+import { ManagementServiceComponent } from './components/management-service/management-service.component';
+import { ManagementRoleComponent } from './components/management-role/management-role.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -45,4 +49,8 @@ export const routes: Routes = [
   { path: 'editProfileUser', component: EditProfileUserComponent },
   { path: 'createRole', component: CreateRoleComponent },
   { path: 'createService', component: CreateServiceComponent },
+  { path: 'managementDepartment', component: ManagementDepartmentComponent },
+  { path: 'managementCity', component: ManagementCityComponent },
+  { path: 'managementService', component: ManagementServiceComponent },
+  { path: 'managementRole', component: ManagementRoleComponent },
 ];
