@@ -1,1 +1,89 @@
-<p>register-administrator works!</p>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header bg-primary text-white text-center rounded-top-4">
+          <h4 class="mb-0">
+            <i class="bi bi-person-gear me-2"></i>
+            Registro de Administrador
+          </h4>
+        </div>
+        <div class="card-body p-4">
+          <form>
+            <!-- Nombre -->
+            <div class="mb-3">
+              <label for="name" class="form-label fw-semibold">
+                Nombre
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="name"
+                placeholder="Ingresa tu nombre"
+                required
+              />
+            </div>
+
+            <!-- Apellido -->
+            <div class="mb-3">
+              <label for="surname" class="form-label fw-semibold">
+                Apellido
+              </label>
+              <input
+                type="text"
+                class="form-control"
+                id="surname"
+                placeholder="Ingresa tu apellido"
+                required
+              />
+            </div>
+
+            <!-- Correo -->
+            <div class="mb-3">
+              <label for="email" class="form-label fw-semibold">
+                Correo electrónico
+              </label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                placeholder="ejemplo@correo.com"
+                required
+              />
+            </div>
+
+            <!-- Contraseña -->
+            <div class="mb-4">
+              <label for="password" class="form-label fw-semibold">
+                Contraseña
+              </label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                placeholder="********"
+                minlength="6"
+                required
+              />
+            </div>
+
+            <!-- Botón -->
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-lg">
+                <i class="bi bi-person-plus me-2"></i>
+                Crear cuenta
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div class="card-footer text-center text-muted">
+          ¿Ya tienes una cuenta?
+          <a routerLink="/login" class="text-decoration-none fw-semibold"
+            >Inicia sesión</a
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

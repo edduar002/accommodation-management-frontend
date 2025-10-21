@@ -3,10 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-my-reservations',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './my-reservations.component.html',
+  styleUrl: './my-reservations.component.css'
 })
-export class RegisterComponent {}
+export class MyReservationsComponent {
+
+}

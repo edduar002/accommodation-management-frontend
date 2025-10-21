@@ -1,0 +1,38 @@
+h2 {
+  color: #0d6efd;
+}
+
+.nav-pills .nav-link {
+  border-radius: 50px;
+  padding: 0.6rem 1.5rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-pills .nav-link.active {
+  background-color: #0d6efd;
+  box-shadow: 0 2px 6px rgba(13, 110, 253, 0.3);
+}
+
+.card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-size: 1.1rem;
+}
+
+.badge {
+  font-size: 0.9rem;
+  padding: 0.4em 0.6em;
+}
+
+.card img {
+  height: 200px;
+  object-fit: cover;
+}

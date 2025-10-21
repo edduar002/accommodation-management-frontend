@@ -3,10 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-register',
+  selector: 'app-login-user',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './login-user.component.html',
+  styleUrl: './login-user.component.css'
 })
-export class RegisterComponent {}
+export class LoginUserComponent {
+
+}

@@ -1,1 +1,53 @@
-<p>login works!</p>
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Iniciar Sesión</h2>
+  <p class="text-center text-muted mb-5">
+    Elige el tipo de cuenta con la que deseas iniciar sesión.
+  </p>
+
+  <div class="row justify-content-center">
+    <!-- Administrador -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+             class="card-img-top p-4" alt="Administrador">
+        <div class="card-body text-center">
+          <h5 class="card-title">Administrador</h5>
+          <p class="card-text">
+            Gestiona el sistema, usuarios y alojamientos. Acceso completo a la plataforma.
+          </p>
+          <a routerLink="/loginAdmin" class="btn btn-primary">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usuario -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" 
+             class="card-img-top p-4" alt="Usuario">
+        <div class="card-body text-center">
+          <h5 class="card-title">Usuario</h5>
+          <p class="card-text">
+            Accede a tu cuenta para buscar, reservar y gestionar tus alojamientos favoritos.
+          </p>
+          <a routerLink="/loginUser" class="btn btn-success">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Anfitrión -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm h-100">
+        <img src="https://cdn-icons-png.flaticon.com/512/4202/4202833.png" 
+             class="card-img-top p-4" alt="Anfitrión">
+        <div class="card-body text-center">
+          <h5 class="card-title">Anfitrión</h5>
+          <p class="card-text">
+            Administra tus propiedades, responde a reservas y mejora tu perfil como anfitrión.
+          </p>
+          <a routerLink="/loginHost" class="btn btn-warning text-white">Iniciar sesión</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
