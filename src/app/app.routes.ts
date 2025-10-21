@@ -9,6 +9,16 @@ import { RegisterAdministratorComponent } from './components/register-administra
 import { RegisterHostComponent } from './components/register-host/register-host.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
 import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
+import { ChangePasswordAdminComponent } from './components/change-password-admin/change-password-admin.component';
+import { ChangePasswordHostComponent } from './components/change-password-host/change-password-host.component';
+import { ChangePasswordUserComponent } from './components/change-password-user/change-password-user.component';
+import { CreateAccommodationComponent } from './components/create-accommodation/create-accommodation.component';
+import { CreateCityComponent } from './components/create-city/create-city.component';
+import { CreateDepartmentComponent } from './components/create-department/create-department.component';
+import { CreateReservationComponent } from './components/create-reservation/create-reservation.component';
+import { EditProfileAdminComponent } from './components/edit-profile-admin/edit-profile-admin.component';
+import { EditProfileHostComponent } from './components/edit-profile-host/edit-profile-host.component';
+import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,4 +31,14 @@ export const routes: Routes = [
   { path: 'loginAdmin', component: LoginAdministratorComponent },
   { path: 'loginUser', component: LoginUserComponent },
   { path: 'myReservations', component: MyReservationsComponent },
+  { path: 'changePasswordAdmin', component: ChangePasswordAdminComponent },
+  { path: 'changePasswordHost', component: ChangePasswordHostComponent },
+  { path: 'changePasswordUser', component: ChangePasswordUserComponent },
+  { path: 'createAccommodation', component: CreateAccommodationComponent },
+  { path: 'createCity', component: CreateCityComponent },
+  { path: 'createDepartment', component: CreateDepartmentComponent },
+  { path: 'createReservation', component: CreateReservationComponent },
+  { path: 'editProfileAdmin', component: EditProfileAdminComponent },
+  { path: 'editProfileHost', component: EditProfileHostComponent },
+  { path: 'editProfileUser', component: EditProfileUserComponent },
 ];

@@ -3,12 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-create-accommodation',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './create-accommodation.component.html',
+  styleUrl: './create-accommodation.component.css'
 })
-export class HomeComponent {
+export class CreateAccommodationComponent {
 
 }

@@ -1,0 +1,100 @@
+<div class="alojamiento-section mt-5">
+  <h2 class="text-center mb-5 fw-bold">🏠 Crear nuevo alojamiento</h2>
+
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="card shadow-sm border-0 rounded-4 p-4">
+        <div class="card-body">
+          <form>
+            <div class="mb-3">
+              <label for="detailedDescription" class="form-label fw-semibold">
+                Descripción detallada
+              </label>
+              <textarea
+                id="detailedDescription"
+                class="form-control"
+                rows="3"
+              >Hermosa cabaña en medio del bosque, con vista panorámica y chimenea ideal para noches frías.</textarea>
+            </div>
+
+            <div class="mb-3">
+              <label for="direction" class="form-label fw-semibold">Dirección</label>
+              <input
+                type="text"
+                id="direction"
+                class="form-control"
+                value="Vereda El Retiro, Km 5 vía a la montaña"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="exactLocation" class="form-label fw-semibold">Ubicación exacta</label>
+              <input
+                type="text"
+                id="exactLocation"
+                class="form-control"
+                value="6.1352, -75.4423"
+              />
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
+                <input type="number" id="price" class="form-control" value="250000" />
+              </div>
+
+              <div class="col-md-6 mb-3">
+                <label for="maximumCapacity" class="form-label fw-semibold">Capacidad máxima</label>
+                <input type="number" id="maximumCapacity" class="form-control" value="6" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
+              <select id="departmentsId" class="form-select">
+                <option selected>Antioquia</option>
+                <option>Atlántico</option>
+                <option>Bolívar</option>
+                <option>Boyacá</option>
+                <option>Caldas</option>
+                <option>Caquetá</option>
+                <option>Cauca</option>
+                <option>Cesar</option>
+                <option>Córdoba</option>
+                <option>Cundinamarca</option>
+                <option>Chocó</option>
+                <option>Huila</option>
+                <option>La Guajira</option>
+                <option>Magdalena</option>
+                <option>Meta</option>
+                <option>Nariño</option>
+                <option>Norte de Santander</option>
+                <option>Quindío</option>
+                <option>Risaralda</option>
+                <option>Santander</option>
+                <option>Sucre</option>
+                <option>Tolima</option>
+                <option>Valle del Cauca</option>
+                <option>Arauca</option>
+                <option>Casanare</option>
+                <option>Putumayo</option>
+                <option>San Andrés y Providencia</option>
+                <option>Amazonas</option>
+                <option>Guainía</option>
+                <option>Guaviare</option>
+                <option>Vaupés</option>
+                <option>Vichada</option>
+              </select>
+            </div>
+
+            <div class="d-grid mt-4">
+              <button type="button" class="btn btn-success btn-lg rounded-pill">
+                Crear alojamiento
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

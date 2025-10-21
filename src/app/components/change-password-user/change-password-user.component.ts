@@ -3,12 +3,12 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-change-password-user',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './home.component.html',
-  styleUrl: './home.component.css'
+  templateUrl: './change-password-user.component.html',
+  styleUrl: './change-password-user.component.css'
 })
-export class HomeComponent {
+export class ChangePasswordUserComponent {
 
 }
