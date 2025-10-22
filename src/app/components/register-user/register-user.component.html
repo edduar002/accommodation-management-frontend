@@ -5,48 +5,48 @@
     </div>
     <div class="card-body p-4">
 
-      <form>
+      <form #registerUserForm="ngForm" (ngSubmit)="onSubmit(registerUserForm)">
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label class="form-label fw-bold">Nombre</label>
-            <input type="text" class="form-control" placeholder="Ingrese su nombre">
+            <label for="name" class="form-label fw-bold">Nombre</label>
+            <input type="text" name="name" class="form-control" placeholder="Ingrese su nombre" #name="ngModel" [(ngModel)]="user.name" required>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label class="form-label fw-bold">Apellido</label>
-            <input type="text" class="form-control" placeholder="Ingrese su apellido">
+            <label for="surname" class="form-label fw-bold">Apellido</label>
+            <input type="text" name="surname" class="form-control" placeholder="Ingrese su apellido" #surname="ngModel" [(ngModel)]="user.surname" required>
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label fw-bold">Correo Electrónico</label>
-          <input type="email" class="form-control" placeholder="ejemplo@correo.com">
+          <label for="email" class="form-label fw-bold">Correo Electrónico</label>
+          <input type="email" name="email" class="form-control" placeholder="ejemplo@correo.com" #email="ngModel" [(ngModel)]="user.email" required>
         </div>
 
         <div class="mb-3">
-          <label class="form-label fw-bold">Contraseña</label>
-          <input type="password" class="form-control" placeholder="Mínimo 6 caracteres">
+          <label for="password" class="form-label fw-bold">Contraseña</label>
+          <input type="password" name="password" class="form-control" placeholder="Mínimo 6 caracteres" #password="ngModel" [(ngModel)]="user.password" required>
         </div>
 
         <div class="row">
           <div class="col-md-6 mb-3">
-            <label class="form-label fw-bold">Teléfono</label>
-            <input type="text" class="form-control" placeholder="Ej: 3201234567">
+            <label for="phone" class="form-label fw-bold">Teléfono</label>
+            <input type="text" name="phone" class="form-control" placeholder="Ej: 3201234567" #phone="ngModel" [(ngModel)]="user.phone" required>
           </div>
 
           <div class="col-md-6 mb-3">
-            <label class="form-label fw-bold">Fecha de Nacimiento</label>
-            <input type="date" class="form-control">
+            <label for="birthday" class="form-label fw-bold">Fecha de Nacimiento</label>
+            <input type="date" name="birthday" class="form-control" #birthday="ngModel" [(ngModel)]="user.birthday" required>
           </div>
         </div>
 
         <div class="mb-3">
-          <label class="form-label fw-bold">URL de Imagen (opcional)</label>
-          <input type="text" class="form-control" placeholder="https://...">
+          <label for="imgUrl" class="form-label fw-bold">URL de Imagen (opcional)</label>
+          <input type="text" name="imgUrl" class="form-control" placeholder="https://..." #imgUrl="ngModel" [(ngModel)]="user.imgUrl" required>
         </div>
 
         <div class="text-center mt-4">
-          <button type="submit" class="btn btn-success btn-lg px-5">Registrarse</button>
+          <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5">
         </div>
       </form>
 

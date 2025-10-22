@@ -1,4 +1,4 @@
-export class User {
+export class Host {
   constructor(
     public id: number,
     public name: string,
@@ -9,9 +9,7 @@ export class User {
     public birthday: Date,
     public imgUrl: string,
     public rolesId: number,
-    public departmentId: number,
-    public createdAt: Date,
-    public updatedAt: Date,
-    public active: boolean
+    public personalDescription: string,
+    public departmentsId: number
   ) {}
 }

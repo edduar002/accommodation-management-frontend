@@ -9,19 +9,13 @@
           </h4>
         </div>
         <div class="card-body p-4">
-          <form>
+          <form #registerAdministratorForm="ngForm" (ngSubmit)="onSubmit(registerAdministratorForm)">
             <!-- Nombre -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">
                 Nombre
               </label>
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                placeholder="Ingresa tu nombre"
-                required
-              />
+              <input type="text" name="name" class="form-control" id="name" placeholder="Ingresa tu nombre" #name="ngModel" [(ngModel)]="administrator.name" required>
             </div>
 
             <!-- Apellido -->
@@ -29,13 +23,7 @@
               <label for="surname" class="form-label fw-semibold">
                 Apellido
               </label>
-              <input
-                type="text"
-                class="form-control"
-                id="surname"
-                placeholder="Ingresa tu apellido"
-                required
-              />
+              <input type="text" name="surname" class="form-control" id="surname" placeholder="Ingresa tu apellido" #surname="ngModel" [(ngModel)]="administrator.surname" required>
             </div>
 
             <!-- Correo -->
@@ -43,13 +31,7 @@
               <label for="email" class="form-label fw-semibold">
                 Correo electrónico
               </label>
-              <input
-                type="email"
-                class="form-control"
-                id="email"
-                placeholder="ejemplo@correo.com"
-                required
-              />
+              <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@correo.com" #email="ngModel" [(ngModel)]="administrator.email" required>
             </div>
 
             <!-- Contraseña -->
@@ -57,31 +39,19 @@
               <label for="password" class="form-label fw-semibold">
                 Contraseña
               </label>
-              <input
-                type="password"
-                class="form-control"
-                id="password"
-                placeholder="********"
-                minlength="6"
-                required
-              />
+              <input type="password" name="password" class="form-control" id="password" placeholder="********" minlength="6"#password="ngModel" [(ngModel)]="administrator.password" required>
             </div>
 
             <!-- Botón -->
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary btn-lg">
-                <i class="bi bi-person-plus me-2"></i>
-                Crear cuenta
-              </button>
+              <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5">
             </div>
           </form>
         </div>
 
         <div class="card-footer text-center text-muted">
           ¿Ya tienes una cuenta?
-          <a routerLink="/login" class="text-decoration-none fw-semibold"
-            >Inicia sesión</a
-          >
+          <a routerLink="/login" class="text-decoration-none fw-semibold">Inicia sesión</a>
         </div>
       </div>
     </div>
