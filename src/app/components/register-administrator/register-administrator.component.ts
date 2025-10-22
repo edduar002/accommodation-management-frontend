@@ -19,7 +19,7 @@ export class RegisterAdministratorComponent {
   public administrator: Administrator;
   
     constructor(private http: HttpClient, private _administratorService: AdministratorService){
-      this.administrator = new Administrator(1, '', '', '', '')
+      this.administrator = new Administrator('', '', '', '')
     }
   
     onSubmit(form: NgForm): void {

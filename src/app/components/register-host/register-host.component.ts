@@ -18,7 +18,7 @@ export class RegisterHostComponent {
   public host: Host;
   
     constructor(private http: HttpClient, private _hostService: HostService){
-      this.host = new Host(1, '', '', '', '', '', new Date(), '', 1, '', 1)
+      this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1)
     }
   
     onSubmit(form: NgForm): void {

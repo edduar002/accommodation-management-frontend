@@ -5,10 +5,10 @@
     <div class="col-md-6">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <form #createCityForm="ngForm" (ngSubmit)="onSubmit(createCityForm)">
             <div class="mb-3">
               <label for="cityName" class="form-label fw-semibold">Nombre de la ciudad</label>
-              <input type="text" id="cityName" class="form-control" placeholder="Ej: Medellín" />
+              <input type="text" name="cityName" id="cityName" class="form-control" placeholder="Ej: Medellín" #name="ngModel" [(ngModel)]="city.name" required>
             </div>
 
             <div class="mb-3">
@@ -51,9 +51,7 @@
             </div>
 
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-success btn-lg rounded-pill">
-                Crear ciudad
-              </button>
+              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
             </div>
           </form>
         </div>

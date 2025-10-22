@@ -18,7 +18,7 @@ export class RegisterUserComponent {
   public user: User;
 
   constructor(private http: HttpClient, private _userService: UserService){
-    this.user = new User(1, '', '', '', '', '', new Date(), '', 1, 1, new Date(), new Date(), true)
+    this.user = new User('', '', '', '', '', new Date(), '', 1, 1, new Date(), new Date(), true)
   }
 
   onSubmit(form: NgForm): void {

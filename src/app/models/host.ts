@@ -1,15 +1,14 @@
 export class Host {
   constructor(
-    public id: number,
-    public name: string,
-    public surname: string,
-    public email: string,
-    public password: string,
-    public phone: string,
-    public birthday: Date,
-    public imgUrl: string,
-    public rolesId: number,
-    public personalDescription: string,
-    public departmentsId: number
+    private name: string,
+    private surname: string,
+    private email: string,
+    private password: string,
+    private phone: string,
+    private birthday: Date,
+    private imgUrl: string,
+    private rolesId: number,
+    private personalDescription: string,
+    private departmentsId: number
   ) {}
 }

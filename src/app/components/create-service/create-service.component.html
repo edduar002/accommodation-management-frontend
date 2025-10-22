@@ -5,16 +5,14 @@
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <form #createServiceForm="ngForm" (ngSubmit)="onSubmit(createServiceForm)">
             <div class="mb-3">
               <label for="serviceName" class="form-label fw-semibold">Nombre del servicio</label>
-              <input type="text" id="serviceName" class="form-control" placeholder="Ej: Antioquia" />
+              <input type="text" name="serviceName" id="serviceName" class="form-control" placeholder="Ej: Antioquia" #name="ngModel" [(ngModel)]="service.name" required>
             </div>
 
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-success btn-lg rounded-pill">
-                Crear servicio
-              </button>
+              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
             </div>
           </form>
         </div>
