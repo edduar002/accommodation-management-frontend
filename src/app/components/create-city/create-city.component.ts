@@ -22,7 +22,7 @@ export class CreateCityComponent {
       }
     
       onSubmit(form: NgForm): void {
-        (this.city as any).department = { id: 3 };
+        this.city.departmentsId = 1;
         this._cityService.register(this.city).subscribe(
           response => {
             console.log(response);

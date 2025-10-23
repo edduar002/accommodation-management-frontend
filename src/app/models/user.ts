@@ -1,16 +1,16 @@
 export class User {
   constructor(
-    private name: string,
-    private surname: string,
-    private email: string,
-    private password: string,
-    private phone: string,
-    private birthday: Date,
-    private imgUrl: string,
-    private rolesId: number,
-    private departmentId: number,
-    private createdAt: Date,
-    private updatedAt: Date,
-    private active: boolean
+    public name: string,
+    public surname: string,
+    public email: string,
+    public password: string,
+    public phone: string,
+    public birthday: Date,
+    public imgUrl: string,
+    public rolesId: number,
+    public departmentId: number,
+    public createdAt: Date,
+    public updatedAt: Date,
+    public active: boolean
   ) {}
 }

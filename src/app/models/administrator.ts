@@ -1,8 +1,8 @@
 export class Administrator {
   constructor(
-    private name: string,
-    private surname: string,
-    private email: string,
-    private password: string
+    public name: string,
+    public surname: string,
+    public email: string,
+    public password: string
   ) {}
 }

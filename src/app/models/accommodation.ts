@@ -1,13 +1,14 @@
 export class Accommodation {
   constructor(
-    private detailedDescription: string,
-    private direction: string,
-    private exactLocation: string,
-    private price: number,
-    private maximumCapacity: number,
-    private hostsId: number,
-    private available: boolean,
-    private qualificationsId: number,
-    private departmentsId: number
+    public detailedDescription: string,
+    public direction: string,
+    public exactLocation: string,
+    public price: number,
+    public maximumCapacity: number,
+    public hostsId: number,
+    public available: boolean,
+    public qualificationsId: number,
+    public departmentsId: number,
+    public active: boolean,
   ) {}
 }

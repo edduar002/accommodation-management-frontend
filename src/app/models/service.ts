@@ -1,5 +1,5 @@
 export class Service {
   constructor(
-    private name: string
+    public name: string
   ) {}
 }

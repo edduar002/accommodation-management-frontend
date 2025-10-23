@@ -5,47 +5,45 @@
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <form #registerAccommodationForm="ngForm" (ngSubmit)="onSubmit(registerAccommodationForm)">
             <div class="mb-3">
               <label for="detailedDescription" class="form-label fw-semibold">
                 Descripción detallada
               </label>
-              <textarea
+              <textarea name="detailedDescription"
                 id="detailedDescription"
                 class="form-control"
-                rows="3"
+                rows="3" #detailedDescription="ngModel" [(ngModel)]="accommodation.detailedDescription" required>
               >Hermosa cabaña en medio del bosque, con vista panorámica y chimenea ideal para noches frías.</textarea>
             </div>
 
             <div class="mb-3">
               <label for="direction" class="form-label fw-semibold">Dirección</label>
               <input
-                type="text"
+                type="text" name="direction"
                 id="direction"
                 class="form-control"
-                value="Vereda El Retiro, Km 5 vía a la montaña"
-              />
+                value="Vereda El Retiro, Km 5 vía a la montaña" #direction="ngModel" [(ngModel)]="accommodation.direction" required>
             </div>
 
             <div class="mb-3">
               <label for="exactLocation" class="form-label fw-semibold">Ubicación exacta</label>
               <input
-                type="text"
+                type="text" name="exactLocation"
                 id="exactLocation"
                 class="form-control"
-                value="6.1352, -75.4423"
-              />
+                value="6.1352, -75.4423" #exactLocation="ngModel" [(ngModel)]="accommodation.exactLocation" required>
             </div>
 
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
-                <input type="number" id="price" class="form-control" value="250000" />
+                <input type="number" name="price" id="price" class="form-control" value="250000" #price="ngModel" [(ngModel)]="accommodation.price" required>
               </div>
 
               <div class="col-md-6 mb-3">
                 <label for="maximumCapacity" class="form-label fw-semibold">Capacidad máxima</label>
-                <input type="number" id="maximumCapacity" class="form-control" value="6" />
+                <input type="number" name="maximumCapacity" id="maximumCapacity" class="form-control" value="6" #maximumCapacity="ngModel" [(ngModel)]="accommodation.maximumCapacity" required>
               </div>
             </div>
 
@@ -88,9 +86,7 @@
             </div>
 
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-success btn-lg rounded-pill">
-                Crear alojamiento
-              </button>
+              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
             </div>
           </form>
         </div>
