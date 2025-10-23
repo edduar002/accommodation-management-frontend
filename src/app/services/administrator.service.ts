@@ -20,4 +20,9 @@ export class AdministratorService{
         return this._http.post<any>(`${this.url}administrators/register`, administrator, { headers });
     }
 
+    login(administrator: Administrator): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.post<any>(`${this.url}administrators/login`, administrator, { headers });
+    }
+
 }

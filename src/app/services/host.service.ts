@@ -20,4 +20,9 @@ export class HostService{
         return this._http.post<any>(`${this.url}hosts/register`, host, { headers });
     }
 
+    login(user: Host): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.post<any>(`${this.url}hosts/login`, user, { headers });
+    }
+
 }

@@ -20,4 +20,9 @@ export class UserService{
         return this._http.post<any>(`${this.url}users/register`, user, { headers });
     }
 
+    login(user: User): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.post<any>(`${this.url}users/login`, user, { headers });
+    }
+
 }

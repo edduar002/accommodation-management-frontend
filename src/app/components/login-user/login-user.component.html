@@ -7,15 +7,15 @@
         </div>
 
         <div class="card-body p-4">
-          <form>
+          <form #loginUserForm="ngForm" (ngSubmit)="onSubmit(loginUserForm)">
             <div class="mb-3">
-              <label class="form-label fw-bold">Correo o usuario</label>
-              <input type="text" class="form-control" placeholder="usuario@ejemplo.com">
+              <label for="email" class="form-label fw-bold">Correo o usuario</label>
+              <input type="text" name="email" class="form-control" placeholder="usuario@ejemplo.com" #email="ngModel" [(ngModel)]="user.email" required>
             </div>
 
             <div class="mb-3">
-              <label class="form-label fw-bold">Contraseña</label>
-              <input type="password" class="form-control" placeholder="Contraseña">
+              <label for="password" class="form-label fw-bold">Contraseña</label>
+              <input type="password" name="password" class="form-control" placeholder="Contraseña" #password="ngModel" [(ngModel)]="user.password" required>
             </div>
 
             <div class="d-flex justify-content-between align-items-center mb-3">
@@ -25,7 +25,7 @@
             </div>
 
             <div class="d-grid">
-              <button class="btn btn-success btn-lg">Iniciar sesión</button>
+              <input type="submit" value="Ingresar" class="btn btn-warning btn-lg text-white px-5">
             </div>
           </form>
         </div>
