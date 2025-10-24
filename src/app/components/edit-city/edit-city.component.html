@@ -5,37 +5,45 @@
     <div class="col-md-6">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <!-- 🔹 Agregamos #cityForm="ngForm" y (ngSubmit)="onSubmit(cityForm)" -->
+          <form #cityForm="ngForm" (ngSubmit)="onSubmit(cityForm)">
             <!-- Nombre de la ciudad -->
             <div class="mb-3">
-              <label for="cityName" class="form-label fw-semibold">Nombre de la ciudad</label>
+              <label for="name" class="form-label fw-semibold">Nombre de la ciudad</label>
               <input
                 type="text"
-                id="cityName"
+                name="name"
+                id="name"
                 class="form-control"
-                value="Medellín"
+                [(ngModel)]="city.name"
+                required
               />
             </div>
 
             <!-- Departamento -->
             <div class="mb-3">
               <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
-              <select id="departmentsId" class="form-select">
-                <option>Antioquia</option>
-                <option>Atlántico</option>
-                <option selected>Bolívar</option>
-                <option>Boyacá</option>
-                <option>Cundinamarca</option>
-                <option>Quindío</option>
-                <option>Santander</option>
+              <select
+                id="departmentsId"
+                class="form-select"
+                [(ngModel)]="city.departmentsId"
+                name="departmentsId"
+                required
+              >
+                <option [value]="1">Antioquia</option>
+                <option [value]="2">Atlántico</option>
+                <option [value]="3">Bolívar</option>
+                <option [value]="4">Boyacá</option>
+                <option [value]="5">Cundinamarca</option>
+                <option [value]="6">Quindío</option>
+                <option [value]="7">Santander</option>
               </select>
             </div>
 
             <!-- Botón para guardar -->
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-warning btn-lg rounded-pill text-white">
-                💾 Guardar cambios
-              </button>
+              <!-- 🔹 type="submit" para que dispare (ngSubmit) -->
+              <input type="submit" value="Actualizar" class="btn btn-warning btn-lg text-white px-5">
             </div>
 
             <!-- Enlace para volver -->

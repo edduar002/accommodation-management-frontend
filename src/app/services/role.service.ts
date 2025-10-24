@@ -25,4 +25,14 @@ export class RoleService{
         return this._http.get<any>(`${this.url}roles/getAll`, { headers });
     }
 
+    getOne(id: Number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}roles/getOne/${id}`, { headers });
+    }
+
+    update(id: number, role: Role): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}roles/edit/${id}`, role, { headers });
+    }
+
 }

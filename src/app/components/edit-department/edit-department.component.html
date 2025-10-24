@@ -5,23 +5,23 @@
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <form #departmentForm="ngForm" (ngSubmit)="onSubmit(departmentForm)">
             <!-- Campo para el nombre -->
             <div class="mb-3">
-              <label for="departmentName" class="form-label fw-semibold">Nombre del departamento</label>
+              <label for="name" class="form-label fw-semibold">Nombre del departamento</label>
               <input
                 type="text"
-                id="departmentName"
+                name="name"
+                id="name"
                 class="form-control"
-                value="Antioquia"
+                [(ngModel)]="department.name"
+                required
               />
             </div>
 
             <!-- Botón para guardar -->
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-warning btn-lg rounded-pill text-white">
-                💾 Guardar cambios
-              </button>
+              <input type="submit" value="Actualizar" class="btn btn-warning btn-lg text-white px-5">
             </div>
 
             <!-- Enlace para volver -->

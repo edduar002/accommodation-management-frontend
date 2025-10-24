@@ -25,4 +25,13 @@ export class CityService{
         return this._http.get<any>(`${this.url}cities/getAll`, { headers });
     }
 
+    getOne(id: Number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}cities/getOne/${id}`, { headers });
+    }
+
+    update(id: number, city: City): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}cities/edit/${id}`, city, { headers });
+    }
 }

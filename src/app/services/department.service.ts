@@ -25,4 +25,14 @@ export class DepartmentService{
         return this._http.get<any>(`${this.url}departments/getAll`, { headers });
     }
 
+    getOne(id: Number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}departments/getOne/${id}`, { headers });
+    }
+
+    update(id: number, department: Department): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}departments/edit/${id}`, department, { headers });
+    }
+
 }

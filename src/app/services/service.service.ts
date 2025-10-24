@@ -25,4 +25,14 @@ export class ServiceService{
         return this._http.get<any>(`${this.url}services/getAll`, { headers });
     }
 
+    getOne(id: Number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}services/getOne/${id}`, { headers });
+    }
+
+    update(id: number, service: Service): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}services/edit/${id}`, service, { headers });
+    }
+
 }

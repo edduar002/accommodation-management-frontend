@@ -61,9 +61,9 @@ export const routes: Routes = [
   { path: 'managementService', component: ManagementServiceComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
   { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
-  { path: 'editCity', component: EditCityComponent },
-  { path: 'editDepartment', component: EditDepartmentComponent },
+  { path: 'editCity/:id', component: EditCityComponent },
+  { path: 'editDepartment/:id', component: EditDepartmentComponent },
   { path: 'editAccommodation', component: EditAccommodationComponent },
-  { path: 'editService', component: EditServiceComponent },
-  { path: 'editRole', component: EditRoleComponent },
+  { path: 'editService/:id', component: EditServiceComponent },
+  { path: 'editRole/:id', component: EditRoleComponent },
 ];
