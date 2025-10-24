@@ -17,12 +17,14 @@
           <th scope="col" class="text-center" style="width: 25%">Acciones</th>
         </tr>
       </thead>
+
       <tbody>
-        <tr>
-          <th scope="row">1</th>
-          <td>Antioquia</td>
+        <!-- ✅ Recorrer los departamentos dinámicamente -->
+        <tr *ngFor="let dept of departments; let i = index">
+          <th scope="row">{{ i + 1 }}</th>
+          <td>{{ dept.name }}</td>
           <td class="text-center">
-            <a routerLink="/editDepartment" class="action-link text-warning me-3 text-decoration-none fw-semibold">
+            <a [routerLink]="['/editDepartment', dept.id]" class="action-link text-warning me-3 text-decoration-none fw-semibold">
               <i class="bi bi-pencil-square"></i> Editar
             </a>
             <a href="#" class="action-link text-danger text-decoration-none fw-semibold">
@@ -31,29 +33,10 @@
           </td>
         </tr>
 
-        <tr>
-          <th scope="row">2</th>
-          <td>Quindío</td>
-          <td class="text-center">
-            <a routerLink="/editDepartment" class="action-link text-warning me-3 text-decoration-none fw-semibold">
-              <i class="bi bi-pencil-square"></i> Editar
-            </a>
-            <a href="#" class="action-link text-danger text-decoration-none fw-semibold">
-              <i class="bi bi-trash"></i> Eliminar
-            </a>
-          </td>
-        </tr>
-
-        <tr>
-          <th scope="row">3</th>
-          <td>Cundinamarca</td>
-          <td class="text-center">
-            <a routerLink="/editDepartment" class="action-link text-warning me-3 text-decoration-none fw-semibold">
-              <i class="bi bi-pencil-square"></i> Editar
-            </a>
-            <a href="#" class="action-link text-danger text-decoration-none fw-semibold">
-              <i class="bi bi-trash"></i> Eliminar
-            </a>
+        <!-- ✅ Mostrar mensaje si no hay datos -->
+        <tr *ngIf="departments.length === 0">
+          <td colspan="3" class="text-center text-muted py-4">
+            No hay departamentos registrados.
           </td>
         </tr>
       </tbody>

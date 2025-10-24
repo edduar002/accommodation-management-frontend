@@ -20,4 +20,9 @@ export class ServiceService{
         return this._http.post<any>(`${this.url}services/register`, service, { headers });
     }
 
+    getAll(): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}services/getAll`, { headers });
+    }
+
 }

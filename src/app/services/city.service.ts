@@ -20,4 +20,9 @@ export class CityService{
         return this._http.post<any>(`${this.url}cities/register`, city, { headers });
     }
 
+    getAll(): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}cities/getAll`, { headers });
+    }
+
 }

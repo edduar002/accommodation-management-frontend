@@ -20,4 +20,9 @@ export class DepartmentService{
         return this._http.post<any>(`${this.url}departments/register`, department, { headers });
     }
 
+    getAll(): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}departments/getAll`, { headers });
+    }
+
 }
