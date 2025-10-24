@@ -9,6 +9,7 @@ export class Host {
     public imgUrl: string,
     public rolesId: number,
     public personalDescription: string,
-    public departmentsId: number
+    public departmentsId: number,
+    public id?:number
   ) {}
 }

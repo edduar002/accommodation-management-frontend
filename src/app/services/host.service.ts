@@ -25,4 +25,9 @@ export class HostService{
         return this._http.post<any>(`${this.url}hosts/login`, user, { headers });
     }
 
+    getAll(): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}hosts/getAll`, { headers });
+    }
+
 }

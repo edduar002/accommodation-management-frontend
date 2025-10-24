@@ -11,6 +11,7 @@ export class User {
     public departmentId: number,
     public createdAt: Date,
     public updatedAt: Date,
-    public active: boolean
+    public active: boolean,
+    public id?:number
   ) {}
 }
