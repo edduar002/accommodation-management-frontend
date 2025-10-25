@@ -23,7 +23,7 @@ export class EditDepartmentComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.department = new Department('', 1)
+    this.department = new Department('', true)
   }
 
   ngOnInit(): void {

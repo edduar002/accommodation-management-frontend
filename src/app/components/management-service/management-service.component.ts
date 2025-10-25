@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class ManagementServiceComponent implements OnInit {
 
   services: Service[] = [];
+  selectedCityId?: number;
 
   constructor(
     private http: HttpClient,
@@ -37,4 +38,21 @@ export class ManagementServiceComponent implements OnInit {
       }
     });
   }
+
+  openDeleteModal(id?: number) {
+    if (!id) return;
+    this.selectedCityId = id;
+  }
+
+  confirmDelete() {
+    if (!this.selectedCityId) return;
+    this._serviceService.delete(this.selectedCityId).subscribe({
+      next: () => {
+        this.getAll();
+        this.selectedCityId = undefined;
+      },
+      error: (error) => console.error(error)
+    });
+  }
+
 }

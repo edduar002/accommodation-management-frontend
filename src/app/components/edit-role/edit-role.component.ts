@@ -23,7 +23,7 @@ export class EditRoleComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.role = new Role('', 1)
+    this.role = new Role('', true)
   }
 
   ngOnInit(): void {

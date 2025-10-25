@@ -34,4 +34,10 @@ export class CityService{
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this._http.put<any>(`${this.url}cities/edit/${id}`, city, { headers });
     }
+
+    delete(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}cities/delete/${id}`, { headers });
+    }
+
 }

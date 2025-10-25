@@ -6,7 +6,7 @@ import { UserService } from '../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-management-city',
+  selector: 'app-management-user',
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './management-user.component.html',
@@ -16,6 +16,7 @@ import { HttpClient } from '@angular/common/http';
 export class ManagementUserComponent implements OnInit {
 
   users: User[] = [];
+  selectedCityId?: number;
 
   constructor(
     private http: HttpClient,
@@ -37,4 +38,21 @@ export class ManagementUserComponent implements OnInit {
       }
     });
   }
+
+  openDeleteModal(id?: number) {
+    if (!id) return;
+    this.selectedCityId = id;
+  }
+
+  confirmDelete() {
+    if (!this.selectedCityId) return;
+    this._userService.delete(this.selectedCityId).subscribe({
+      next: () => {
+        this.getAll();
+        this.selectedCityId = undefined;
+      },
+      error: (error) => console.error(error)
+    });
+  }
+
 }

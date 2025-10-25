@@ -20,22 +20,28 @@
       </thead>
 
       <tbody>
-        <!-- ✅ Cargando datos dinámicamente -->
         <tr *ngFor="let city of cities; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ city.name }}</td>
           <td>{{ city.departmentsId }}</td>
           <td class="text-center">
-            <a [routerLink]="['/editCity', city.id]" class="action-link text-warning me-3 text-decoration-none fw-semibold">
+            <!-- Editar -->
+            <a [routerLink]="['/editCity', city.id]" 
+               class="action-link text-warning me-3 text-decoration-none fw-semibold">
               <i class="bi bi-pencil-square"></i> Editar
             </a>
-            <a href="#" class="action-link text-danger text-decoration-none fw-semibold">
+
+            <!-- Eliminar -->
+            <button type="button"
+                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    (click)="openDeleteModal(city.id)">
               <i class="bi bi-trash"></i> Eliminar
-            </a>
+            </button>
           </td>
         </tr>
 
-        <!-- ✅ Mostrar mensaje si no hay datos -->
         <tr *ngIf="cities.length === 0">
           <td colspan="4" class="text-center text-muted py-4">
             No hay ciudades registradas.
@@ -43,5 +49,24 @@
         </tr>
       </tbody>
     </table>
+  </div>
+
+  <!-- 🔴 Modal de confirmación -->
+  <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow-lg">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>¿Estás seguro de que deseas eliminar esta ciudad?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">Eliminar</button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

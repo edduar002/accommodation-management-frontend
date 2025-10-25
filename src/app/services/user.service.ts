@@ -30,4 +30,9 @@ export class UserService{
         return this._http.get<any>(`${this.url}users/getAll`, { headers });
     }
 
+    delete(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}users/delete/${id}`, { headers });
+    }
+
 }

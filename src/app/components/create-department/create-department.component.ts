@@ -18,10 +18,11 @@ export class CreateDepartmentComponent {
   public department: Department;
   
     constructor(private http: HttpClient, private _departmentService: DepartmentService){
-      this.department = new Department('')
+      this.department = new Department('', true)
     }
   
     onSubmit(form: NgForm): void {
+      this.department.active = true;
       this._departmentService.register(this.department).subscribe(
         response => {
           console.log(response);

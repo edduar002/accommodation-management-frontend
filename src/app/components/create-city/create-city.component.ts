@@ -18,11 +18,12 @@ export class CreateCityComponent {
     public city: City;
     
       constructor(private http: HttpClient, private _cityService: CityService){
-        this.city = new City('', 1)
+        this.city = new City('', 1, true)
       }
     
       onSubmit(form: NgForm): void {
         this.city.departmentsId = 1;
+        this.city.active = true;
         this._cityService.register(this.city).subscribe(
           response => {
             console.log(response);

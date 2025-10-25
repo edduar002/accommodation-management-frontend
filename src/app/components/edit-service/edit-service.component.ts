@@ -23,7 +23,7 @@ export class EditServiceComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.service = new Service('', 1)
+    this.service = new Service('', true)
   }
 
   ngOnInit(): void {

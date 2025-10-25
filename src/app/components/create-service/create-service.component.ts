@@ -18,10 +18,11 @@ export class CreateServiceComponent {
   public service: Service;
   
     constructor(private http: HttpClient, private _serviceService: ServiceService){
-      this.service = new Service('')
+      this.service = new Service('', true)
     }
   
     onSubmit(form: NgForm): void {
+      this.service.active = true;
       this._serviceService.register(this.service).subscribe(
         response => {
           console.log(response);

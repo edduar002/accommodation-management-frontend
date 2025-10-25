@@ -23,7 +23,7 @@ export class EditCityComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.city = new City('', 1)
+    this.city = new City('', 1, true)
   }
 
   ngOnInit(): void {

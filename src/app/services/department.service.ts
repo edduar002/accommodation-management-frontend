@@ -35,4 +35,9 @@ export class DepartmentService{
         return this._http.put<any>(`${this.url}departments/edit/${id}`, department, { headers });
     }
 
+    delete(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}departments/delete/${id}`, { headers });
+    }
+
 }

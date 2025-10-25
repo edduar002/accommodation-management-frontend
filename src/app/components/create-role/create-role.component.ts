@@ -18,10 +18,11 @@ export class CreateRoleComponent {
     public role: Role;
     
       constructor(private http: HttpClient, private _roleService: RoleService){
-        this.role = new Role('')
+        this.role = new Role('', true)
       }
     
       onSubmit(form: NgForm): void {
+        this.role.active = true;
         this._roleService.register(this.role).subscribe(
           response => {
             console.log(response);

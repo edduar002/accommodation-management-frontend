@@ -35,4 +35,9 @@ export class RoleService{
         return this._http.put<any>(`${this.url}roles/edit/${id}`, role, { headers });
     }
 
+    delete(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}roles/delete/${id}`, { headers });
+    }
+
 }

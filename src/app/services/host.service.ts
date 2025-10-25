@@ -30,4 +30,9 @@ export class HostService{
         return this._http.get<any>(`${this.url}hosts/getAll`, { headers });
     }
 
+    delete(id: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}hosts/delete/${id}`, { headers });
+    }
+
 }
