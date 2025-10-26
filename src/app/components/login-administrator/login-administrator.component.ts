@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm  } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormsModule, NgForm } from '@angular/forms';
 import { Administrator } from '../../models/administrator';
-import { AdministratorService } from '../../services/administrator.service'; 
+import { AdministratorService } from '../../services/administrator.service';
 
 @Component({
   selector: 'app-login-administrator',
@@ -14,22 +13,54 @@ import { AdministratorService } from '../../services/administrator.service';
   styleUrl: './login-administrator.component.css',
   providers: [AdministratorService]
 })
-
 export class LoginAdministratorComponent {
   public administrator: Administrator;
-  
-    constructor(private http: HttpClient, private _administratorService: AdministratorService){
-      this.administrator = new Administrator('', '', '', '')
+
+  constructor(
+    private _administratorService: AdministratorService,
+    private router: Router
+  ) {
+    this.administrator = new Administrator('', '', '', '', 1);
+  }
+
+  onSubmit(form: NgForm): void {
+    this._administratorService.login(this.administrator).subscribe({
+      next: (response) => {
+        console.log('Inicio de sesión exitoso:', response);
+
+        // ✅ Mostrar modal de éxito
+        this.showModal('successModal');
+
+        // Limpiar formulario
+        form.resetForm();
+      },
+      error: (error) => {
+        console.error('Error al iniciar sesión:', error);
+
+        // ❌ Mostrar modal de error
+        this.showModal('errorModal');
+      },
+    });
+  }
+
+  closeModal(): void {
+    const modalEl = document.getElementById('successModal');
+    if (modalEl && (window as any).bootstrap?.Modal) {
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+      document.body.classList.remove('modal-open');
+      document.querySelector('.modal-backdrop')?.remove();
     }
 
-    onSubmit(form: NgForm): void {
-      this._administratorService.login(this.administrator).subscribe(
-        response => {
-          console.log(response);
-        },
-        error => {
-          console.log(<any>error);
-        }
-      );
+    // ✅ Redirigir después del inicio exitoso
+    this.router.navigate(['/dashboard']);
+  }
+
+  private showModal(id: string): void {
+    const modalEl = document.getElementById(id);
+    if (modalEl && (window as any).bootstrap?.Modal) {
+      const modal = new (window as any).bootstrap.Modal(modalEl);
+      modal.show();
     }
+  }
 }

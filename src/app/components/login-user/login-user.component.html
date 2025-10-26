@@ -8,41 +8,75 @@
 
         <div class="card-body p-4">
           <form #loginUserForm="ngForm" (ngSubmit)="onSubmit(loginUserForm)">
+            <!-- Correo -->
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Correo o usuario</label>
-              <input type="text" name="email" class="form-control" placeholder="usuario@ejemplo.com" #email="ngModel" [(ngModel)]="user.email" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="password" class="form-label fw-bold">Contraseña</label>
-              <input type="password" name="password" class="form-control" placeholder="Contraseña" #password="ngModel" [(ngModel)]="user.password" required>
-            </div>
-
-            <div class="d-flex justify-content-between align-items-center mb-3">
-              <div>
-                <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModalUser">¿Olvidaste tu contraseña?</a>
+              <input
+                type="text"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="usuario@ejemplo.com"
+                #email="ngModel"
+                [(ngModel)]="user.email"
+                required
+              >
+              <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
+                <small>El correo o usuario es obligatorio.</small>
               </div>
             </div>
 
+            <!-- Contraseña -->
+            <div class="mb-3">
+              <label for="password" class="form-label fw-bold">Contraseña</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="Contraseña"
+                minlength="6"
+                #password="ngModel"
+                [(ngModel)]="user.password"
+                required
+              >
+              <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
+                <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
+                <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
+              </div>
+            </div>
+
+            <!-- Recuperar contraseña -->
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <a href="#" data-bs-toggle="modal" data-bs-target="#forgotModalUser">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <!-- Botón -->
             <div class="d-grid">
-              <input type="submit" value="Ingresar" class="btn btn-warning btn-lg text-white px-5">
+              <input
+                type="submit"
+                value="Ingresar"
+                class="btn btn-warning btn-lg text-white px-5"
+                [disabled]="loginUserForm.invalid"
+              >
             </div>
           </form>
         </div>
 
         <div class="card-footer text-center text-muted">
-          ¿No tienes cuenta? <a routerLink="/register" class="text-decoration-none">Regístrate</a>
+          ¿No tienes cuenta?
+          <a routerLink="/register-user" class="text-decoration-none">Regístrate</a>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Modal Olvidé contraseña (User) -->
+<!-- Modal Olvidé contraseña -->
 <div class="modal fade" id="forgotModalUser" tabindex="-1" aria-labelledby="forgotModalUserLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <div class="modal-header">
+      <div class="modal-header bg-light">
         <h5 class="modal-title" id="forgotModalUserLabel">Recuperar contraseña - Usuario</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
@@ -56,6 +90,42 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-success">Enviar instrucciones</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Inicio de sesión exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>¡Bienvenido! Has iniciado sesión correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error de autenticación</h5>
+      </div>
+      <div class="modal-body">
+        <p>Correo o contraseña incorrectos. Intenta nuevamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

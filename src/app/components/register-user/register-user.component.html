@@ -3,53 +3,184 @@
     <div class="card-header bg-primary text-white text-center py-3 rounded-top-4">
       <h3 class="mb-0">Registro de Usuario</h3>
     </div>
-    <div class="card-body p-4">
 
+    <div class="card-body p-4">
       <form #registerUserForm="ngForm" (ngSubmit)="onSubmit(registerUserForm)">
         <div class="row">
+          <!-- Nombre -->
           <div class="col-md-6 mb-3">
             <label for="name" class="form-label fw-bold">Nombre</label>
-            <input type="text" name="name" class="form-control" placeholder="Ingrese su nombre" #name="ngModel" [(ngModel)]="user.name" required>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              class="form-control"
+              placeholder="Ingrese su nombre"
+              #name="ngModel"
+              [(ngModel)]="user.name"
+              required
+            >
+            <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
+              <small>El nombre es obligatorio.</small>
+            </div>
           </div>
 
+          <!-- Apellido -->
           <div class="col-md-6 mb-3">
             <label for="surname" class="form-label fw-bold">Apellido</label>
-            <input type="text" name="surname" class="form-control" placeholder="Ingrese su apellido" #surname="ngModel" [(ngModel)]="user.surname" required>
+            <input
+              type="text"
+              name="surname"
+              id="surname"
+              class="form-control"
+              placeholder="Ingrese su apellido"
+              #surname="ngModel"
+              [(ngModel)]="user.surname"
+              required
+            >
+            <div *ngIf="surname.invalid && surname.touched" class="text-danger mt-1">
+              <small>El apellido es obligatorio.</small>
+            </div>
           </div>
         </div>
 
+        <!-- Correo -->
         <div class="mb-3">
           <label for="email" class="form-label fw-bold">Correo Electrónico</label>
-          <input type="email" name="email" class="form-control" placeholder="ejemplo@correo.com" #email="ngModel" [(ngModel)]="user.email" required>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            class="form-control"
+            placeholder="ejemplo@correo.com"
+            #email="ngModel"
+            [(ngModel)]="user.email"
+            required
+            email
+          >
+          <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
+            <small *ngIf="email.errors?.['required']">El correo es obligatorio.</small>
+            <small *ngIf="email.errors?.['email']">Formato de correo inválido.</small>
+          </div>
         </div>
 
+        <!-- Contraseña -->
         <div class="mb-3">
           <label for="password" class="form-label fw-bold">Contraseña</label>
-          <input type="password" name="password" class="form-control" placeholder="Mínimo 6 caracteres" #password="ngModel" [(ngModel)]="user.password" required>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            class="form-control"
+            placeholder="Mínimo 6 caracteres"
+            minlength="6"
+            #password="ngModel"
+            [(ngModel)]="user.password"
+            required
+          >
+          <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
+            <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
+            <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
+          </div>
         </div>
 
         <div class="row">
+          <!-- Teléfono -->
           <div class="col-md-6 mb-3">
             <label for="phone" class="form-label fw-bold">Teléfono</label>
-            <input type="text" name="phone" class="form-control" placeholder="Ej: 3201234567" #phone="ngModel" [(ngModel)]="user.phone" required>
+            <input
+              type="text"
+              name="phone"
+              id="phone"
+              class="form-control"
+              placeholder="Ej: 3201234567"
+              pattern="[0-9]{7,10}"
+              #phone="ngModel"
+              [(ngModel)]="user.phone"
+              required
+            >
+            <div *ngIf="phone.invalid && phone.touched" class="text-danger mt-1">
+              <small *ngIf="phone.errors?.['required']">El teléfono es obligatorio.</small>
+              <small *ngIf="phone.errors?.['pattern']">Debe contener solo números (7–10 dígitos).</small>
+            </div>
           </div>
 
+          <!-- Fecha de Nacimiento -->
           <div class="col-md-6 mb-3">
             <label for="birthday" class="form-label fw-bold">Fecha de Nacimiento</label>
-            <input type="date" name="birthday" class="form-control" #birthday="ngModel" [(ngModel)]="user.birthday" required>
+            <input
+              type="date"
+              name="birthday"
+              id="birthday"
+              class="form-control"
+              #birthday="ngModel"
+              [(ngModel)]="user.birthday"
+              required
+            >
+            <div *ngIf="birthday.invalid && birthday.touched" class="text-danger mt-1">
+              <small>La fecha de nacimiento es obligatoria.</small>
+            </div>
           </div>
         </div>
 
+        <!-- Imagen -->
         <div class="mb-3">
           <label for="imgUrl" class="form-label fw-bold">URL de Imagen (opcional)</label>
-          <input type="text" name="imgUrl" class="form-control" placeholder="https://..." #imgUrl="ngModel" [(ngModel)]="user.imgUrl" required>
+          <input
+            type="text"
+            name="imgUrl"
+            id="imgUrl"
+            class="form-control"
+            placeholder="https://..."
+            #imgUrl="ngModel"
+            [(ngModel)]="user.imgUrl"
+          >
         </div>
 
+        <!-- Botón -->
         <div class="text-center mt-4">
-          <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5">
+          <input
+            type="submit"
+            value="Registrarme"
+            class="btn btn-warning btn-lg text-white px-5"
+            [disabled]="registerUserForm.invalid"
+          >
         </div>
       </form>
+    </div>
+  </div>
+</div>
 
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>El usuario se ha registrado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error al registrar</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>

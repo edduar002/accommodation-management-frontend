@@ -8,43 +8,94 @@
             Registro de Administrador
           </h4>
         </div>
+
         <div class="card-body p-4">
           <form #registerAdministratorForm="ngForm" (ngSubmit)="onSubmit(registerAdministratorForm)">
+            
             <!-- Nombre -->
             <div class="mb-3">
-              <label for="name" class="form-label fw-semibold">
-                Nombre
-              </label>
-              <input type="text" name="name" class="form-control" id="name" placeholder="Ingresa tu nombre" #name="ngModel" [(ngModel)]="administrator.name" required>
+              <label for="name" class="form-label fw-semibold">Nombre</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                placeholder="Ingresa tu nombre"
+                #name="ngModel"
+                [(ngModel)]="administrator.name"
+                required
+              >
+              <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
+                <small>El nombre es obligatorio.</small>
+              </div>
             </div>
 
             <!-- Apellido -->
             <div class="mb-3">
-              <label for="surname" class="form-label fw-semibold">
-                Apellido
-              </label>
-              <input type="text" name="surname" class="form-control" id="surname" placeholder="Ingresa tu apellido" #surname="ngModel" [(ngModel)]="administrator.surname" required>
+              <label for="surname" class="form-label fw-semibold">Apellido</label>
+              <input
+                type="text"
+                name="surname"
+                id="surname"
+                class="form-control"
+                placeholder="Ingresa tu apellido"
+                #surname="ngModel"
+                [(ngModel)]="administrator.surname"
+                required
+              >
+              <div *ngIf="surname.invalid && surname.touched" class="text-danger mt-1">
+                <small>El apellido es obligatorio.</small>
+              </div>
             </div>
 
             <!-- Correo -->
             <div class="mb-3">
-              <label for="email" class="form-label fw-semibold">
-                Correo electrónico
-              </label>
-              <input type="email" name="email" class="form-control" id="email" placeholder="ejemplo@correo.com" #email="ngModel" [(ngModel)]="administrator.email" required>
+              <label for="email" class="form-label fw-semibold">Correo electrónico</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                class="form-control"
+                placeholder="ejemplo@correo.com"
+                #email="ngModel"
+                [(ngModel)]="administrator.email"
+                required
+                email
+              >
+              <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
+                <small *ngIf="email.errors?.['required']">El correo es obligatorio.</small>
+                <small *ngIf="email.errors?.['email']">Formato de correo inválido.</small>
+              </div>
             </div>
 
             <!-- Contraseña -->
             <div class="mb-4">
-              <label for="password" class="form-label fw-semibold">
-                Contraseña
-              </label>
-              <input type="password" name="password" class="form-control" id="password" placeholder="********" minlength="6"#password="ngModel" [(ngModel)]="administrator.password" required>
+              <label for="password" class="form-label fw-semibold">Contraseña</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                class="form-control"
+                placeholder="********"
+                minlength="6"
+                #password="ngModel"
+                [(ngModel)]="administrator.password"
+                required
+              >
+              <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
+                <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
+                <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
+              </div>
             </div>
 
             <!-- Botón -->
             <div class="d-grid">
-              <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5">
+              <input
+                type="submit"
+                value="Registrarme"
+                class="btn btn-warning btn-lg text-white px-5"
+                [disabled]="registerAdministratorForm.invalid"
+              >
             </div>
           </form>
         </div>
@@ -53,6 +104,40 @@
           ¿Ya tienes una cuenta?
           <a routerLink="/login" class="text-decoration-none fw-semibold">Inicia sesión</a>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>El administrador ha sido registrado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error al registrar</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm  } from '@angular/forms';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 
@@ -17,18 +16,51 @@ import { UserService } from '../../services/user.service';
 export class LoginUserComponent {
   public user: User;
 
-  constructor(private http: HttpClient, private _userService: UserService){
-    this.user = new User('', '', '', '', '', new Date(), '', 1, 1, new Date(), new Date(), true)
+  constructor(
+    private _userService: UserService,
+    private router: Router
+  ) {
+    this.user = new User('', '', '', '', '', new Date(), '', 1, 1, new Date(), new Date(), true);
   }
 
   onSubmit(form: NgForm): void {
-    this._userService.login(this.user).subscribe(
-      response => {
-        console.log(response);
+    this._userService.login(this.user).subscribe({
+      next: (response) => {
+        console.log('Inicio de sesión exitoso:', response);
+
+        // ✅ Mostrar modal de éxito
+        this.showModal('successModal');
+
+        // Limpiar formulario
+        form.resetForm();
       },
-      error => {
-        console.log(<any>error);
+      error: (error) => {
+        console.error('Error al iniciar sesión:', error);
+
+        // ❌ Mostrar modal de error
+        this.showModal('errorModal');
       }
-    );
+    });
+  }
+
+  closeModal(): void {
+    const modalEl = document.getElementById('successModal');
+    if (modalEl && (window as any).bootstrap?.Modal) {
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide();
+      document.body.classList.remove('modal-open');
+      document.querySelector('.modal-backdrop')?.remove();
+    }
+
+    // ✅ Redirigir al dashboard del usuario
+    this.router.navigate(['/user/dashboard']);
+  }
+
+  private showModal(id: string): void {
+    const modalEl = document.getElementById(id);
+    if (modalEl && (window as any).bootstrap?.Modal) {
+      const modal = new (window as any).bootstrap.Modal(modalEl);
+      modal.show();
+    }
   }
 }

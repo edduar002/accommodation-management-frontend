@@ -6,55 +6,55 @@
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
           <form #createCityForm="ngForm" (ngSubmit)="onSubmit(createCityForm)">
+            <!-- 🔹 Campo nombre de la ciudad -->
             <div class="mb-3">
               <label for="cityName" class="form-label fw-semibold">Nombre de la ciudad</label>
-              <input type="text" name="cityName" id="cityName" class="form-control" placeholder="Ej: Medellín" #name="ngModel" [(ngModel)]="city.name" required>
+              <input type="text" name="cityName" id="cityName" class="form-control" placeholder="Ej: Medellín"
+                #name="ngModel" [(ngModel)]="city.name" required>
+              <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
+                <small>El nombre de la ciudad es obligatorio.</small>
+              </div>
             </div>
 
+            <!-- Departamento dinámico -->
             <div class="mb-3">
-              <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
-              <select id="departmentsId" class="form-select">
-                <option selected disabled>Seleccione un departamento</option>
-                <option>Antioquia</option>
-                <option>Atlántico</option>
-                <option>Bolívar</option>
-                <option>Boyacá</option>
-                <option>Caldas</option>
-                <option>Caquetá</option>
-                <option>Cauca</option>
-                <option>Cesar</option>
-                <option>Córdoba</option>
-                <option>Cundinamarca</option>
-                <option>Chocó</option>
-                <option>Huila</option>
-                <option>La Guajira</option>
-                <option>Magdalena</option>
-                <option>Meta</option>
-                <option>Nariño</option>
-                <option>Norte de Santander</option>
-                <option>Quindío</option>
-                <option>Risaralda</option>
-                <option>Santander</option>
-                <option>Sucre</option>
-                <option>Tolima</option>
-                <option>Valle del Cauca</option>
-                <option>Arauca</option>
-                <option>Casanare</option>
-                <option>Putumayo</option>
-                <option>San Andrés y Providencia</option>
-                <option>Amazonas</option>
-                <option>Guainía</option>
-                <option>Guaviare</option>
-                <option>Vaupés</option>
-                <option>Vichada</option>
+              <label for="department" class="form-label fw-bold">Departamento</label>
+              <select class="form-select" id="department" name="department" #department="ngModel"
+                [(ngModel)]="city.departmentsId" required>
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
               </select>
+              <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
+                <small>Seleccione un departamento.</small>
+              </div>
             </div>
 
+            <!-- ✅ Botón deshabilitado hasta que el formulario sea válido -->
             <div class="d-grid mt-4">
-              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
+              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5"
+                [disabled]="createCityForm.invalid" data-bs-toggle="modal" data-bs-target="#successModal">
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>La ciudad se ha creado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
+          Aceptar
+        </button>
       </div>
     </div>
   </div>

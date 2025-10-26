@@ -6,16 +6,59 @@
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
           <form #createRoleForm="ngForm" (ngSubmit)="onSubmit(createRoleForm)">
+            <!-- 🔹 Campo nombre del rol -->
             <div class="mb-3">
               <label for="roleName" class="form-label fw-semibold">Nombre del rol</label>
-              <input type="text" name="roleName" id="roleName" class="form-control" placeholder="Ej: Antioquia" #name="ngModel" [(ngModel)]="role.name" required>
+              <input
+                type="text"
+                name="roleName"
+                id="roleName"
+                class="form-control"
+                placeholder="Ej: Administrador"
+                #name="ngModel"
+                [(ngModel)]="role.name"
+                required
+              >
+              <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
+                <small>El nombre del rol es obligatorio.</small>
+              </div>
             </div>
 
+            <!-- ✅ Botón deshabilitado hasta que el formulario sea válido -->
             <div class="d-grid mt-4">
-              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
+              <input
+                type="submit"
+                value="Crear"
+                class="btn btn-warning btn-lg text-white px-5"
+                [disabled]="createRoleForm.invalid"
+              >
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>El rol se ha creado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          (click)="closeModal()"
+        >
+          Aceptar
+        </button>
       </div>
     </div>
   </div>
