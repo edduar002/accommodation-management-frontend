@@ -3,36 +3,41 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Host } from '../models/host';
 import { global } from './global';
+import { RecoveryPassword } from '../models/recoveryPassword';
 
 @Injectable()
-export class HostService{
+export class HostService {
+  public url: string;
 
-    public url: string;
+  constructor(public _http: HttpClient) {
+    this.url = global.url;
+  }
 
-    constructor(
-        public _http: HttpClient
-    ){
-        this.url = global.url;
-    }
+  register(host: Host): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post<any>(`${this.url}hosts/register`, host, { headers });
+  }
 
-    register(host: Host): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this._http.post<any>(`${this.url}hosts/register`, host, { headers });
-    }
+  login(user: Host): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post<any>(`${this.url}hosts/login`, user, { headers });
+  }
 
-    login(user: Host): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this._http.post<any>(`${this.url}hosts/login`, user, { headers });
-    }
+  getAll(): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.get<any>(`${this.url}hosts/getAll`, { headers });
+  }
 
-    getAll(): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this._http.get<any>(`${this.url}hosts/getAll`, { headers });
-    }
+  delete(id: number): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.put<any>(`${this.url}hosts/delete/${id}`, { headers });
+  }
 
-    delete(id: number): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this._http.put<any>(`${this.url}hosts/delete/${id}`, { headers });
-    }
+  changePassword(id: number, recoveryPassword: RecoveryPassword): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.put<any>(`${this.url}hosts/changePassword/${id}`, recoveryPassword, {
+      headers,
+    });
+  }
 
 }

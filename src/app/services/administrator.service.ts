@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Administrator } from '../models/administrator';
 import { global } from './global';
+import { RecoveryPassword } from '../models/recoveryPassword';
 
 @Injectable()
 export class AdministratorService{
@@ -23,6 +24,13 @@ export class AdministratorService{
     login(administrator: Administrator): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         return this._http.post<any>(`${this.url}administrators/login`, administrator, { headers });
+    }
+
+    changePassword(id: number, recoveryPassword: RecoveryPassword): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}administrators/changePassword/${id}`, recoveryPassword, {
+        headers,
+        });
     }
 
 }
