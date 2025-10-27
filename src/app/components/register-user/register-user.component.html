@@ -137,6 +137,25 @@
           >
         </div>
 
+        <!-- Departamento dinámico -->
+        <div class="mb-3">
+          <label for="department" class="form-label fw-bold">Departamento</label>
+          <select
+            class="form-select"
+            id="department"
+            name="department"
+            #department="ngModel"
+            [(ngModel)]="user.departmentId"
+            required
+          >
+            <option value="" disabled selected>Seleccione un departamento</option>
+            <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
+          </select>
+          <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
+            <small>Seleccione un departamento.</small>
+          </div>
+        </div>
+
         <!-- Botón -->
         <div class="text-center mt-4">
           <input

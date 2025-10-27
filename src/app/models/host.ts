@@ -10,6 +10,7 @@ export class Host {
     public rolesId: number,
     public personalDescription: string,
     public departmentsId: number,
+    public active: boolean,
     public id?:number
   ) {}
 }

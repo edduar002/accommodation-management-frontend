@@ -25,7 +25,7 @@ export class RegisterHostComponent {
     private _departmentService: DepartmentService,
     private router: Router
   ) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
   }
 
   ngOnInit(): void {
@@ -45,8 +45,9 @@ export class RegisterHostComponent {
 
   onSubmit(form: NgForm): void {
     this.host.rolesId = 2;
+    this.host.active = true;
     this.host.departmentsId = Number(this.host.departmentsId);
-
+    console.log(this.host)
     this._hostService.register(this.host).subscribe({
       next: (response) => {
         console.log('Anfitrión registrado:', response);
@@ -56,15 +57,25 @@ export class RegisterHostComponent {
       error: (error) => {
         console.error('Error al registrar anfitrión:', error);
 
-        // 🧩 Detectar error de correo duplicado (MySQL UNIQUE)
+        // 🔍 Primero, intentamos obtener el mensaje del error
+        const backendMessage =
+          typeof error.error === 'string'
+            ? error.error
+            : error.error?.message || '';
+
+        // 🧩 Detectar correo duplicado (MySQL UNIQUE)
         if (
-          error?.error?.message?.includes('Duplicate entry') ||
-          error?.error?.includes('Duplicate entry') ||
-          error?.status === 409
+          backendMessage.includes('Duplicate entry') ||
+          error.status === 409
         ) {
-          this.errorMessage = 'El correo ingresado ya está registrado. Intenta con otro.';
+          this.errorMessage =
+            'El correo ingresado ya está registrado. Intenta con otro.';
+        } else if (error.status === 400) {
+          this.errorMessage =
+            'Verifica los datos ingresados. Puede que falte algún campo obligatorio.';
         } else {
-          this.errorMessage = 'Ocurrió un error inesperado. Inténtalo nuevamente.';
+          this.errorMessage =
+            'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
 
         this.showModal('errorModal');
@@ -75,12 +86,14 @@ export class RegisterHostComponent {
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();
     }
-    this.router.navigate(['/login']);
+    this.router.navigate(['/']);
   }
 
   private showModal(id: string): void {

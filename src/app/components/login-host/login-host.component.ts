@@ -20,7 +20,7 @@ export class LoginHostComponent {
     private _hostService: HostService,
     private router: Router
   ) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
   }
 
   onSubmit(form: NgForm): void {
