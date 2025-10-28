@@ -54,7 +54,7 @@ export class EditCityComponent implements OnInit, AfterViewInit {
 
   getOne(): void {
     this._route.params.subscribe(params => {
-      const id = +params['id'];
+      const id = + params['id'];
       this._cityService.getOne(id).subscribe(
         response => this.city = response,
         error => this._router.navigate(['/managementCity'])

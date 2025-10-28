@@ -1,83 +1,84 @@
 <div class="comments-container mt-5 mb-5">
-  <h4 class="fw-bold text-primary mb-4">💬 Comentarios de los huéspedes</h4>
+  <h4 class="fw-bold text-primary mb-4">💬 Comentarios</h4>
 
-  <!-- Comentario principal -->
-  <div class="comment mb-4 p-3 rounded-4 shadow-sm">
-    <div class="d-flex align-items-center mb-2">
-      <img src="https://randomuser.me/api/portraits/women/45.jpg" class="avatar me-2">
-      <div>
-        <strong class="d-block">Laura Gómez</strong>
-        <small class="text-muted">Hace 2 días</small>
-      </div>
-    </div>
-    <p class="mb-2">
-      Me encantó el alojamiento, súper limpio y con una vista increíble al valle. 
-      Definitivamente volvería.
-    </p>
-    <div class="text-end">
-      <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
-              data-bs-toggle="collapse" data-bs-target="#reply1">
-        Responder 💬
-      </button>
-    </div>
-
-    <!-- Respuesta -->
-    <div class="replies mt-3 ms-5">
-      <div class="reply p-2 rounded-4 bg-light mb-2">
-        <div class="d-flex align-items-center mb-1">
-          <img src="https://randomuser.me/api/portraits/men/12.jpg" class="avatar me-2">
-          <div>
-            <strong class="d-block">Anfitrión</strong>
-            <small class="text-muted">Hace 1 día</small>
-          </div>
-        </div>
-        <p class="mb-1">¡Gracias Laura! Nos alegra que hayas disfrutado tu estancia 😊</p>
-      </div>
-    </div>
-
-    <!-- Formulario de respuesta -->
-    <div id="reply1" class="collapse mt-3 ms-5">
-      <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu respuesta..."></textarea>
-      <div class="text-end">
-        <button class="btn btn-primary btn-sm rounded-pill px-3">Enviar</button>
-      </div>
+  <!-- Lista de comentarios -->
+  <div *ngIf="comments.length > 0; else noComments">
+    <div *ngFor="let c of comments" class="comment mb-3 p-3 rounded-4 shadow-sm bg-light">
+      <p class="mb-1">{{ c.content }}</p>
+      <small class="text-muted">ID Usuario: {{ c.usersId }}</small>
     </div>
   </div>
 
-  <!-- Segundo comentario -->
-  <div class="comment mb-4 p-3 rounded-4 shadow-sm">
-    <div class="d-flex align-items-center mb-2">
-      <img src="https://randomuser.me/api/portraits/men/33.jpg" class="avatar me-2">
-      <div>
-        <strong class="d-block">Carlos Pérez</strong>
-        <small class="text-muted">Hace 5 días</small>
-      </div>
+  <!-- Mensaje si no hay comentarios -->
+  <ng-template #noComments>
+    <div class="alert alert-secondary text-center" role="alert">
+      No hay comentarios todavía. ¡Sé el primero en comentar! ✍️
     </div>
-    <p class="mb-2">
-      Excelente ubicación, a solo unos pasos del centro histórico. 
-      La atención del anfitrión fue impecable.
-    </p>
-    <div class="text-end">
-      <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
-              data-bs-toggle="collapse" data-bs-target="#reply2">
-        Responder 💬
-      </button>
-    </div>
+  </ng-template>
 
-    <div id="reply2" class="collapse mt-3 ms-5">
-      <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu respuesta..."></textarea>
-      <div class="text-end">
-        <button class="btn btn-primary btn-sm rounded-pill px-3">Enviar</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Formulario para agregar nuevo comentario -->
-  <div class="new-comment mt-5 p-4 rounded-4 shadow-sm">
+  <!-- Formulario de nuevo comentario -->
+  <div class="new-comment mt-4 p-4 rounded-4 shadow-sm bg-white">
     <h5 class="fw-semibold mb-3 text-secondary">📝 Deja tu comentario</h5>
-    <textarea class="form-control mb-3" rows="3" placeholder="Cuéntanos tu experiencia..."></textarea>
-    <div class="text-end">
-      <button class="btn btn-success rounded-pill px-4">Publicar comentario</button>
+    <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
+      <textarea
+        class="form-control mb-3"
+        rows="3"
+        name="content"
+        [(ngModel)]="comment.content"
+        placeholder="Cuéntanos tu experiencia..."
+        required
+      ></textarea>
+      <div class="text-end">
+        <input
+          type="submit"
+          class="btn btn-success rounded-pill px-4"
+          value="Publicar comentario"
+          [disabled]="commentForm.invalid"
+        />
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Comentario publicado</h5>
+      </div>
+      <div class="modal-body">
+        <p>Tu comentario se ha publicado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          (click)="closeModal()"
+        >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">⚠️ Error</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
+          Cerrar
+        </button>
+      </div>
     </div>
   </div>
 </div>

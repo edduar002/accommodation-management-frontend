@@ -1,7 +1,7 @@
 <div class="home-section mt-5">
   <h2 class="text-center mb-5 fw-bold">🏡 Alojamientos destacados</h2>
 
-  <div class="row g-4" *ngIf="accommodations.length > 0; else loading">
+  <div class="row g-4" *ngIf="accommodations.length > 0; else noAccommodations">
     <div class="col-md-4" *ngFor="let alojamiento of accommodations; let i = index">
       <div class="card alojamiento-card shadow-sm border-0 h-100">
         <img
@@ -11,17 +11,11 @@
         >
         <div class="card-body">
           <h5 class="card-title fw-semibold">{{ alojamiento.detailedDescription }}</h5>
-          <p class="card-text text-muted">
-            {{ alojamiento.direction }}
-          </p>
-          <p class="text-primary fw-bold mb-2">
-            📍 {{ alojamiento.exactLocation }}
-          </p>
+          <p class="card-text text-muted">{{ alojamiento.direction }}</p>
+          <p class="text-primary fw-bold mb-2">📍 {{ alojamiento.exactLocation }}</p>
           <p class="fw-semibold">💲{{ alojamiento.price | number }} / noche</p>
-<a
-            class="btn btn-outline-primary w-100"
-            [routerLink]="['/detailAccommodation', alojamiento.id]"
-          >
+          <a class="btn btn-outline-primary w-100"
+             [routerLink]="['/detailAccommodation', alojamiento.id]">
             Ver detalles
           </a>
         </div>
@@ -29,11 +23,10 @@
     </div>
   </div>
 
-  <!-- Estado de carga -->
-  <ng-template #loading>
+  <!-- Mensaje cuando no hay alojamientos -->
+  <ng-template #noAccommodations>
     <div class="text-center mt-5">
-      <div class="spinner-border text-primary" role="status"></div>
-      <p class="mt-3 text-muted">Cargando alojamientos...</p>
+      <p class="text-muted fw-semibold">No hay alojamientos disponibles en este momento.</p>
     </div>
   </ng-template>
 </div>

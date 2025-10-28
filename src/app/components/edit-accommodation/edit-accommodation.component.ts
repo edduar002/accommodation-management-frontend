@@ -59,7 +59,7 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   /** 🔹 Obtener alojamiento por ID (desde la URL) */
   getOne(): void {
     this._route.params.subscribe(params => {
-      const id = +params['id'];
+      const id = + params['id'];
       this._accommodationService.getOne(id).subscribe({
         next: (response) => {
           this.accommodation = response;
