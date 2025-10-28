@@ -5,17 +5,18 @@
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <form>
+          <form #accommodationForm="ngForm" (ngSubmit)="onSubmit(accommodationForm)">
             <!-- Descripción -->
             <div class="mb-3">
-              <label for="detailedDescription" class="form-label fw-semibold">
-                Descripción detallada
-              </label>
+              <label for="detailedDescription" class="form-label fw-semibold">Descripción detallada</label>
               <textarea
                 id="detailedDescription"
                 class="form-control"
                 rows="3"
-              >Hermosa cabaña en medio del bosque, con vista panorámica y chimenea ideal para noches frías.</textarea>
+                name="detailedDescription"
+                [(ngModel)]="accommodation.detailedDescription"
+                required
+              ></textarea>
             </div>
 
             <!-- Dirección -->
@@ -25,7 +26,9 @@
                 type="text"
                 id="direction"
                 class="form-control"
-                value="Vereda El Retiro, Km 5 vía a la montaña"
+                name="direction"
+                [(ngModel)]="accommodation.direction"
+                required
               />
             </div>
 
@@ -36,7 +39,9 @@
                 type="text"
                 id="exactLocation"
                 class="form-control"
-                value="6.1352, -75.4423"
+                name="exactLocation"
+                [(ngModel)]="accommodation.exactLocation"
+                required
               />
             </div>
 
@@ -44,31 +49,53 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
-                <input type="number" id="price" class="form-control" value="250000" />
+                <input
+                  type="number"
+                  id="price"
+                  class="form-control"
+                  name="price"
+                  [(ngModel)]="accommodation.price"
+                  required
+                />
               </div>
 
               <div class="col-md-6 mb-3">
                 <label for="maximumCapacity" class="form-label fw-semibold">Capacidad máxima</label>
-                <input type="number" id="maximumCapacity" class="form-control" value="6" />
+                <input
+                  type="number"
+                  id="maximumCapacity"
+                  class="form-control"
+                  name="maximumCapacity"
+                  [(ngModel)]="accommodation.maximumCapacity"
+                  required
+                />
               </div>
             </div>
 
             <!-- Departamento -->
             <div class="mb-3">
               <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
-              <select id="departmentsId" class="form-select">
-                <option>Antioquia</option>
-                <option selected>Risaralda</option>
-                <option>Boyacá</option>
-                <option>Cundinamarca</option>
-                <option>Valle del Cauca</option>
-                <option>Meta</option>
+              <select
+                id="departmentsId"
+                class="form-select"
+                name="departmentsId"
+                [(ngModel)]="accommodation.departmentsId"
+                required
+              >
+                <option value="" disabled>Seleccione un departamento</option>
+                <option *ngFor="let dep of departments" [value]="dep.id">
+                  {{ dep.name }}
+                </option>
               </select>
             </div>
 
-            <!-- Botones -->
+            <!-- Botón Guardar -->
             <div class="d-grid mt-4">
-              <button type="button" class="btn btn-warning btn-lg rounded-pill text-white">
+              <button
+                type="submit"
+                class="btn btn-warning btn-lg rounded-pill text-white"
+                [disabled]="!accommodationForm.valid"
+              >
                 💾 Guardar cambios
               </button>
             </div>
@@ -81,6 +108,28 @@
           </form>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal Éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h4 class="text-success fw-bold mb-3">¡Cambios guardados!</h4>
+      <p>El alojamiento se ha actualizado correctamente.</p>
+      <button class="btn btn-success rounded-pill px-4" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal Error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center p-4">
+      <h4 class="text-danger fw-bold mb-3">Error al guardar</h4>
+      <p>{{ errorMessage }}</p>
+      <button class="btn btn-danger rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
     </div>
   </div>
 </div>

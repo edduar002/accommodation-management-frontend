@@ -10,5 +10,6 @@ export class Accommodation {
     public qualificationsId: number,
     public departmentsId: number,
     public active: boolean,
+    public id?:number
   ) {}
 }

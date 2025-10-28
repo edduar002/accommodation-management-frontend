@@ -6,90 +6,153 @@
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
           <form #registerAccommodationForm="ngForm" (ngSubmit)="onSubmit(registerAccommodationForm)">
+            <!-- 🔹 Descripción -->
             <div class="mb-3">
               <label for="detailedDescription" class="form-label fw-semibold">
                 Descripción detallada
               </label>
-              <textarea name="detailedDescription"
+              <textarea
+                name="detailedDescription"
                 id="detailedDescription"
                 class="form-control"
-                rows="3" #detailedDescription="ngModel" [(ngModel)]="accommodation.detailedDescription" required>
-              >Hermosa cabaña en medio del bosque, con vista panorámica y chimenea ideal para noches frías.</textarea>
+                rows="3"
+                placeholder="Ej: Hermosa cabaña con chimenea..."
+                #detailedDescription="ngModel"
+                [(ngModel)]="accommodation.detailedDescription"
+                required
+              ></textarea>
+              <div *ngIf="detailedDescription.invalid && detailedDescription.touched" class="text-danger mt-1">
+                <small>La descripción es obligatoria.</small>
+              </div>
             </div>
 
+            <!-- 🔹 Dirección -->
             <div class="mb-3">
               <label for="direction" class="form-label fw-semibold">Dirección</label>
               <input
-                type="text" name="direction"
+                type="text"
+                name="direction"
                 id="direction"
                 class="form-control"
-                value="Vereda El Retiro, Km 5 vía a la montaña" #direction="ngModel" [(ngModel)]="accommodation.direction" required>
+                placeholder="Ej: Vereda El Retiro, Km 5"
+                #direction="ngModel"
+                [(ngModel)]="accommodation.direction"
+                required
+              />
+              <div *ngIf="direction.invalid && direction.touched" class="text-danger mt-1">
+                <small>La dirección es obligatoria.</small>
+              </div>
             </div>
 
+            <!-- 🔹 Ubicación exacta -->
             <div class="mb-3">
               <label for="exactLocation" class="form-label fw-semibold">Ubicación exacta</label>
               <input
-                type="text" name="exactLocation"
+                type="text"
+                name="exactLocation"
                 id="exactLocation"
                 class="form-control"
-                value="6.1352, -75.4423" #exactLocation="ngModel" [(ngModel)]="accommodation.exactLocation" required>
+                placeholder="Ej: 6.1352, -75.4423"
+                #exactLocation="ngModel"
+                [(ngModel)]="accommodation.exactLocation"
+                required
+              />
+              <div *ngIf="exactLocation.invalid && exactLocation.touched" class="text-danger mt-1">
+                <small>La ubicación es obligatoria.</small>
+              </div>
             </div>
 
             <div class="row">
+              <!-- 🔹 Precio -->
               <div class="col-md-6 mb-3">
                 <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
-                <input type="number" name="price" id="price" class="form-control" value="250000" #price="ngModel" [(ngModel)]="accommodation.price" required>
+                <input
+                  type="number"
+                  name="price"
+                  id="price"
+                  class="form-control"
+                  min="1"
+                  placeholder="Ej: 250000"
+                  #price="ngModel"
+                  [(ngModel)]="accommodation.price"
+                  required
+                />
+                <div *ngIf="price.invalid && price.touched" class="text-danger mt-1">
+                  <small>Ingrese un precio válido.</small>
+                </div>
               </div>
 
+              <!-- 🔹 Capacidad -->
               <div class="col-md-6 mb-3">
                 <label for="maximumCapacity" class="form-label fw-semibold">Capacidad máxima</label>
-                <input type="number" name="maximumCapacity" id="maximumCapacity" class="form-control" value="6" #maximumCapacity="ngModel" [(ngModel)]="accommodation.maximumCapacity" required>
+                <input
+                  type="number"
+                  name="maximumCapacity"
+                  id="maximumCapacity"
+                  class="form-control"
+                  min="1"
+                  placeholder="Ej: 6"
+                  #maximumCapacity="ngModel"
+                  [(ngModel)]="accommodation.maximumCapacity"
+                  required
+                />
+                <div *ngIf="maximumCapacity.invalid && maximumCapacity.touched" class="text-danger mt-1">
+                  <small>Ingrese una capacidad válida.</small>
+                </div>
               </div>
             </div>
 
+            <!-- 🔹 Departamento dinámico -->
             <div class="mb-3">
               <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
-              <select id="departmentsId" class="form-select">
-                <option selected>Antioquia</option>
-                <option>Atlántico</option>
-                <option>Bolívar</option>
-                <option>Boyacá</option>
-                <option>Caldas</option>
-                <option>Caquetá</option>
-                <option>Cauca</option>
-                <option>Cesar</option>
-                <option>Córdoba</option>
-                <option>Cundinamarca</option>
-                <option>Chocó</option>
-                <option>Huila</option>
-                <option>La Guajira</option>
-                <option>Magdalena</option>
-                <option>Meta</option>
-                <option>Nariño</option>
-                <option>Norte de Santander</option>
-                <option>Quindío</option>
-                <option>Risaralda</option>
-                <option>Santander</option>
-                <option>Sucre</option>
-                <option>Tolima</option>
-                <option>Valle del Cauca</option>
-                <option>Arauca</option>
-                <option>Casanare</option>
-                <option>Putumayo</option>
-                <option>San Andrés y Providencia</option>
-                <option>Amazonas</option>
-                <option>Guainía</option>
-                <option>Guaviare</option>
-                <option>Vaupés</option>
-                <option>Vichada</option>
+              <select
+                id="departmentsId"
+                class="form-select"
+                name="departmentsId"
+                #departmentsId="ngModel"
+                [(ngModel)]="accommodation.departmentsId"
+                required
+              >
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
               </select>
+              <div *ngIf="departmentsId.invalid && departmentsId.touched" class="text-danger mt-1">
+                <small>Seleccione un departamento.</small>
+              </div>
             </div>
 
+            <!-- ✅ Botón de envío -->
             <div class="d-grid mt-4">
-              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5">
+              <input
+                type="submit"
+                value="Crear"
+                class="btn btn-warning btn-lg text-white px-5"
+                [disabled]="registerAccommodationForm.invalid"
+                data-bs-toggle="modal"
+                data-bs-target="#successModal"
+              />
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>El alojamiento se ha creado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
+          Aceptar
+        </button>
       </div>
     </div>
   </div>

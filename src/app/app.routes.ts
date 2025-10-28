@@ -27,6 +27,7 @@ import { ManagementCityComponent } from './components/management-city/management
 import { ManagementServiceComponent } from './components/management-service/management-service.component';
 import { ManagementRoleComponent } from './components/management-role/management-role.component';
 import { ManagementAccommodationsComponent } from './components/management-accommodations/management-accommodations.component';
+import { MyAccommodationsComponent } from './components/my-accommodations/my-accommodations.component';
 import { ManagementUserComponent } from './components/management-user/management-user.component';
 import { ManagementHostComponent } from './components/management-host/management-host.component';
 import { EditCityComponent } from './components/edit-city/edit-city.component';
@@ -34,6 +35,7 @@ import { EditDepartmentComponent } from './components/edit-department/edit-depar
 import { EditAccommodationComponent } from './components/edit-accommodation/edit-accommodation.component';
 import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { EditRoleComponent } from './components/edit-role/edit-role.component';
+import { DetailAccommodationComponent } from './components/detail-accommodation/detail-accommodation.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -63,11 +65,13 @@ export const routes: Routes = [
   { path: 'managementService', component: ManagementServiceComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
   { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
+  { path: 'myAccommodations', component: MyAccommodationsComponent },
   { path: 'managementUser', component: ManagementUserComponent },
   { path: 'managementHost', component: ManagementHostComponent },
   { path: 'editCity/:id', component: EditCityComponent },
   { path: 'editDepartment/:id', component: EditDepartmentComponent },
-  { path: 'editAccommodation', component: EditAccommodationComponent },
+  { path: 'editAccommodation/:id', component: EditAccommodationComponent },
   { path: 'editService/:id', component: EditServiceComponent },
   { path: 'editRole/:id', component: EditRoleComponent },
+  { path: 'detailAccommodation/:id', component: DetailAccommodationComponent },
 ];

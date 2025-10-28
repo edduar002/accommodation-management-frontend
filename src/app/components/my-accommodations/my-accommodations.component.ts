@@ -9,11 +9,11 @@ import { AccommodationService } from '../../services/accommodation.service';
   selector: 'app-management-accommodations',
   standalone: true,
   imports: [CommonModule, RouterLink],
-  templateUrl: './management-accommodations.component.html',
-  styleUrls: ['./management-accommodations.component.css'],
+  templateUrl: './my-accommodations.component.html',
+  styleUrls: ['./my-accommodations.component.css'],
   providers: [AccommodationService]
 })
-export class ManagementAccommodationsComponent implements OnInit {
+export class MyAccommodationsComponent implements OnInit {
 
   accommodations: Accommodation[] = [];
   selectedAccommodationId?: number;

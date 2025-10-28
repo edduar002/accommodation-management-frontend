@@ -1,0 +1,83 @@
+<div class="comments-container mt-5 mb-5">
+  <h4 class="fw-bold text-primary mb-4">💬 Comentarios de los huéspedes</h4>
+
+  <!-- Comentario principal -->
+  <div class="comment mb-4 p-3 rounded-4 shadow-sm">
+    <div class="d-flex align-items-center mb-2">
+      <img src="https://randomuser.me/api/portraits/women/45.jpg" class="avatar me-2">
+      <div>
+        <strong class="d-block">Laura Gómez</strong>
+        <small class="text-muted">Hace 2 días</small>
+      </div>
+    </div>
+    <p class="mb-2">
+      Me encantó el alojamiento, súper limpio y con una vista increíble al valle. 
+      Definitivamente volvería.
+    </p>
+    <div class="text-end">
+      <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
+              data-bs-toggle="collapse" data-bs-target="#reply1">
+        Responder 💬
+      </button>
+    </div>
+
+    <!-- Respuesta -->
+    <div class="replies mt-3 ms-5">
+      <div class="reply p-2 rounded-4 bg-light mb-2">
+        <div class="d-flex align-items-center mb-1">
+          <img src="https://randomuser.me/api/portraits/men/12.jpg" class="avatar me-2">
+          <div>
+            <strong class="d-block">Anfitrión</strong>
+            <small class="text-muted">Hace 1 día</small>
+          </div>
+        </div>
+        <p class="mb-1">¡Gracias Laura! Nos alegra que hayas disfrutado tu estancia 😊</p>
+      </div>
+    </div>
+
+    <!-- Formulario de respuesta -->
+    <div id="reply1" class="collapse mt-3 ms-5">
+      <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu respuesta..."></textarea>
+      <div class="text-end">
+        <button class="btn btn-primary btn-sm rounded-pill px-3">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Segundo comentario -->
+  <div class="comment mb-4 p-3 rounded-4 shadow-sm">
+    <div class="d-flex align-items-center mb-2">
+      <img src="https://randomuser.me/api/portraits/men/33.jpg" class="avatar me-2">
+      <div>
+        <strong class="d-block">Carlos Pérez</strong>
+        <small class="text-muted">Hace 5 días</small>
+      </div>
+    </div>
+    <p class="mb-2">
+      Excelente ubicación, a solo unos pasos del centro histórico. 
+      La atención del anfitrión fue impecable.
+    </p>
+    <div class="text-end">
+      <button class="btn btn-sm btn-outline-primary rounded-pill px-3" 
+              data-bs-toggle="collapse" data-bs-target="#reply2">
+        Responder 💬
+      </button>
+    </div>
+
+    <div id="reply2" class="collapse mt-3 ms-5">
+      <textarea class="form-control mb-2" rows="2" placeholder="Escribe tu respuesta..."></textarea>
+      <div class="text-end">
+        <button class="btn btn-primary btn-sm rounded-pill px-3">Enviar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Formulario para agregar nuevo comentario -->
+  <div class="new-comment mt-5 p-4 rounded-4 shadow-sm">
+    <h5 class="fw-semibold mb-3 text-secondary">📝 Deja tu comentario</h5>
+    <textarea class="form-control mb-3" rows="3" placeholder="Cuéntanos tu experiencia..."></textarea>
+    <div class="text-end">
+      <button class="btn btn-success rounded-pill px-4">Publicar comentario</button>
+    </div>
+  </div>
+</div>
