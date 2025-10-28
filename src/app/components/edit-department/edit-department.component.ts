@@ -6,6 +6,8 @@ import { DepartmentService } from '../../services/department.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, NgForm  } from '@angular/forms';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-edit-department',
   standalone: true,
@@ -17,6 +19,9 @@ import { FormsModule, NgForm  } from '@angular/forms';
 export class EditDepartmentComponent {
 
   public department: Department;
+  public errorMessage: string = '';
+  private successModal: any;
+  private errorModal: any;
 
   constructor(
     private _departmentService: DepartmentService,
@@ -28,6 +33,11 @@ export class EditDepartmentComponent {
 
   ngOnInit(): void {
     this.getOne();
+  }
+
+  ngAfterViewInit(): void {
+    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
   }
 
   getOne(): void {
@@ -47,15 +57,24 @@ export class EditDepartmentComponent {
   }
 
   onSubmit(form: NgForm): void {
+    if (!form.valid) {
+      this.errorMessage = 'Por favor completa todos los campos';
+      this.errorModal.show();
+      return;
+    }
+
     this._departmentService.update(this.department.id!, this.department).subscribe(
-      response => {
-        console.log(response);
-        this._router.navigate(['/managementDepartment']);
-      },
+      response => this.successModal.show(),
       error => {
-        console.error('Error al actualizar departamento:', error);
+        this.errorMessage = 'Error al actualizar la ciudad';
+        this.errorModal.show();
       }
     );
+  }
+
+  closeModal(): void {
+    this.successModal.hide();
+    this._router.navigate(['/managementDepartment']);
   }
 
 }

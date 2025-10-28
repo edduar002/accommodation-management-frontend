@@ -5,9 +5,7 @@
     <div class="col-md-6">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <!-- 🔹 Agregamos #cityForm="ngForm" y (ngSubmit)="onSubmit(cityForm)" -->
           <form #cityForm="ngForm" (ngSubmit)="onSubmit(cityForm)">
-            <!-- Nombre de la ciudad -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre de la ciudad</label>
               <input
@@ -20,33 +18,29 @@
               />
             </div>
 
-            <!-- Departamento -->
-            <div class="mb-3">
-              <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
+                        <!-- Departamento dinámico -->
+<div class="mb-3">
+              <label for="departmentId" class="form-label fw-semibold">Departamento</label>
               <select
-                id="departmentsId"
+                id="departmentId"
                 class="form-select"
+                name="departmentId"
                 [(ngModel)]="city.departmentsId"
-                name="departmentsId"
                 required
               >
-                <option [value]="1">Antioquia</option>
-                <option [value]="2">Atlántico</option>
-                <option [value]="3">Bolívar</option>
-                <option [value]="4">Boyacá</option>
-                <option [value]="5">Cundinamarca</option>
-                <option [value]="6">Quindío</option>
-                <option [value]="7">Santander</option>
+                <option value="" disabled>Seleccione un departamento</option>
+                <option *ngFor="let dep of departamentos" [value]="dep.id">
+                  {{ dep.name }}
+                </option>
               </select>
             </div>
 
-            <!-- Botón para guardar -->
             <div class="d-grid mt-4">
-              <!-- 🔹 type="submit" para que dispare (ngSubmit) -->
-              <input type="submit" value="Actualizar" class="btn btn-warning btn-lg text-white px-5">
+              <button type="submit" class="btn btn-warning btn-lg text-white px-5">
+                Actualizar
+              </button>
             </div>
 
-            <!-- Enlace para volver -->
             <div class="text-center mt-3">
               <a routerLink="/managementCity" class="text-decoration-none text-secondary fw-semibold">
                 ← Volver a la gestión de ciudades
@@ -54,6 +48,40 @@
             </div>
           </form>
         </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+      </div>
+      <div class="modal-body">
+        <p>El usuario se ha registrado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error al registrar</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>

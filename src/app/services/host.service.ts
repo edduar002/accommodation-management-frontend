@@ -40,4 +40,14 @@ export class HostService {
     });
   }
 
+  getOne(id: Number): Observable<any> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.get<any>(`${this.url}hosts/getOne/${id}`, { headers });
+  }
+
+  update(id: number, host: Host): Observable<any> {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      return this._http.put<any>(`${this.url}hosts/edit/${id}`, host, { headers });
+  }
+
 }

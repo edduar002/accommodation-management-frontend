@@ -6,6 +6,8 @@ import { RoleService } from '../../services/role.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormsModule, NgForm  } from '@angular/forms';
 
+declare var bootstrap: any;
+
 @Component({
   selector: 'app-edit-role',
   standalone: true,
@@ -17,6 +19,9 @@ import { FormsModule, NgForm  } from '@angular/forms';
 export class EditRoleComponent {
 
   public role: Role;
+  public errorMessage: string = '';
+  private successModal: any;
+  private errorModal: any;
 
   constructor(
     private _roleService: RoleService,
@@ -28,6 +33,11 @@ export class EditRoleComponent {
 
   ngOnInit(): void {
     this.getOne();
+  }
+
+  ngAfterViewInit(): void {
+    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
+    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
   }
 
   getOne(): void {
@@ -47,15 +57,24 @@ export class EditRoleComponent {
   }
 
   onSubmit(form: NgForm): void {
+    if (!form.valid) {
+      this.errorMessage = 'Por favor completa todos los campos';
+      this.errorModal.show();
+      return;
+    }
+
     this._roleService.update(this.role.id!, this.role).subscribe(
-      response => {
-        console.log(response);
-        this._router.navigate(['/managementRole']);
-      },
+      response => this.successModal.show(),
       error => {
-        console.error('Error al actualizar rol:', error);
+        this.errorMessage = 'Error al actualizar la ciudad';
+        this.errorModal.show();
       }
     );
+  }
+
+  closeModal(): void {
+    this.successModal.hide();
+    this._router.navigate(['/managementRole']);
   }
 
 }

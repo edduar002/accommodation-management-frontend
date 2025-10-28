@@ -39,4 +39,15 @@ export class UserService {
       headers,
     });
   }
+
+  getOne(id: Number): Observable<any> {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      return this._http.get<any>(`${this.url}users/getOne/${id}`, { headers });
+  }
+
+  update(id: number, user: User): Observable<any> {
+      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+      return this._http.put<any>(`${this.url}users/edit/${id}`, user, { headers });
+  }
+  
 }

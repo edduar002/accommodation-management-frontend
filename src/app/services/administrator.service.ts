@@ -33,4 +33,14 @@ export class AdministratorService{
         });
     }
 
+    getOne(id: Number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}administrators/getOne/${id}`, { headers });
+    }
+
+    update(id: number, administrator: Administrator): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.put<any>(`${this.url}administrators/edit/${id}`, administrator, { headers });
+    }
+
 }
