@@ -34,7 +34,7 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   ) {
     // Inicializa un alojamiento con valores por defecto
     this.accommodation = new Accommodation(
-      '', '', '', 0, 0, 1, true, null!, 1, true
+      '', '', '', 0, 0, 1, true, null!, 1, '', true
     );
   }
 

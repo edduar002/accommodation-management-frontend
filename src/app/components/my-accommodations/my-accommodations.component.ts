@@ -28,7 +28,7 @@ export class MyAccommodationsComponent implements OnInit {
   }
 
   getAll(): void {
-    this._accommodationService.getAll().subscribe({
+    this._accommodationService.getAllOwn(1).subscribe({
       next: (response: any) => {
         this.accommodations = response;
         console.log('Alojamientos cargados:', this.accommodations);

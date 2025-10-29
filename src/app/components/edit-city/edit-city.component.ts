@@ -16,7 +16,7 @@ declare var bootstrap: any;
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './edit-city.component.html',
   styleUrls: ['./edit-city.component.css'],
-  providers: [CityService],
+  providers: [CityService, DepartmentService],
 })
 export class EditCityComponent implements OnInit, AfterViewInit {
   public city: City;

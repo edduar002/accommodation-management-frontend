@@ -24,7 +24,7 @@ export class CommentsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.comment = new Comment('', 0, 1);
+    this.comment = new Comment('', new Date(), 0, 1);
   }
 
   ngOnInit(): void {
@@ -69,7 +69,8 @@ export class CommentsComponent implements OnInit {
     }
 
     this.comment.accommodationsId = this.accommodationId;
-
+    this.comment.date = new Date()
+    this.comment.usersId = 2;
     this._commentService.register(this.comment).subscribe({
       next: (response) => {
         console.log('Comentario creado:', response);

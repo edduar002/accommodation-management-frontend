@@ -30,6 +30,11 @@ export class AccommodationService{
         return this._http.get<any>(`${this.url}accommodations/searchAvailableAccommodations`, { headers });
     }
 
+    getAllOwn(idHost: number): Observable<any> {
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+        return this._http.get<any>(`${this.url}accommodations/ownAccommodationList?idHost=${idHost}`, { headers });
+    }
+
     update(id: number, accommodation: Accommodation): Observable<any> {
       const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
       return this._http.put<any>(`${this.url}accommodations/edit/${id}`, accommodation, { headers });

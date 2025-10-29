@@ -24,7 +24,7 @@ export class CreateAccommodationComponent implements OnInit {
     private _departmentService: DepartmentService,
     private router: Router
   ) {
-    this.accommodation = new Accommodation('', '', '', 0, 0, 1, true, 0, 1, true);
+    this.accommodation = new Accommodation('', '', '', 0, 0, 1, true, 0, 1, '',true);
   }
 
   ngOnInit(): void {
