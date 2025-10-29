@@ -4,11 +4,12 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
+import { ResponseCommentComponent } from "../response-comment/response-comment.component";
 
 @Component({
   selector: 'app-comments',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ResponseCommentComponent],
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.css'],
   providers: [CommentService],

@@ -1,0 +1,12 @@
+<div class="ms-4">
+  <div *ngIf="responses.length > 0">
+    <div *ngFor="let r of responses" class="p-2 mt-2 border-start border-3 border-primary">
+      <p class="mb-1">{{ r.content }}</p>
+      <small class="text-muted">Respondido por Host: {{ r.hostsId }}</small>
+    </div>
+  </div>
+
+  <div *ngIf="responses.length === 0" class="text-muted ms-2">
+    (Sin respuestas aún)
+  </div>
+</div>

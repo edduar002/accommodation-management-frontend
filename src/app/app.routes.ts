@@ -36,6 +36,7 @@ import { EditAccommodationComponent } from './components/edit-accommodation/edit
 import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { EditRoleComponent } from './components/edit-role/edit-role.component';
 import { DetailAccommodationComponent } from './components/detail-accommodation/detail-accommodation.component';
+import { ResponseCommentComponent } from './components/response-comment/response-comment.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -74,4 +75,5 @@ export const routes: Routes = [
   { path: 'editService/:id', component: EditServiceComponent },
   { path: 'editRole/:id', component: EditRoleComponent },
   { path: 'detailAccommodation/:id', component: DetailAccommodationComponent },
+  { path: 'responseComment', component: ResponseCommentComponent },
 ];

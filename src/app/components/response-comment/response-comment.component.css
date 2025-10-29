@@ -1,0 +1,6 @@
+.response-box {
+  font-size: 0.9rem;
+}
+.response-box textarea {
+  resize: none;
+}
