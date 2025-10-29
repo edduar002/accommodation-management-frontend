@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { RecoveryPassword } from '../../models/recoveryPassword';
 import { AdministratorService } from '../../services/administrator.service';
+import { PasswordUtilsService } from '../../core/utils/password-utils.service';
 
 @Component({
   selector: 'app-change-password-adminsitrator',
@@ -19,12 +20,20 @@ export class ChangePasswordAdminComponent {
 
   constructor(
     private _administratorService: AdministratorService,
-    private router: Router
+    private router: Router,
+    private passwordUtils: PasswordUtilsService,
   ) {
     this.recoveryPassword = new RecoveryPassword('', '');
   }
 
   onSubmit(form: NgForm): void {
+        // Validación de contraseña segura antes de llamar al backend
+    if (!this.passwordUtils.isStrong(this.recoveryPassword.newPassword)) {
+      this.errorMessage =
+        'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
+      this.showModal('errorModal');
+      return;
+    }
     const adminsitrator = JSON.parse(localStorage.getItem('adminsitrator') || '{}');
     this.recoveryPassword.id = adminsitrator.id || 2;
 

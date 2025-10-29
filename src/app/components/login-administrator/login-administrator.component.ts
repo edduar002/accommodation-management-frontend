@@ -11,7 +11,7 @@ import { AdministratorService } from '../../services/administrator.service';
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login-administrator.component.html',
   styleUrl: './login-administrator.component.css',
-  providers: [AdministratorService]
+  providers: [AdministratorService],
 })
 export class LoginAdministratorComponent {
   public administrator: Administrator;
@@ -28,16 +28,22 @@ export class LoginAdministratorComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
-        // ✅ Mostrar modal de éxito
-        this.showModal('successModal');
+        // 👀 Validar si el usuario está activo
+        if (response.active === 1) {
+          // ✅ Usuario activo → Mostrar modal de éxito
+          this.showModal('successModal');
 
-        // Limpiar formulario
-        form.resetForm();
+          // Limpiar formulario
+          form.resetForm();
+        } else {
+          // ❌ Usuario inactivo → Mostrar modal de error
+          this.showModal('errorModal');
+        }
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
 
-        // ❌ Mostrar modal de error
+        // ❌ Error en servidor o credenciales inválidas → Modal de error
         this.showModal('errorModal');
       },
     });
@@ -46,7 +52,9 @@ export class LoginAdministratorComponent {
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

@@ -11,15 +11,12 @@ import { HostService } from '../../services/host.service';
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login-host.component.html',
   styleUrl: './login-host.component.css',
-  providers: [HostService]
+  providers: [HostService],
 })
 export class LoginHostComponent {
   public host: Host;
 
-  constructor(
-    private _hostService: HostService,
-    private router: Router
-  ) {
+  constructor(private _hostService: HostService, private router: Router) {
     this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
   }
 
@@ -28,25 +25,33 @@ export class LoginHostComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
-        // ✅ Mostrar modal de éxito
-        this.showModal('successModal');
+        // 👀 Validar si el host está activo
+        if (Number(response.active) === 1) {
+          // ✅ Usuario activo → Mostrar modal de éxito
+          this.showModal('successModal');
 
-        // Limpiar formulario
-        form.resetForm();
+          // Limpiar formulario
+          form.resetForm();
+        } else {
+          // ❌ Usuario inactivo → Mostrar modal de error
+          this.showModal('errorModal');
+        }
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
 
-        // ❌ Mostrar modal de error
+        // ❌ Error al iniciar sesión → Mostrar modal de error
         this.showModal('errorModal');
-      }
+      },
     });
   }
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

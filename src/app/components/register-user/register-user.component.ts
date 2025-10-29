@@ -6,6 +6,7 @@ import { DepartmentService } from '../../services/department.service';
 import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
+import { PasswordUtilsService } from '../../core/utils/password-utils.service';
 
 @Component({
   selector: 'app-register-user',
@@ -20,7 +21,12 @@ export class RegisterUserComponent {
   public errorMessage: string = '';
   departamentos: Department[] = [];
 
-  constructor(private _userService: UserService, private _departmentService: DepartmentService, private router: Router) {
+  constructor(
+    private _userService: UserService,
+    private _departmentService: DepartmentService,
+    private passwordUtils: PasswordUtilsService,
+    private router: Router,
+  ) {
     this.user = new User(
       '',
       '',
@@ -53,8 +59,17 @@ export class RegisterUserComponent {
   }
 
   onSubmit(form: NgForm): void {
+    // Validación de contraseña segura antes de llamar al backend
+    if (!this.passwordUtils.isStrong(this.user.password)) {
+      this.errorMessage =
+        'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
+      this.showModal('errorModal');
+      return;
+    }
+
     this.user.rolesId = 3;
     this.user.active = true;
+
     this._userService.register(this.user).subscribe({
       next: (response) => {
         console.log('Usuario registrado:', response);

@@ -6,6 +6,7 @@ import { Department } from '../../models/department';
 import { DepartmentService } from '../../services/department.service';
 import { Host } from '../../models/host';
 import { HostService } from '../../services/host.service';
+import { PasswordUtilsService } from '../../core/utils/password-utils.service';
 
 @Component({
   selector: 'app-register-host',
@@ -23,7 +24,8 @@ export class RegisterHostComponent {
   constructor(
     private _hostService: HostService,
     private _departmentService: DepartmentService,
-    private router: Router
+    private router: Router,
+    private passwordUtils: PasswordUtilsService,
   ) {
     this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
   }
@@ -44,6 +46,13 @@ export class RegisterHostComponent {
   }
 
   onSubmit(form: NgForm): void {
+        // Validación de contraseña segura antes de llamar al backend
+    if (!this.passwordUtils.isStrong(this.host.password)) {
+      this.errorMessage =
+        'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
+      this.showModal('errorModal');
+      return;
+    }
     this.host.rolesId = 2;
     this.host.active = true;
     this.host.departmentsId = Number(this.host.departmentsId);

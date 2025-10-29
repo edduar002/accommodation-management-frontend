@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Administrator } from '../../models/administrator';
 import { AdministratorService } from '../../services/administrator.service';
+import { PasswordUtilsService } from '../../core/utils/password-utils.service';
 
 @Component({
   selector: 'app-register-administrator',
@@ -19,12 +20,20 @@ export class RegisterAdministratorComponent {
 
   constructor(
     private _administratorService: AdministratorService,
-    private router: Router
+    private router: Router,
+    private passwordUtils: PasswordUtilsService,
   ) {
     this.administrator = new Administrator('', '', '', '', 1);
   }
 
   onSubmit(form: NgForm): void {
+        // Validación de contraseña segura antes de llamar al backend
+    if (!this.passwordUtils.isStrong(this.administrator.password)) {
+      this.errorMessage =
+        'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
+      this.showModal('errorModal');
+      return;
+    }
     this.administrator.rolesId = 1; // Rol fijo: Administrador
     console.log('Administrador a enviar:', this.administrator);
 

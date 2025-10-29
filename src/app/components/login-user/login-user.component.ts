@@ -11,16 +11,26 @@ import { UserService } from '../../services/user.service';
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './login-user.component.html',
   styleUrl: './login-user.component.css',
-  providers: [UserService]
+  providers: [UserService],
 })
 export class LoginUserComponent {
   public user: User;
 
-  constructor(
-    private _userService: UserService,
-    private router: Router
-  ) {
-    this.user = new User('', '', '', '', '', new Date(), '', 1, 1, new Date(), new Date(), true);
+  constructor(private _userService: UserService, private router: Router) {
+    this.user = new User(
+      '',
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      '',
+      1,
+      1,
+      new Date(),
+      new Date(),
+      true
+    );
   }
 
   onSubmit(form: NgForm): void {
@@ -28,25 +38,33 @@ export class LoginUserComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
-        // ✅ Mostrar modal de éxito
-        this.showModal('successModal');
+        // 👀 Verificar si el usuario está activo
+        if (Number(response.active) === 1) {
+          // ✅ Usuario activo → Mostrar modal de éxito
+          this.showModal('successModal');
 
-        // Limpiar formulario
-        form.resetForm();
+          // Limpiar formulario
+          form.resetForm();
+        } else {
+          // ❌ Usuario inactivo → Mostrar modal de error
+          this.showModal('errorModal');
+        }
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
 
-        // ❌ Mostrar modal de error
+        // ❌ Credenciales incorrectas / error servidor
         this.showModal('errorModal');
-      }
+      },
     });
   }
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();
