@@ -1,5 +1,5 @@
 <div class="comments-container mt-5 mb-5">
-  <h4 class="fw-bold text-primary mb-4">💬 Comentarios</h4>
+  <h4 class="fw-bold mb-4"><i class="bi bi-chat-fill text-primary" aria-hidden="true"></i> Comentarios</h4>
 
   <!-- Lista de comentarios -->
   <div *ngIf="comments.length > 0; else noComments">
@@ -13,13 +13,13 @@
   <!-- Mensaje si no hay comentarios -->
   <ng-template #noComments>
     <div class="alert alert-secondary text-center" role="alert">
-      No hay comentarios todavía. ¡Sé el primero en comentar! ✍️
+      No hay comentarios todavía. ¡Sé el primero en comentar! <i class="bi bi-file-text-fill" aria-hidden="true"></i>
     </div>
   </ng-template>
 
   <!-- Formulario de nuevo comentario -->
   <div class="new-comment mt-4 p-4 rounded-4 shadow-sm bg-white">
-    <h5 class="fw-semibold mb-3 text-secondary">📝 Deja tu comentario</h5>
+    <h5 class="fw-semibold mb-3 text-secondary"><i class="bi bi-pencil-square" aria-hidden="true"></i> Deja tu comentario</h5>
     <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
       <textarea
         class="form-control mb-3"

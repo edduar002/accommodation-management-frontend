@@ -1,5 +1,5 @@
 <div class="alojamiento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold text-primary">✏️ Editar alojamiento existente</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar alojamiento existente</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -72,37 +72,45 @@
               </div>
             </div>
 
-            <!-- Departamento -->
-            <div class="mb-3">
-              <label for="departmentsId" class="form-label fw-semibold">Departamento</label>
-              <select
-                id="departmentsId"
-                class="form-select"
-                name="departmentsId"
-                [(ngModel)]="accommodation.departmentsId"
-                required
-              >
-                <option value="" disabled>Seleccione un departamento</option>
-                <option *ngFor="let dep of departments" [value]="dep.id">
-                  {{ dep.name }}
-                </option>
-              </select>
-            </div>
+                    <!-- Departamento dinámico -->
+        <div class="mb-3">
+          <label for="department" class="form-label fw-bold">Departamento</label>
+          <select class="form-select" id="department" name="department" #department="ngModel" [(ngModel)]="accommodation.departmentsId"
+            (change)="onDepartmentChange()" required>
+            <option value="" disabled selected>Seleccione un departamento</option>
+            <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
+          </select>
+          <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
+            <small>Seleccione un departamento.</small>
+          </div>
+        </div>
+
+        <!-- Ciudad dinámico -->
+        <div class="mb-3">
+          <label for="city" class="form-label fw-bold">Ciudad</label>
+          <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="accommodation.citiesId" required>
+            <option value="" disabled selected>Seleccione una ciudad</option>
+            <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
+          </select>
+          <div *ngIf="city.invalid && city.touched" class="text-danger mt-1">
+            <small>Seleccione una ciudad.</small>
+          </div>
+        </div>
 
             <!-- Botón Guardar -->
             <div class="d-grid mt-4">
               <button
                 type="submit"
-                class="btn btn-warning btn-lg rounded-pill text-white"
+                class="btn btn-primary btn-lg rounded-pill text-white"
                 [disabled]="!accommodationForm.valid"
               >
-                💾 Guardar cambios
+                <i class="bi bi-save-fill" aria-hidden="true"></i> Guardar cambios
               </button>
             </div>
 
             <div class="text-center mt-3">
               <a routerLink="/managementAccommodations" class="text-decoration-none text-secondary fw-semibold">
-                ← Volver a la gestión de alojamientos
+                <i class="bi bi-arrow-left-short" aria-hidden="true"></i> Volver a la gestión de alojamientos
               </a>
             </div>
           </form>

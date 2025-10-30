@@ -10,6 +10,8 @@ export class User {
     public rolesId: number,
     public departmentId: number,
     public citiesId: number,
+    public departmentName: string,
+    public cityName: string,
     public createdAt: Date,
     public updatedAt: Date,
     public active: boolean,

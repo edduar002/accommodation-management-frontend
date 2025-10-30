@@ -1,5 +1,5 @@
 <div class="alojamiento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold">🏠 Crear nuevo alojamiento</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-add text-primary" aria-hidden="true"></i> Crear nuevo alojamiento</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
@@ -90,7 +90,7 @@
 
             <!-- ✅ Botón de envío -->
             <div class="d-grid mt-4">
-              <input type="submit" value="Crear" class="btn btn-warning btn-lg text-white px-5"
+              <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
                 [disabled]="registerAccommodationForm.invalid" data-bs-toggle="modal" data-bs-target="#successModal" />
             </div>
           </form>
@@ -105,7 +105,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel">✅ Registro exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El alojamiento se ha creado correctamente.</p>

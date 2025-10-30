@@ -1,5 +1,5 @@
 <div class="ciudad-section mt-5">
-  <h2 class="text-center mb-5 fw-bold text-primary">✏️ Editar ciudad existente</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar ciudad existente</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -36,14 +36,14 @@
             </div>
 
             <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-warning btn-lg text-white px-5">
+              <button type="submit" class="btn btn-primary btn-lg text-white px-5">
                 Actualizar
               </button>
             </div>
 
             <div class="text-center mt-3">
               <a routerLink="/managementCity" class="text-decoration-none text-secondary fw-semibold">
-                ← Volver a la gestión de ciudades
+                <i class="bi bi-arrow-left-short" aria-hidden="true"></i> Volver a la gestión de ciudades
               </a>
             </div>
           </form>
@@ -58,7 +58,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel">✅ Actualizacion exitosa</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Actualizacion exitosa</h5>
       </div>
       <div class="modal-body">
         <p>La ciudad se ha actualizado correctamente.</p>
@@ -75,7 +75,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error al actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al actualizar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

@@ -11,6 +11,8 @@ export class Host {
     public personalDescription: string,
     public departmentsId: number,
     public citiesId: number,
+    public departmentName: string,
+    public cityName: string,
     public active: boolean,
     public id?:number
   ) {}

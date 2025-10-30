@@ -17,7 +17,7 @@ export class ResponseCommentComponent implements OnInit {
   // 📥 Entrada
   @Input() commentId!: number | undefined;
 
-  // 💬 Propiedades
+  // <i class="bi bi-chat-fill" aria-hidden="true"></i> Propiedades
   public response: Response;
   public responses: Response[] = [];
   public errorMessage: string = '';

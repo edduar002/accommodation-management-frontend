@@ -42,6 +42,8 @@ export class RegisterUserComponent {
       1,
       1,
       1,
+      '',
+      '',
       new Date(),
       new Date(),
       true
@@ -50,6 +52,7 @@ export class RegisterUserComponent {
 
   ngOnInit(): void {
     this.getAllDepartments();
+    this.onDepartmentChange()
   }
 
     // Este método se dispara al cambiar de departamento

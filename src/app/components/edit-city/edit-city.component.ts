@@ -31,7 +31,7 @@ export class EditCityComponent implements OnInit, AfterViewInit {
     private _router: Router,
     private _departmentService: DepartmentService,
   ) {
-    this.city = new City('', 1, true);
+    this.city = new City('', 1, '', true);
   }
 
   ngOnInit(): void {

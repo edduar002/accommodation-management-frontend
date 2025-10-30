@@ -24,7 +24,7 @@ export class CreateCityComponent {
     private _departmentService: DepartmentService,
     private router: Router
   ) {
-    this.city = new City('', 1, true);
+    this.city = new City('', 1, '', true);
   }
 
   onSubmit(form: NgForm): void {

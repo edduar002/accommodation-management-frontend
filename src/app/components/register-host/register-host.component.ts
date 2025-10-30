@@ -32,11 +32,12 @@ export class RegisterHostComponent {
     private router: Router,
     private passwordUtils: PasswordUtilsService
   ) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, true);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, '', '', true);
   }
 
   ngOnInit(): void {
     this.getAllDepartments();
+    this.onDepartmentChange()
   }
 
   getAllDepartments(): void {

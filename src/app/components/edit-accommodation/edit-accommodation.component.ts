@@ -6,6 +6,8 @@ import { AccommodationService } from '../../services/accommodation.service';
 import { DepartmentService } from '../../services/department.service';
 import { Accommodation } from '../../models/accommodation';
 import { Department } from '../../models/department';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 
 declare var bootstrap: any;
 
@@ -15,33 +17,57 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './edit-accommodation.component.html',
   styleUrls: ['./edit-accommodation.component.css'],
-  providers: [AccommodationService, DepartmentService]
+  providers: [AccommodationService, DepartmentService, CityService]
 })
 export class EditAccommodationComponent implements OnInit, AfterViewInit {
 
   public accommodation: Accommodation;
   public departments: Department[] = [];
   public errorMessage: string = '';
-
+  ciudades: City[] = [];
+  departamentos: Department[] = [];
   private successModal: any;
   private errorModal: any;
 
   constructor(
     private _accommodationService: AccommodationService,
     private _departmentService: DepartmentService,
+    private _cityService: CityService,
     private _route: ActivatedRoute,
     private _router: Router
   ) {
     // Inicializa un alojamiento con valores por defecto
     this.accommodation = new Accommodation(
-      '', '', '', 0, 0, 1, true, null!, 1, 1, '', true
+      '', '', '', 0, 0, 1, true, null!, 1, 1, '', '', true
     );
   }
 
   ngOnInit(): void {
     this.loadDepartments();
     this.getOne();
+    this.onDepartmentChange()
   }
+
+  // Este método se dispara al cambiar de departamento
+  onDepartmentChange() {
+    const selectedId = this.accommodation.departmentsId; // aquí tienes el ID seleccionado
+    console.log('Departamento seleccionado:', selectedId);
+
+    // Llamas a getCities con ese ID
+    this.getCities(Number(selectedId));
+  }
+
+  getCities(departmentId: number): void {
+    this._cityService.getAllForDepartment(departmentId).subscribe({
+      next: (response: any) => {
+        this.ciudades = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener ciudades:', error);
+      },
+    });
+  }
+
 
   ngAfterViewInit(): void {
     this.successModal = new bootstrap.Modal(document.getElementById('successModal'));

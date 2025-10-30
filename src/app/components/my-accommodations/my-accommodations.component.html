@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <!-- Encabezado -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold text-primary"><i class="bi bi-house-door-fill text-primary fs-3 me-2"></i> Gestión de Alojamientos</h2>
+    <h2 class="fw-bold"><i class="bi bi-house-door-fill text-primary fs-3 me-2"></i> Gestión de mis Alojamientos</h2>
     <a routerLink="/createAccommodation" class="btn btn-primary btn-lg shadow-sm rounded-pill">
       <i class="bi bi-plus-circle me-2"></i> Crear nuevo
     </a>
@@ -16,6 +16,7 @@
           <th scope="col">Descripción</th>
           <th scope="col">Dirección</th>
           <th scope="col">Departamento</th>
+          <th scope="col">Ciudad</th>
           <th scope="col">Precio (COP)</th>
           <th scope="col">Capacidad</th>
           <th scope="col" class="text-center">Acciones</th>
@@ -29,6 +30,7 @@
           <td>{{ a.detailedDescription }}</td>
           <td>{{ a.direction }}</td>
           <td>{{ a.departmentName }}</td>
+          <td>{{ a.cityName }}</td>
           <td>{{ a.price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
           <td>{{ a.maximumCapacity }}</td>
           <td class="text-center">

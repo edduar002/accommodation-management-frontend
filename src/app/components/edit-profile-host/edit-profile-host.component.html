@@ -1,5 +1,5 @@
 <div class="profile-section mt-5">
-  <h2 class="text-center mb-5 fw-bold">👤 Edición de perfil</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del anfitrion</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-7">
@@ -96,22 +96,30 @@
               ></textarea>
             </div>
 
-            <!-- Departamento dinámico -->
-            <div class="mb-3">
-              <label for="departmentId" class="form-label fw-semibold">Departamento</label>
-              <select
-                id="departmentId"
-                class="form-select"
-                name="departmentId"
-                [(ngModel)]="host.departmentsId"
-                required
-              >
-                <option value="" disabled>Seleccione un departamento</option>
-                <option *ngFor="let dep of departamentos" [value]="dep.id">
-                  {{ dep.name }}
-                </option>
-              </select>
-            </div>
+                    <!-- Departamento dinámico -->
+        <div class="mb-3">
+          <label for="department" class="form-label fw-bold">Departamento</label>
+          <select class="form-select" id="department" name="department" #department="ngModel" [(ngModel)]="host.departmentsId"
+            (change)="onDepartmentChange()" required>
+            <option value="" disabled selected>Seleccione un departamento</option>
+            <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
+          </select>
+          <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
+            <small>Seleccione un departamento.</small>
+          </div>
+        </div>
+
+        <!-- Ciudad dinámico -->
+        <div class="mb-3">
+          <label for="city" class="form-label fw-bold">Ciudad</label>
+          <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="host.citiesId" required>
+            <option value="" disabled selected>Seleccione una ciudad</option>
+            <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
+          </select>
+          <div *ngIf="city.invalid && city.touched" class="text-danger mt-1">
+            <small>Seleccione una ciudad.</small>
+          </div>
+        </div>
 
             <!-- Botón -->
             <div class="d-grid mt-4">

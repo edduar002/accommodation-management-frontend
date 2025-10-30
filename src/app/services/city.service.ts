@@ -25,6 +25,7 @@ export class CityService {
   }
 
   getAllForDepartment(idDepartment: number): Observable<any> {
+    console.log(idDepartment)
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this._http.get<any>(`${this.url}cities/getAllForDepartment`, {
       headers,

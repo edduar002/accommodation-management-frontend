@@ -6,6 +6,8 @@ import { HostService } from '../../services/host.service';
 import { DepartmentService } from '../../services/department.service';
 import { Department } from '../../models/department';
 import { Host } from '../../models/host';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 
 declare var bootstrap: any;
 
@@ -15,14 +17,14 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile-host.component.html',
   styleUrls: ['./edit-profile-host.component.css'],
-  providers: [HostService, DepartmentService]
+  providers: [HostService, DepartmentService, CityService]
 })
 export class EditProfileHostComponent implements OnInit, AfterViewInit {
 
   public host: Host;
   departamentos: Department[] = [];
   public errorMessage: string = '';
-
+  ciudades: City[] = [];
   private successModal: any;
   private errorModal: any;
 
@@ -30,16 +32,39 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
     private _hostService: HostService,
     private _departmentService: DepartmentService,
     private _route: ActivatedRoute,
+    private _cityService: CityService,
     private _router: Router
   ) {
     // Inicializa el host vacío
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, true);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, '', '', true);
   }
 
   ngOnInit(): void {
     this.loadDepartments();
     this.getOne();
+    this.onDepartmentChange()
   }
+
+  // Este método se dispara al cambiar de departamento
+  onDepartmentChange() {
+    const selectedId = this.host.departmentsId; // aquí tienes el ID seleccionado
+    console.log('Departamento seleccionado:', selectedId);
+
+    // Llamas a getCities con ese ID
+    this.getCities(Number(selectedId));
+  }
+
+  getCities(departmentId: number): void {
+    this._cityService.getAllForDepartment(departmentId).subscribe({
+      next: (response: any) => {
+        this.ciudades = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener ciudades:', error);
+      },
+    });
+  }
+
 
   ngAfterViewInit(): void {
     // Inicializa los modales Bootstrap cuando el DOM ya está cargado
