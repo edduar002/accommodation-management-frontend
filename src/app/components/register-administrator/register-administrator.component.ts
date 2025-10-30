@@ -71,7 +71,7 @@ export class RegisterAdministratorComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir después de cerrar el modal
+    //Redirigir después de cerrar el modal
     this.router.navigate(['/']);
   }
 

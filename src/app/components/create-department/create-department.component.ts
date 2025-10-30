@@ -30,7 +30,7 @@ export class CreateDepartmentComponent {
       next: (response) => {
         console.log('Departamento creado:', response);
 
-        // ✅ Mostrar modal al éxito
+        //Mostrar modal al éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl && (window as any).bootstrap?.Modal) {
           const modal = new (window as any).bootstrap.Modal(modalEl);
@@ -54,7 +54,7 @@ export class CreateDepartmentComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir tras cerrar el modal
+    //Redirigir tras cerrar el modal
     this.router.navigate(['/managementDepartment']);
   }
 }

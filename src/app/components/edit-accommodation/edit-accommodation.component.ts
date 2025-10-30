@@ -76,10 +76,10 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
 
   /** 🔹 Cargar departamentos desde el servicio */
   loadDepartments(): void {
-    this._departmentService.getAll().subscribe({
-      next: (response) => this.departments = response,
-      error: (err) => console.error('Error al cargar departamentos:', err)
-    });
+    this._departmentService.getAll().subscribe(
+      response => this.departamentos = response,
+      error => console.error('Error al cargar departamentos', error)
+    );
   }
 
   /** 🔹 Obtener alojamiento por ID (desde la URL) */
@@ -89,6 +89,9 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
       this._accommodationService.getOne(id).subscribe({
         next: (response) => {
           this.accommodation = response;
+                  if (this.accommodation.departmentsId) {
+          this.getCities(this.accommodation.departmentsId);
+        }
         },
         error: (error) => {
           console.error('Error al cargar alojamiento:', error);

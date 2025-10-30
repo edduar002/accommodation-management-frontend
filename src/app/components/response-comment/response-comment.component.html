@@ -4,7 +4,7 @@
     <div *ngIf="responses.length > 0">
       <div *ngFor="let r of responses" class="p-2 mt-2 border-start border-3 border-primary">
         <p class="mb-1">{{ r.content }}</p>
-        <small class="text-muted">Respondido por Host: {{ r.hostsId }}</small>
+        <small class="text-muted">Respondido por: {{ r.hostName }}</small>
       </div>
     </div>
 
@@ -26,7 +26,7 @@
     </form>
   </div>
 </div>
-<!-- ✅ Modal de éxito -->
+<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
 <div
   class="modal fade"
   [id]="'successModal-' + commentId"
@@ -37,7 +37,7 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel">✅ Respuesta enviada</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Respuesta enviada</h5>
       </div>
       <div class="modal-body">
         <p>Tu respuesta se ha publicado correctamente.</p>

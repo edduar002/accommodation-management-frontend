@@ -29,7 +29,7 @@ export class CreateRoleComponent {
       next: (response) => {
         console.log('Rol creado:', response);
 
-        // ✅ Mostrar el modal al éxito
+        //Mostrar el modal al éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl && (window as any).bootstrap?.Modal) {
           const modal = new (window as any).bootstrap.Modal(modalEl);
@@ -53,7 +53,7 @@ export class CreateRoleComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir tras cerrar el modal
+    //Redirigir tras cerrar el modal
     this.router.navigate(['/managementRole']);
   }
 }

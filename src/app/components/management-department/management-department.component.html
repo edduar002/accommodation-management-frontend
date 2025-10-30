@@ -20,7 +20,7 @@
       </thead>
 
       <tbody>
-        <!-- ✅ Recorrer los departamentos dinámicamente -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Recorrer los departamentos dinámicamente -->
         <tr *ngFor="let dept of departments; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ dept.name }}</td>
@@ -36,7 +36,7 @@
           </td>
         </tr>
 
-        <!-- ✅ Mostrar mensaje si no hay datos -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Mostrar mensaje si no hay datos -->
         <tr *ngIf="departments.length === 0">
           <td colspan="3" class="text-center text-muted py-4">
             No hay departamentos registrados.

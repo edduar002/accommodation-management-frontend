@@ -25,7 +25,7 @@ export class CommentsComponent implements OnInit {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.comment = new Comment('', new Date(), 0, 1);
+    this.comment = new Comment('', new Date(), 0, 1, '');
   }
 
   ngOnInit(): void {
@@ -76,7 +76,7 @@ export class CommentsComponent implements OnInit {
       next: (response) => {
         console.log('Comentario creado:', response);
 
-        // ✅ Mostrar el modal de éxito
+        //Mostrar el modal de éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl) {
           const modal = new (window as any).bootstrap.Modal(modalEl);
@@ -109,7 +109,7 @@ export class CommentsComponent implements OnInit {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Recargar lista al cerrar modal
+    //Recargar lista al cerrar modal
     this.loadComments();
   }
 }

@@ -90,6 +90,9 @@ export class EditProfileUserComponent implements OnInit, AfterViewInit {
       this._userService.getOne(id).subscribe(
         response => {
           this.user = response;
+                  if (this.user.departmentId) {
+          this.getCities(this.user.departmentId);
+        }
         },
         error => {
           console.error('Error al cargar usuario:', error);

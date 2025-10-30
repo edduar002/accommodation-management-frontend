@@ -24,7 +24,7 @@
       </thead>
 
       <tbody>
-        <!-- ✅ Recorrer alojamientos dinámicamente -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Recorrer alojamientos dinámicamente -->
         <tr *ngFor="let a of accommodations; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ a.detailedDescription }}</td>
@@ -47,7 +47,7 @@
           </td>
         </tr>
 
-        <!-- ✅ Mostrar mensaje si no hay datos -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Mostrar mensaje si no hay datos -->
         <tr *ngIf="accommodations.length === 0">
           <td colspan="7" class="text-center text-muted py-4">
             No hay alojamientos registrados.

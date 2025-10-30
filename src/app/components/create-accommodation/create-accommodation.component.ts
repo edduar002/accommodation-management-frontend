@@ -74,7 +74,7 @@ export class CreateAccommodationComponent implements OnInit {
       next: (response) => {
         console.log('Alojamiento creado:', response);
 
-        // ✅ Mostrar el modal de éxito
+        //Mostrar el modal de éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl) {
           const modal = new (window as any).bootstrap.Modal(modalEl);

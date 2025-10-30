@@ -5,7 +5,7 @@
   <div *ngIf="comments.length > 0; else noComments">
     <div *ngFor="let c of comments" class="comment mb-3 p-3 rounded-4 shadow-sm bg-light">
       <p class="mb-1">{{ c.content }}</p>
-      <small class="text-muted">ID Usuario: {{ c.usersId }}</small>
+      <small class="text-muted">Usuario: {{ c.userName }}</small>
       <app-response-comment [commentId]="c.id"></app-response-comment>
     </div>
   </div>
@@ -41,12 +41,12 @@
   </div>
 </div>
 
-<!-- ✅ Modal de éxito -->
+<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel">✅ Comentario publicado</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Comentario publicado</h5>
       </div>
       <div class="modal-body">
         <p>Tu comentario se ha publicado correctamente.</p>

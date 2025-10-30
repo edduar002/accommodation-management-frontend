@@ -27,7 +27,7 @@ export class LoginHostComponent {
 
         // 👀 Validar si el host está activo
         if (Number(response.active) === 1) {
-          // ✅ Usuario activo → Mostrar modal de éxito
+          //Usuario activo → Mostrar modal de éxito
           this.showModal('successModal');
 
           // Limpiar formulario
@@ -57,7 +57,7 @@ export class LoginHostComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir al dashboard del anfitrión
+    //Redirigir al dashboard del anfitrión
     this.router.navigate(['/host/dashboard']);
   }
 

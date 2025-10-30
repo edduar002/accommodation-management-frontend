@@ -29,7 +29,7 @@ export class CreateServiceComponent {
       next: (response) => {
         console.log('Servicio creado:', response);
 
-        // ✅ Mostrar el modal de éxito
+        //Mostrar el modal de éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl && (window as any).bootstrap?.Modal) {
           const modal = new (window as any).bootstrap.Modal(modalEl);
@@ -53,7 +53,7 @@ export class CreateServiceComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir tras cerrar el modal
+    //Redirigir tras cerrar el modal
     this.router.navigate(['/managementService']);
   }
 }

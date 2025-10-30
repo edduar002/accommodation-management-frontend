@@ -43,7 +43,7 @@ export class LoginUserComponent {
 
         // 👀 Verificar si el usuario está activo
         if (Number(response.active) === 1) {
-          // ✅ Usuario activo → Mostrar modal de éxito
+          //Usuario activo → Mostrar modal de éxito
           this.showModal('successModal');
 
           // Limpiar formulario
@@ -73,7 +73,7 @@ export class LoginUserComponent {
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    // ✅ Redirigir al dashboard del usuario
+    //Redirigir al dashboard del usuario
     this.router.navigate(['/user/dashboard']);
   }
 

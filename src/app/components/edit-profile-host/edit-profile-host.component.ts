@@ -81,20 +81,26 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
   }
 
   /** Cargar datos del host */
-  getOne(): void {
-    this._route.params.subscribe(params => {
-      const id = +params['id'];
-      this._hostService.getOne(id).subscribe(
-        response => {
-          this.host = response;
-        },
-        error => {
-          console.error('Error al cargar host:', error);
-          this._router.navigate(['/']);
+getOne(): void {
+  this._route.params.subscribe(params => {
+    const id = +params['id'];
+    this._hostService.getOne(id).subscribe(
+      response => {
+        this.host = response;
+
+        // ✅ Cargar ciudades basadas en el departamento del host
+        if (this.host.departmentsId) {
+          this.getCities(this.host.departmentsId);
         }
-      );
-    });
-  }
+      },
+      error => {
+        console.error('Error al cargar host:', error);
+        this._router.navigate(['/']);
+      }
+    );
+  });
+}
+
 
   /** Guardar cambios */
   onSubmit(form: NgForm): void {

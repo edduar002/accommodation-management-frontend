@@ -1,33 +1,34 @@
 <div class="home-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-door-fill text-primary" aria-hidden="true"></i> Alojamientos destacados</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-door-fill text-primary" aria-hidden="true"></i>
+    Alojamientos destacados</h2>
 
   <div class="row g-4" *ngIf="accommodations.length > 0; else noAccommodations">
     <div class="col-md-4" *ngFor="let alojamiento of accommodations; let i = index">
       <div class="card alojamiento-card shadow-sm border-0 h-100 position-relative">
 
         <!-- Imagen -->
-        <img
-          [src]="getImage(i)"
-          class="card-img-top"
-          alt="Imagen de alojamiento"
-          style="height: 220px; object-fit: cover;"
-        >
+        <img [src]="getImage(i)" class="card-img-top" alt="Imagen de alojamiento"
+          style="height: 220px; object-fit: cover;">
 
         <!-- Botón de favorito (corazón vacío) -->
-        <button
-          class="btn bg-white bg-opacity-75 position-absolute top-0 end-0 m-2 rounded-circle shadow-sm"
-          title="Agregar a favoritos"
-        >
-          <i class="bi bi-heart text-danger fs-5"></i>
-        </button>
+<button
+  (click)="agregarFavorito(alojamiento.id!)"
+  class="btn bg-white bg-opacity-75 position-absolute top-0 end-0 m-2 rounded-circle shadow-sm"
+  title="Agregar a favoritos"
+>
+  <i class="bi bi-heart text-danger fs-5"></i>
+</button>
+
+
 
         <div class="card-body">
           <h5 class="card-title fw-semibold">{{ alojamiento.detailedDescription }}</h5>
           <p class="card-text text-muted">{{ alojamiento.direction }}</p>
-          <p class="text-primary fw-bold mb-2"><i class="bi bi-geo-alt" aria-hidden="true"></i> {{ alojamiento.exactLocation }}</p>
-          <p class="fw-semibold"><i class="bi bi-currency-dollar" aria-hidden="true"></i>{{ alojamiento.price | number }} / noche</p>
-          <a class="btn btn-outline-primary w-100"
-             [routerLink]="['/detailAccommodation', alojamiento.id]">
+          <p class="text-primary fw-bold mb-2"><i class="bi bi-geo-alt" aria-hidden="true"></i> {{
+            alojamiento.exactLocation }}</p>
+          <p class="fw-semibold"><i class="bi bi-currency-dollar" aria-hidden="true"></i>{{ alojamiento.price | number
+            }} / noche</p>
+          <a class="btn btn-outline-primary w-100" [routerLink]="['/detailAccommodation', alojamiento.id]">
             Ver detalles
           </a>
         </div>
@@ -43,4 +44,37 @@
       </p>
     </div>
   </ng-template>
+</div>
+<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Favorito agregado con exito</h5>
+      </div>
+      <div class="modal-body">
+        <p>El alojamiento ha sido agregado a favoritos con exito.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ❌ Modal de error -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al actualizar</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>

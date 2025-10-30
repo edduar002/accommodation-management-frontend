@@ -20,7 +20,7 @@
       </thead>
 
       <tbody>
-        <!-- ✅ Cargar roles dinámicamente -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Cargar roles dinámicamente -->
         <tr *ngFor="let role of roles; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ role.name }}</td>
@@ -39,7 +39,7 @@
           </td>
         </tr>
 
-        <!-- ✅ Mostrar mensaje si no hay roles -->
+        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Mostrar mensaje si no hay roles -->
         <tr *ngIf="roles.length === 0">
           <td colspan="3" class="text-center text-muted py-4">
             No hay roles registrados.

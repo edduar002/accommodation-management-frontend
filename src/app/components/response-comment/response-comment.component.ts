@@ -26,7 +26,7 @@ export class ResponseCommentComponent implements OnInit {
     private _responseService: ResponseService,
     private router: Router
   ) {
-    this.response = new Response('', 1, new Date(), 1);
+    this.response = new Response('', 1, new Date(), '');
   }
 
   // 🚀 Al iniciar, cargar respuestas existentes

@@ -33,7 +33,7 @@ export class CreateCityComponent {
       next: (response) => {
         console.log('Ciudad creada:', response);
 
-        // ✅ Mostrar el modal al tener éxito
+        //Mostrar el modal al tener éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl) {
           const modal = new (window as any).bootstrap.Modal(modalEl);
