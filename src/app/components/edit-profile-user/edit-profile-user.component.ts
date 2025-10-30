@@ -35,7 +35,7 @@ export class EditProfileUserComponent implements OnInit, AfterViewInit {
     // Inicializa el usuario vacío
     this.user = new User(
       '', '', '', '', '', new Date(),
-      '', 1, 1, new Date(), new Date(), true
+      '', 1, 1, 1, new Date(), new Date(), true
     );
   }
 

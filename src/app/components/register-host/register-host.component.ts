@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Department } from '../../models/department';
 import { DepartmentService } from '../../services/department.service';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 import { Host } from '../../models/host';
 import { HostService } from '../../services/host.service';
 import { PasswordUtilsService } from '../../core/utils/password-utils.service';
@@ -14,20 +16,23 @@ import { PasswordUtilsService } from '../../core/utils/password-utils.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './register-host.component.html',
   styleUrl: './register-host.component.css',
-  providers: [HostService, DepartmentService],
+  providers: [HostService, DepartmentService, CityService],
 })
 export class RegisterHostComponent {
   public host: Host;
   departamentos: Department[] = [];
+  ciudades: City[] = [];
   public errorMessage: string = '';
+  idPosicion: string = '';
 
   constructor(
     private _hostService: HostService,
     private _departmentService: DepartmentService,
+    private _cityService: CityService,
     private router: Router,
-    private passwordUtils: PasswordUtilsService,
+    private passwordUtils: PasswordUtilsService
   ) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, true);
   }
 
   ngOnInit(): void {
@@ -45,8 +50,28 @@ export class RegisterHostComponent {
     });
   }
 
+  // Este método se dispara al cambiar de departamento
+  onDepartmentChange() {
+    const selectedId = this.host.departmentsId; // aquí tienes el ID seleccionado
+    console.log('Departamento seleccionado:', selectedId);
+
+    // Llamas a getCities con ese ID
+    this.getCities(Number(selectedId));
+  }
+
+  getCities(departmentId: number): void {
+    this._cityService.getAllForDepartment(departmentId).subscribe({
+      next: (response: any) => {
+        this.ciudades = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener ciudades:', error);
+      },
+    });
+  }
+
   onSubmit(form: NgForm): void {
-        // Validación de contraseña segura antes de llamar al backend
+    // Validación de contraseña segura antes de llamar al backend
     if (!this.passwordUtils.isStrong(this.host.password)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
@@ -56,7 +81,7 @@ export class RegisterHostComponent {
     this.host.rolesId = 2;
     this.host.active = true;
     this.host.departmentsId = Number(this.host.departmentsId);
-    console.log(this.host)
+    console.log(this.host);
     this._hostService.register(this.host).subscribe({
       next: (response) => {
         console.log('Anfitrión registrado:', response);

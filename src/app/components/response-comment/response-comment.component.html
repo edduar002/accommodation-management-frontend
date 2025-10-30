@@ -1,12 +1,87 @@
 <div class="ms-4">
-  <div *ngIf="responses.length > 0">
-    <div *ngFor="let r of responses" class="p-2 mt-2 border-start border-3 border-primary">
-      <p class="mb-1">{{ r.content }}</p>
-      <small class="text-muted">Respondido por Host: {{ r.hostsId }}</small>
+  <!-- Solo mostramos la lista si responses NO es null/undefined -->
+  <ng-container *ngIf="responses != null">
+    <div *ngIf="responses.length > 0">
+      <div *ngFor="let r of responses" class="p-2 mt-2 border-start border-3 border-primary">
+        <p class="mb-1">{{ r.content }}</p>
+        <small class="text-muted">Respondido por Host: {{ r.hostsId }}</small>
+      </div>
+    </div>
+
+    <div *ngIf="responses.length === 0" class="text-muted ms-2">
+      (Sin respuestas aún)
+    </div>
+  </ng-container>
+
+  <!-- Formulario para responder -->
+  <div class="mt-3">
+    <form #responseForm="ngForm" (ngSubmit)="onSubmitResponse(responseForm)">
+      <div class="mb-2">
+        <textarea class="form-control" name="content" [(ngModel)]="response.content"
+          placeholder="Escribe tu respuesta..." rows="2" required></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!responseForm.valid">
+        Enviar respuesta
+      </button>
+    </form>
+  </div>
+</div>
+<!-- ✅ Modal de éxito -->
+<div
+  class="modal fade"
+  [id]="'successModal-' + commentId"
+  tabindex="-1"
+  aria-labelledby="successModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title w-100" id="successModalLabel">✅ Respuesta enviada</h5>
+      </div>
+      <div class="modal-body">
+        <p>Tu respuesta se ha publicado correctamente.</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          class="btn btn-success"
+          data-bs-dismiss="modal"
+          (click)="closeModal('successModal-' + commentId)"
+        >
+          Aceptar
+        </button>
+      </div>
     </div>
   </div>
+</div>
 
-  <div *ngIf="responses.length === 0" class="text-muted ms-2">
-    (Sin respuestas aún)
+<!-- ❌ Modal de error -->
+<div
+  class="modal fade"
+  [id]="'errorModal-' + commentId"
+  tabindex="-1"
+  aria-labelledby="errorModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content text-center">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title w-100" id="errorModalLabel">❌ Error</h5>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer justify-content-center">
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="closeModal('errorModal-' + commentId)"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
   </div>
 </div>

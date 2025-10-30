@@ -6,6 +6,8 @@ import { Accommodation } from '../../models/accommodation';
 import { Department } from '../../models/department';
 import { AccommodationService } from '../../services/accommodation.service';
 import { DepartmentService } from '../../services/department.service';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 
 @Component({
   selector: 'app-create-accommodation',
@@ -13,22 +15,43 @@ import { DepartmentService } from '../../services/department.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './create-accommodation.component.html',
   styleUrls: ['./create-accommodation.component.css'],
-  providers: [AccommodationService, DepartmentService],
+  providers: [AccommodationService, DepartmentService, CityService],
 })
 export class CreateAccommodationComponent implements OnInit {
   public accommodation: Accommodation;
   departamentos: Department[] = [];
+  ciudades: City[] = [];
 
   constructor(
     private _accommodationService: AccommodationService,
     private _departmentService: DepartmentService,
+    private _cityService: CityService,
     private router: Router
   ) {
-    this.accommodation = new Accommodation('', '', '', 0, 0, 1, true, 0, 1, '',true);
+    this.accommodation = new Accommodation('', '', '', 0, 0, 1, true, 0, 1, 1, '',true);
   }
 
   ngOnInit(): void {
     this.getAllDepartments();
+  }
+
+  onDepartmentChange() {
+    const selectedId = this.accommodation.departmentsId; // aquí tienes el ID seleccionado
+    console.log('Departamento seleccionado:', selectedId);
+
+    // Llamas a getCities con ese ID
+    this.getCities(Number(selectedId));
+  }
+
+  getCities(departmentId: number): void {
+    this._cityService.getAllForDepartment(departmentId).subscribe({
+      next: (response: any) => {
+        this.ciudades = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener ciudades:', error);
+      },
+    });
   }
 
   getAllDepartments(): void {

@@ -9,6 +9,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { RegisterAdministratorComponent } from './components/register-administrator/register-administrator.component';
 import { RegisterHostComponent } from './components/register-host/register-host.component';
 import { RegisterUserComponent } from './components/register-user/register-user.component';
+import { MyFavoritesComponent } from './components/my-favorites/my-favorites.component';
 import { MyReservationsComponent } from './components/my-reservations/my-reservations.component';
 import { ChangePasswordAdminComponent } from './components/change-password-admin/change-password-admin.component';
 import { ChangePasswordHostComponent } from './components/change-password-host/change-password-host.component';
@@ -49,6 +50,7 @@ export const routes: Routes = [
   { path: 'loginAdmin', component: LoginAdministratorComponent },
   { path: 'loginUser', component: LoginUserComponent },
   { path: 'myReservations', component: MyReservationsComponent },
+  { path: 'myFavorites', component: MyFavoritesComponent },
   { path: 'changePasswordAdmin/:id', component: ChangePasswordAdminComponent },
   { path: 'changePasswordHost/:id', component: ChangePasswordHostComponent },
   { path: 'changePasswordUser/:id', component: ChangePasswordUserComponent },

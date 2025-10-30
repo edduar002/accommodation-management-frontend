@@ -9,6 +9,7 @@ export class User {
     public imgUrl: string,
     public rolesId: number,
     public departmentId: number,
+    public citiesId: number,
     public createdAt: Date,
     public updatedAt: Date,
     public active: boolean,

@@ -3,12 +3,24 @@
 
   <div class="row g-4" *ngIf="accommodations.length > 0; else noAccommodations">
     <div class="col-md-4" *ngFor="let alojamiento of accommodations; let i = index">
-      <div class="card alojamiento-card shadow-sm border-0 h-100">
+      <div class="card alojamiento-card shadow-sm border-0 h-100 position-relative">
+
+        <!-- Imagen -->
         <img
           [src]="getImage(i)"
           class="card-img-top"
           alt="Imagen de alojamiento"
+          style="height: 220px; object-fit: cover;"
         >
+
+        <!-- Botón de favorito (corazón vacío) -->
+        <button
+          class="btn bg-white bg-opacity-75 position-absolute top-0 end-0 m-2 rounded-circle shadow-sm"
+          title="Agregar a favoritos"
+        >
+          <i class="bi bi-heart text-danger fs-5"></i>
+        </button>
+
         <div class="card-body">
           <h5 class="card-title fw-semibold">{{ alojamiento.detailedDescription }}</h5>
           <p class="card-text text-muted">{{ alojamiento.direction }}</p>
@@ -26,7 +38,9 @@
   <!-- Mensaje cuando no hay alojamientos -->
   <ng-template #noAccommodations>
     <div class="text-center mt-5">
-      <p class="text-muted fw-semibold">No hay alojamientos disponibles en este momento.</p>
+      <p class="text-muted fw-semibold">
+        No hay alojamientos disponibles en este momento.
+      </p>
     </div>
   </ng-template>
 </div>

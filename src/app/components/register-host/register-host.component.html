@@ -10,16 +10,8 @@
           <!-- Nombre -->
           <div class="col-md-6 mb-3">
             <label for="name" class="form-label fw-bold">Nombre</label>
-            <input
-              type="text"
-              name="name"
-              id="name"
-              class="form-control"
-              placeholder="Ingrese su nombre"
-              #name="ngModel"
-              [(ngModel)]="host.name"
-              required
-            >
+            <input type="text" name="name" id="name" class="form-control" placeholder="Ingrese su nombre"
+              #name="ngModel" [(ngModel)]="host.name" required>
             <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
               <small>El nombre es obligatorio.</small>
             </div>
@@ -28,16 +20,8 @@
           <!-- Apellido -->
           <div class="col-md-6 mb-3">
             <label for="surname" class="form-label fw-bold">Apellido</label>
-            <input
-              type="text"
-              name="surname"
-              id="surname"
-              class="form-control"
-              placeholder="Ingrese su apellido"
-              #surname="ngModel"
-              [(ngModel)]="host.surname"
-              required
-            >
+            <input type="text" name="surname" id="surname" class="form-control" placeholder="Ingrese su apellido"
+              #surname="ngModel" [(ngModel)]="host.surname" required>
             <div *ngIf="surname.invalid && surname.touched" class="text-danger mt-1">
               <small>El apellido es obligatorio.</small>
             </div>
@@ -47,17 +31,8 @@
         <!-- Correo -->
         <div class="mb-3">
           <label for="email" class="form-label fw-bold">Correo Electrónico</label>
-          <input
-            type="email"
-            name="email"
-            id="email"
-            class="form-control"
-            placeholder="ejemplo@correo.com"
-            #email="ngModel"
-            [(ngModel)]="host.email"
-            required
-            email
-          >
+          <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@correo.com"
+            #email="ngModel" [(ngModel)]="host.email" required email>
           <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
             <small *ngIf="email.errors?.['required']">El correo es obligatorio.</small>
             <small *ngIf="email.errors?.['email']">Formato de correo inválido.</small>
@@ -67,17 +42,8 @@
         <!-- Contraseña -->
         <div class="mb-3">
           <label for="password" class="form-label fw-bold">Contraseña</label>
-          <input
-            type="password"
-            name="password"
-            id="password"
-            class="form-control"
-            placeholder="Mínimo 6 caracteres"
-            minlength="6"
-            #password="ngModel"
-            [(ngModel)]="host.password"
-            required
-          >
+          <input type="password" name="password" id="password" class="form-control" placeholder="Mínimo 6 caracteres"
+            minlength="6" #password="ngModel" [(ngModel)]="host.password" required>
           <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
             <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
             <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
@@ -88,17 +54,8 @@
           <!-- Teléfono -->
           <div class="col-md-6 mb-3">
             <label for="phone" class="form-label fw-bold">Teléfono</label>
-            <input
-              type="text"
-              name="phone"
-              id="phone"
-              class="form-control"
-              placeholder="Ej: 3201234567"
-              pattern="[0-9]{7,10}"
-              #phone="ngModel"
-              [(ngModel)]="host.phone"
-              required
-            >
+            <input type="text" name="phone" id="phone" class="form-control" placeholder="Ej: 3201234567"
+              pattern="[0-9]{7,10}" #phone="ngModel" [(ngModel)]="host.phone" required>
             <div *ngIf="phone.invalid && phone.touched" class="text-danger mt-1">
               <small *ngIf="phone.errors?.['required']">El teléfono es obligatorio.</small>
               <small *ngIf="phone.errors?.['pattern']">Debe contener solo números (7–10 dígitos).</small>
@@ -108,15 +65,8 @@
           <!-- Fecha de nacimiento -->
           <div class="col-md-6 mb-3">
             <label for="birthday" class="form-label fw-bold">Fecha de Nacimiento</label>
-            <input
-              type="date"
-              name="birthday"
-              id="birthday"
-              class="form-control"
-              #birthday="ngModel"
-              [(ngModel)]="host.birthday"
-              required
-            >
+            <input type="date" name="birthday" id="birthday" class="form-control" #birthday="ngModel"
+              [(ngModel)]="host.birthday" required>
             <div *ngIf="birthday.invalid && birthday.touched" class="text-danger mt-1">
               <small>La fecha de nacimiento es obligatoria.</small>
             </div>
@@ -126,30 +76,16 @@
         <!-- Imagen -->
         <div class="mb-3">
           <label for="imgUrl" class="form-label fw-bold">URL de Imagen (opcional)</label>
-          <input
-            type="text"
-            name="imgUrl"
-            id="imgUrl"
-            class="form-control"
-            placeholder="https://..."
-            #imgUrl="ngModel"
-            [(ngModel)]="host.imgUrl"
-          >
+          <input type="text" name="imgUrl" id="imgUrl" class="form-control" placeholder="https://..." #imgUrl="ngModel"
+            [(ngModel)]="host.imgUrl">
         </div>
 
         <!-- Descripción -->
         <div class="mb-3">
           <label for="personalDescription" class="form-label fw-bold">Descripción Personal</label>
-          <textarea
-            class="form-control"
-            name="personalDescription"
-            id="personalDescription"
-            rows="3"
-            placeholder="Cuéntanos algo sobre ti"
-            #personalDescription="ngModel"
-            [(ngModel)]="host.personalDescription"
-            required
-          ></textarea>
+          <textarea class="form-control" name="personalDescription" id="personalDescription" rows="3"
+            placeholder="Cuéntanos algo sobre ti" #personalDescription="ngModel" [(ngModel)]="host.personalDescription"
+            required></textarea>
           <div *ngIf="personalDescription.invalid && personalDescription.touched" class="text-danger mt-1">
             <small>La descripción es obligatoria.</small>
           </div>
@@ -158,14 +94,8 @@
         <!-- Departamento dinámico -->
         <div class="mb-3">
           <label for="department" class="form-label fw-bold">Departamento</label>
-          <select
-            class="form-select"
-            id="department"
-            name="department"
-            #department="ngModel"
-            [(ngModel)]="host.departmentsId"
-            required
-          >
+          <select class="form-select" id="department" name="department" #department="ngModel" [(ngModel)]="host.departmentsId"
+            (change)="onDepartmentChange()" required>
             <option value="" disabled selected>Seleccione un departamento</option>
             <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
           </select>
@@ -174,14 +104,23 @@
           </div>
         </div>
 
+        <!-- Ciudad dinámico -->
+        <div class="mb-3">
+          <label for="city" class="form-label fw-bold">Ciudad</label>
+          <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="host.citiesId" required>
+            <option value="" disabled selected>Seleccione una ciudad</option>
+            <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
+          </select>
+          <div *ngIf="city.invalid && city.touched" class="text-danger mt-1">
+            <small>Seleccione una ciudad.</small>
+          </div>
+        </div>
+
+
         <!-- Botón -->
         <div class="text-center mt-4">
-          <input
-            type="submit"
-            value="Registrarme"
-            class="btn btn-warning btn-lg text-white px-5"
-            [disabled]="registerHostForm.invalid"
-          >
+          <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5"
+            [disabled]="registerHostForm.invalid">
         </div>
       </form>
     </div>

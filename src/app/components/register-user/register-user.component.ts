@@ -7,6 +7,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { User } from '../../models/user';
 import { UserService } from '../../services/user.service';
 import { PasswordUtilsService } from '../../core/utils/password-utils.service';
+import { City } from '../../models/city';
+import { CityService } from '../../services/city.service';
 
 @Component({
   selector: 'app-register-user',
@@ -14,15 +16,17 @@ import { PasswordUtilsService } from '../../core/utils/password-utils.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './register-user.component.html',
   styleUrl: './register-user.component.css',
-  providers: [UserService, DepartmentService],
+  providers: [UserService, DepartmentService, CityService],
 })
 export class RegisterUserComponent {
   public user: User;
   public errorMessage: string = '';
   departamentos: Department[] = [];
+  ciudades: City[] = [];
 
   constructor(
     private _userService: UserService,
+    private _cityService: CityService,
     private _departmentService: DepartmentService,
     private passwordUtils: PasswordUtilsService,
     private router: Router,
@@ -37,6 +41,7 @@ export class RegisterUserComponent {
       '',
       1,
       1,
+      1,
       new Date(),
       new Date(),
       true
@@ -45,6 +50,26 @@ export class RegisterUserComponent {
 
   ngOnInit(): void {
     this.getAllDepartments();
+  }
+
+    // Este método se dispara al cambiar de departamento
+  onDepartmentChange() {
+    const selectedId = this.user.departmentId; // aquí tienes el ID seleccionado
+    console.log('Departamento seleccionado:', selectedId);
+
+    // Llamas a getCities con ese ID
+    this.getCities(Number(selectedId));
+  }
+
+  getCities(departmentId: number): void {
+    this._cityService.getAllForDepartment(departmentId).subscribe({
+      next: (response: any) => {
+        this.ciudades = response;
+      },
+      error: (error) => {
+        console.error('Error al obtener ciudades:', error);
+      },
+    });
   }
 
   getAllDepartments(): void {

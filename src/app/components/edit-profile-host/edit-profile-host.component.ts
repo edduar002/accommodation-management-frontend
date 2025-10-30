@@ -33,7 +33,7 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
     private _router: Router
   ) {
     // Inicializa el host vacío
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, true);
+    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, true);
   }
 
   ngOnInit(): void {
