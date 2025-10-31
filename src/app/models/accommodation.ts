@@ -13,6 +13,7 @@ export class Accommodation {
     public departmentName: string,
     public cityName: string,
     public active: boolean,
+    public services: string,
     public id?:number
   ) {}
 }

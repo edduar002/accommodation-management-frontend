@@ -21,10 +21,8 @@ import { EditProfileAdminComponent } from './components/edit-profile-admin/edit-
 import { EditProfileHostComponent } from './components/edit-profile-host/edit-profile-host.component';
 import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
 import { CreateRoleComponent } from './components/create-role/create-role.component';
-import { CreateServiceComponent } from './components/create-service/create-service.component';
 import { ManagementDepartmentComponent } from './components/management-department/management-department.component';
 import { ManagementCityComponent } from './components/management-city/management-city.component';
-import { ManagementServiceComponent } from './components/management-service/management-service.component';
 import { ManagementRoleComponent } from './components/management-role/management-role.component';
 import { ManagementAccommodationsComponent } from './components/management-accommodations/management-accommodations.component';
 import { MyAccommodationsComponent } from './components/my-accommodations/my-accommodations.component';
@@ -33,10 +31,10 @@ import { ManagementHostComponent } from './components/management-host/management
 import { EditCityComponent } from './components/edit-city/edit-city.component';
 import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
 import { EditAccommodationComponent } from './components/edit-accommodation/edit-accommodation.component';
-import { EditServiceComponent } from './components/edit-service/edit-service.component';
 import { EditRoleComponent } from './components/edit-role/edit-role.component';
 import { DetailAccommodationComponent } from './components/detail-accommodation/detail-accommodation.component';
 import { ResponseCommentComponent } from './components/response-comment/response-comment.component';
+import { LocationComponent } from './components/location/location.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -60,10 +58,9 @@ export const routes: Routes = [
   { path: 'editProfileHost/:id', component: EditProfileHostComponent },
   { path: 'editProfileUser/:id', component: EditProfileUserComponent },
   { path: 'createRole', component: CreateRoleComponent },
-  { path: 'createService', component: CreateServiceComponent },
+  { path: 'locationComponent', component: LocationComponent },
   { path: 'managementDepartment', component: ManagementDepartmentComponent },
   { path: 'managementCity', component: ManagementCityComponent },
-  { path: 'managementService', component: ManagementServiceComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
   { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
   { path: 'myAccommodations', component: MyAccommodationsComponent },
@@ -72,7 +69,6 @@ export const routes: Routes = [
   { path: 'editCity/:id', component: EditCityComponent },
   { path: 'editDepartment/:id', component: EditDepartmentComponent },
   { path: 'editAccommodation/:id', component: EditAccommodationComponent },
-  { path: 'editService/:id', component: EditServiceComponent },
   { path: 'editRole/:id', component: EditRoleComponent },
   { path: 'detailAccommodation/:id', component: DetailAccommodationComponent },
   { path: 'responseComment', component: ResponseCommentComponent },

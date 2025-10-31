@@ -15,6 +15,7 @@ export class User {
     public createdAt: Date,
     public updatedAt: Date,
     public active: boolean,
-    public id?:number
+    public id?: number,
+    public file?: File // 👈 se agrega para manejar el archivo local temporalmente
   ) {}
 }

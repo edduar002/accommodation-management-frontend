@@ -18,6 +18,13 @@ export class UserService {
     return this._http.post<any>(`${this.url}users/register`, user, { headers });
   }
 
+  uploadImage(file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  return this._http.post<any>(`${this.url}images/upload`, formData);
+}
+
+
   login(user: User): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this._http.post<any>(`${this.url}users/login`, user, { headers });

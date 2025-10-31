@@ -18,6 +18,23 @@
                 <small>La descripción es obligatoria.</small>
               </div>
             </div>
+<!-- 🔹 Servicios -->
+<div class="mb-3">
+  <label for="services" class="form-label fw-semibold">Servicios</label>
+  <textarea
+    name="services"
+    id="services"
+    class="form-control"
+    rows="3"
+    placeholder="Ej: Wifi, Parqueadero, Aire acondicionado, Lavadora..."
+    #services="ngModel"
+    [(ngModel)]="accommodation.services"
+    required
+  ></textarea>
+  <div *ngIf="services.invalid && services.touched" class="text-danger mt-1">
+    <small>Este campo es obligatorio.</small>
+  </div>
+</div>
 
             <!-- 🔹 Dirección -->
             <div class="mb-3">

@@ -18,7 +18,19 @@
                 required
               ></textarea>
             </div>
-
+<!-- ✅ Servicios -->
+<div class="mb-3">
+  <label for="services" class="form-label fw-semibold">Servicios</label>
+  <textarea
+    id="services"
+    class="form-control"
+    rows="3"
+    name="services"
+    [(ngModel)]="accommodation.services"
+    placeholder="Ej: Wifi, Parqueadero, Aire acondicionado, Lavadora..."
+    required
+  ></textarea>
+</div>
             <!-- Dirección -->
             <div class="mb-3">
               <label for="direction" class="form-label fw-semibold">Dirección</label>
