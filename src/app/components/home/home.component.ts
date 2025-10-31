@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { AccommodationService } from '../../services/accommodation.service';
-import { FavoriteService } from '../../services/favorite.service';
 import { Accommodation } from '../../models/accommodation';
-import { Favorite } from '../../models/favorite';
 
 declare var bootstrap: any;
 
@@ -14,12 +12,11 @@ declare var bootstrap: any;
   imports: [CommonModule, RouterLink],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  providers: [AccommodationService, FavoriteService]
+  providers: [AccommodationService]
 })
 export class HomeComponent implements OnInit {
 
   public accommodations: Accommodation[] = [];
-  public favorite: Favorite;
 
   public errorMessage: string = '';
   private successModal: any;
@@ -27,9 +24,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private _accommodationService: AccommodationService,
-    private _favoriteService: FavoriteService
   ) {
-    this.favorite = new Favorite(true, 1, 1);
   }
 
   ngOnInit(): void {
@@ -50,18 +45,6 @@ export class HomeComponent implements OnInit {
         console.error('Error al cargar alojamientos:', err);
       }
     });
-  }
-
-  agregarFavorito(accommodationId: number): void {
-    const favorite = new Favorite(true, 2, accommodationId);
-
-    this._favoriteService.register(favorite).subscribe(
-      response => this.successModal.show(),
-      error => {
-        this.errorMessage = 'No se pudo agregar a favoritos.';
-        this.errorModal.show();
-      }
-    );
   }
 
   getImage(index: number): string {
