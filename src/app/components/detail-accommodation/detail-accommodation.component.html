@@ -1,33 +1,15 @@
 <div class="detail-section mt-5" *ngIf="!isLoading && accommodation; else loading">
   <h2 class="text-center fw-bold mb-4"><i class="bi bi-house-check text-primary" aria-hidden="true"></i> Detalle del alojamiento</h2>
 
-  <!-- Carrusel -->
-  <div id="accommodationCarousel" class="carousel slide shadow rounded-4 overflow-hidden mx-auto" style="max-width: 800px;" data-bs-ride="carousel">
-    <div class="carousel-indicators">
-      <button *ngFor="let img of images; let i = index"
-              type="button"
-              [attr.data-bs-slide-to]="i"
-              [class.active]="i === 0"
-              data-bs-target="#accommodationCarousel"></button>
-    </div>
-
-    <div class="carousel-inner">
-      <div *ngFor="let img of images; let i = index"
-           class="carousel-item"
-           [class.active]="i === 0">
-        <img [src]="img" class="d-block w-100" alt="Imagen {{ i + 1 }}">
-      </div>
-    </div>
-
-    <button class="carousel-control-prev" type="button" data-bs-target="#accommodationCarousel" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Anterior</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#accommodationCarousel" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Siguiente</span>
-    </button>
-  </div>
+  <!-- Imagen principal del alojamiento -->
+<div class="text-center mt-4">
+  <img
+    [src]="accommodation.imgUrl || 'https://via.placeholder.com/800x400?text=Sin+imagen'"
+    alt="Imagen del alojamiento"
+    class="img-fluid rounded-4 shadow-lg"
+    style="max-width: 800px; height: auto; object-fit: cover;"
+  />
+</div>
 
   <!-- Información del alojamiento -->
   <div class="text-center mt-5">

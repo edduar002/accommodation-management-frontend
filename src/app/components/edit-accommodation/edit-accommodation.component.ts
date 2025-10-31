@@ -28,6 +28,7 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   departamentos: Department[] = [];
   private successModal: any;
   private errorModal: any;
+  selectedFile?: File;
 
   constructor(
     private _accommodationService: AccommodationService,
@@ -38,7 +39,7 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   ) {
     // Inicializa un alojamiento con valores por defecto
     this.accommodation = new Accommodation(
-      '', '', '', 0, 0, 1, true, null!, 1, 1, '', '', true, ''
+      '', '', '', 0, 0, 1, true, null!, 1, 1, '', '', true, '', ''
     );
   }
 
@@ -47,6 +48,11 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     this.getOne();
     this.onDepartmentChange()
   }
+
+  onFileSelected(event: any): void {
+  this.selectedFile = event.target.files[0];
+  console.log('Nueva imagen seleccionada:', this.selectedFile);
+}
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {

@@ -1,7 +1,8 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Output, EventEmitter } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-location',
@@ -15,6 +16,9 @@ export class LocationComponent implements AfterViewInit {
   selected: { lat: number, lng: number } | null = null;
   searchText: string = '';
 
+  @Output() locationSelected = new EventEmitter<{ lat: number, lng: number }>();
+
+
   constructor(private http: HttpClient) {}
 
   ngAfterViewInit(): void {
@@ -27,15 +31,19 @@ export class LocationComponent implements AfterViewInit {
     this.marker = L.marker([4.6482837, -74.0636163], { draggable: true }).addTo(this.map);
 
     this.marker.on('dragend', () => {
-      const pos = this.marker.getLatLng();
-      this.selected = { lat: pos.lat, lng: pos.lng };
-    });
+  const pos = this.marker.getLatLng();
+  this.selected = { lat: pos.lat, lng: pos.lng };
+  this.locationSelected.emit(this.selected); // ✅ Enviar al padre
+});
 
-    this.map.on('click', (e: any) => {
-      const latlng = e.latlng;
-      this.marker.setLatLng(latlng);
-      this.selected = { lat: latlng.lat, lng: latlng.lng };
-    });
+
+this.map.on('click', (e: any) => {
+  const latlng = e.latlng;
+  this.marker.setLatLng(latlng);
+  this.selected = { lat: latlng.lat, lng: latlng.lng };
+  this.locationSelected.emit(this.selected); // ✅ Enviar al padre
+});
+
   }
 
   searchLocation() {
@@ -51,6 +59,8 @@ export class LocationComponent implements AfterViewInit {
         this.map.setView([lat, lng], 15);
         this.marker.setLatLng([lat, lng]);
         this.selected = { lat, lng };
+this.locationSelected.emit(this.selected); // ✅
+
       } else {
         alert('No se encontró la dirección');
       }

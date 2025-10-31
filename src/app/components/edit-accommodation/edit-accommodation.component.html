@@ -6,6 +6,31 @@
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
           <form #accommodationForm="ngForm" (ngSubmit)="onSubmit(accommodationForm)">
+            <!-- Imagen actual y campo para cambiarla -->
+<div class="mb-4 text-center">
+  <label class="form-label fw-semibold d-block mb-2">Imagen del alojamiento</label>
+
+  <!-- Imagen actual -->
+  <img
+    [src]="accommodation.imgUrl || 'https://via.placeholder.com/300x200?text=Sin+imagen'"
+    alt="Imagen del alojamiento"
+    class="rounded-4 shadow-sm mb-3"
+    style="max-width: 300px; height: auto; object-fit: cover;"
+  />
+
+  <!-- Input para subir nueva imagen -->
+  <input
+    type="file"
+    accept="image/*"
+    (change)="onFileSelected($event)"
+    class="form-control w-75 mx-auto"
+  />
+
+  <small class="text-muted d-block mt-2">
+    Puedes subir una nueva imagen para reemplazar la actual.
+  </small>
+</div>
+
             <!-- Descripción -->
             <div class="mb-3">
               <label for="detailedDescription" class="form-label fw-semibold">Descripción detallada</label>

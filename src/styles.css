@@ -1,1 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
+#map, .leaflet-container {
+  width: 100% !important;
+  height: 350px !important;
+}
+
+.leaflet-container {
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}

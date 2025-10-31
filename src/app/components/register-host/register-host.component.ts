@@ -24,6 +24,8 @@ export class RegisterHostComponent {
   ciudades: City[] = [];
   public errorMessage: string = '';
   idPosicion: string = '';
+  selectedFile?: File;
+  uploading = false;
 
   constructor(
     private _hostService: HostService,
@@ -39,6 +41,11 @@ export class RegisterHostComponent {
     this.getAllDepartments();
     this.onDepartmentChange()
   }
+
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
+
 
   getAllDepartments(): void {
     this._departmentService.getAll().subscribe({
@@ -72,47 +79,59 @@ export class RegisterHostComponent {
   }
 
   onSubmit(form: NgForm): void {
-    // Validación de contraseña segura antes de llamar al backend
     if (!this.passwordUtils.isStrong(this.host.password)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
       this.showModal('errorModal');
       return;
     }
-    this.host.rolesId = 2;
+
+    this.host.rolesId = 3;
     this.host.active = true;
-    this.host.departmentsId = Number(this.host.departmentsId);
-    console.log(this.host);
+
+    // Si el usuario seleccionó una imagen
+    if (this.selectedFile) {
+      this.uploading = true;
+      this._hostService.uploadImage(this.selectedFile).subscribe({
+        next: (res) => {
+          console.log('Respuesta Cloudinary:', res); // 🔍 revisa en consola
+          this.host.imgUrl = res.secure_url; // ✅ URL segura de Cloudinary
+          this.uploading = false;
+          this.registerUser(form);
+        },
+        error: (err) => {
+          console.error('Error al subir imagen:', err);
+          this.uploading = false;
+          this.errorMessage = 'Error al subir la imagen.';
+          this.showModal('errorModal');
+        },
+      });
+    } else {
+      this.registerUser(form);
+    }
+  }
+
+  private registerUser(form: NgForm): void {
     this._hostService.register(this.host).subscribe({
       next: (response) => {
-        console.log('Anfitrión registrado:', response);
+        console.log('Usuario registrado:', response);
         this.showModal('successModal');
         form.resetForm();
+        this.selectedFile = undefined;
       },
       error: (error) => {
-        console.error('Error al registrar anfitrión:', error);
-
-        // 🔍 Primero, intentamos obtener el mensaje del error
-        const backendMessage =
-          typeof error.error === 'string'
-            ? error.error
-            : error.error?.message || '';
-
-        // 🧩 Detectar correo duplicado (MySQL UNIQUE)
+        console.error('Error al registrar usuario:', error);
         if (
-          backendMessage.includes('Duplicate entry') ||
-          error.status === 409
+          error?.error?.message?.includes('Duplicate entry') ||
+          error?.error?.includes('Duplicate entry') ||
+          error?.status === 409
         ) {
           this.errorMessage =
             'El correo ingresado ya está registrado. Intenta con otro.';
-        } else if (error.status === 400) {
-          this.errorMessage =
-            'Verifica los datos ingresados. Puede que falte algún campo obligatorio.';
         } else {
           this.errorMessage =
             'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
-
         this.showModal('errorModal');
       },
     });

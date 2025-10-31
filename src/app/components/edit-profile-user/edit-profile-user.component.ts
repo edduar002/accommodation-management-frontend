@@ -27,6 +27,7 @@ export class EditProfileUserComponent implements OnInit, AfterViewInit {
   ciudades: City[] = [];
   private successModal: any;
   private errorModal: any;
+  selectedFile?: File;
 
   constructor(
     private _userService: UserService,
@@ -47,6 +48,12 @@ export class EditProfileUserComponent implements OnInit, AfterViewInit {
     this.getOne();
     this.onDepartmentChange()
   }
+
+  
+  onFileSelected(event: any): void {
+  this.selectedFile = event.target.files[0];
+  console.log('Nueva imagen seleccionada:', this.selectedFile);
+}
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {

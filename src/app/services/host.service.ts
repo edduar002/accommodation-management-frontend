@@ -50,4 +50,10 @@ export class HostService {
       return this._http.put<any>(`${this.url}hosts/edit/${id}`, host, { headers });
   }
 
+    uploadImage(file: File): Observable<any> {
+  const formData = new FormData();
+  formData.append('file', file);
+  return this._http.post<any>(`${this.url}images/upload`, formData);
+}
+
 }

@@ -74,11 +74,18 @@
         </div>
 
         <!-- Imagen -->
-        <div class="mb-3">
-          <label for="imgUrl" class="form-label fw-bold">URL de Imagen (opcional)</label>
-          <input type="text" name="imgUrl" id="imgUrl" class="form-control" placeholder="https://..." #imgUrl="ngModel"
-            [(ngModel)]="host.imgUrl">
-        </div>
+<label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
+<input
+  type="file"
+  id="imageFile"
+  name="imageFile"
+  class="form-control"
+  accept="image/*"
+  (change)="onFileSelected($event)"
+/>
+<div *ngIf="uploading" class="text-info mt-1">
+  <small>Subiendo imagen...</small>
+</div>
 
         <!-- Descripción -->
         <div class="mb-3">

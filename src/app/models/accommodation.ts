@@ -14,6 +14,9 @@ export class Accommodation {
     public cityName: string,
     public active: boolean,
     public services: string,
-    public id?:number
+    public imgUrl: string,
+    public latitude?: string,   // ✅ Agregado
+    public longitude?: string,  // ✅ Agregado
+    public id?: number
   ) {}
 }

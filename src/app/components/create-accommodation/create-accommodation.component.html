@@ -5,6 +5,19 @@
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+                  <!-- Imagen -->
+<label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
+<input
+  type="file"
+  id="imageFile"
+  name="imageFile"
+  class="form-control"
+  accept="image/*"
+  (change)="onFileSelected($event)"
+/>
+<div *ngIf="uploading" class="text-info mt-1">
+  <small>Subiendo imagen...</small>
+</div>
           <form #registerAccommodationForm="ngForm" (ngSubmit)="onSubmit(registerAccommodationForm)">
             <!-- 🔹 Descripción -->
             <div class="mb-3">
@@ -47,16 +60,7 @@
               </div>
             </div>
 
-            <!-- 🔹 Ubicación exacta -->
-            <div class="mb-3">
-              <label for="exactLocation" class="form-label fw-semibold">Ubicación exacta</label>
-              <input type="text" name="exactLocation" id="exactLocation" class="form-control"
-                placeholder="Ej: 6.1352, -75.4423" #exactLocation="ngModel" [(ngModel)]="accommodation.exactLocation"
-                required />
-              <div *ngIf="exactLocation.invalid && exactLocation.touched" class="text-danger mt-1">
-                <small>La ubicación es obligatoria.</small>
-              </div>
-            </div>
+            <app-location (locationSelected)="onLocationChange($event)"></app-location>
 
             <div class="row">
               <!-- 🔹 Precio -->

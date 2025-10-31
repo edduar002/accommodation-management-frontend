@@ -24,15 +24,14 @@ export class RegisterUserComponent {
   departamentos: Department[] = [];
   ciudades: City[] = [];
   selectedFile?: File;
-uploading = false;
-
+  uploading = false;
 
   constructor(
     private _userService: UserService,
     private _cityService: CityService,
     private _departmentService: DepartmentService,
     private passwordUtils: PasswordUtilsService,
-    private router: Router,
+    private router: Router
   ) {
     this.user = new User(
       '',
@@ -55,15 +54,14 @@ uploading = false;
 
   ngOnInit(): void {
     this.getAllDepartments();
-    this.onDepartmentChange()
+    this.onDepartmentChange();
   }
 
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
-}
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
+  }
 
-
-    // Este método se dispara al cambiar de departamento
+  // Este método se dispara al cambiar de departamento
   onDepartmentChange() {
     const selectedId = this.user.departmentId; // aquí tienes el ID seleccionado
     console.log('Departamento seleccionado:', selectedId);
@@ -95,61 +93,63 @@ onFileSelected(event: any) {
   }
 
   onSubmit(form: NgForm): void {
-  if (!this.passwordUtils.isStrong(this.user.password)) {
-    this.errorMessage =
-      'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
-    this.showModal('errorModal');
-    return;
+    if (!this.passwordUtils.isStrong(this.user.password)) {
+      this.errorMessage =
+        'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
+      this.showModal('errorModal');
+      return;
+    }
+
+    this.user.rolesId = 3;
+    this.user.active = true;
+
+    // Si el usuario seleccionó una imagen
+    if (this.selectedFile) {
+      this.uploading = true;
+      this._userService.uploadImage(this.selectedFile).subscribe({
+        next: (res) => {
+          console.log('Respuesta Cloudinary:', res); // 🔍 revisa en consola
+          this.user.imgUrl = res.secure_url; // ✅ URL segura de Cloudinary
+          this.uploading = false;
+          this.registerUser(form);
+        },
+        error: (err) => {
+          console.error('Error al subir imagen:', err);
+          this.uploading = false;
+          this.errorMessage = 'Error al subir la imagen.';
+          this.showModal('errorModal');
+        },
+      });
+    } else {
+      this.registerUser(form);
+    }
   }
 
-  this.user.rolesId = 3;
-  this.user.active = true;
-
-  // Si el usuario seleccionó una imagen
-  if (this.selectedFile) {
-    this.uploading = true;
-    this._userService.uploadImage(this.selectedFile).subscribe({
-      next: (res) => {
-        this.user.imgUrl = res.url; // URL de Cloudinary
-        this.uploading = false;
-        this.registerUser(form); // llama a la función real
+  private registerUser(form: NgForm): void {
+    this._userService.register(this.user).subscribe({
+      next: (response) => {
+        console.log('Usuario registrado:', response);
+        this.showModal('successModal');
+        form.resetForm();
+        this.selectedFile = undefined;
       },
-      error: (err) => {
-        console.error('Error al subir imagen:', err);
-        this.uploading = false;
-        this.errorMessage = 'Error al subir la imagen.';
+      error: (error) => {
+        console.error('Error al registrar usuario:', error);
+        if (
+          error?.error?.message?.includes('Duplicate entry') ||
+          error?.error?.includes('Duplicate entry') ||
+          error?.status === 409
+        ) {
+          this.errorMessage =
+            'El correo ingresado ya está registrado. Intenta con otro.';
+        } else {
+          this.errorMessage =
+            'Ocurrió un error inesperado. Inténtalo nuevamente.';
+        }
         this.showModal('errorModal');
       },
     });
-  } else {
-    this.registerUser(form);
   }
-}
-
-private registerUser(form: NgForm): void {
-  this._userService.register(this.user).subscribe({
-    next: (response) => {
-      console.log('Usuario registrado:', response);
-      this.showModal('successModal');
-      form.resetForm();
-      this.selectedFile = undefined;
-    },
-    error: (error) => {
-      console.error('Error al registrar usuario:', error);
-      if (
-        error?.error?.message?.includes('Duplicate entry') ||
-        error?.error?.includes('Duplicate entry') ||
-        error?.status === 409
-      ) {
-        this.errorMessage = 'El correo ingresado ya está registrado. Intenta con otro.';
-      } else {
-        this.errorMessage = 'Ocurrió un error inesperado. Inténtalo nuevamente.';
-      }
-      this.showModal('errorModal');
-    },
-  });
-}
-
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
