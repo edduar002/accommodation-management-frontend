@@ -28,20 +28,15 @@ export class LoginAdministratorComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
+
 // ✅ Guardar token + datos del usuario
           this._administratorService.saveSession(response);
-
-        // 👀 Validar si el usuario está activo
-        if (response.active === 1) {
           //Usuario activo → Mostrar modal de éxito
           this.showModal('successModal');
 
           // Limpiar formulario
           form.resetForm();
-        } else {
-          // ❌ Usuario inactivo → Mostrar modal de error
-          this.showModal('errorModal');
-        }
+        
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
@@ -64,7 +59,7 @@ export class LoginAdministratorComponent {
     }
 
     //Redirigir después del inicio exitoso
-    this.router.navigate(['/dashboard']);
+    this.router.navigate(['/']);
   }
 
   private showModal(id: string): void {

@@ -33,12 +33,12 @@ export class UserService {
 }
 
 saveSession(data: any): void {
-  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('token_user', data.token); // Guarda el token
   localStorage.setItem('user', JSON.stringify(data)); // Guarda todo el usuario
 }
 
 getToken(): string | null {
-  return localStorage.getItem('token');
+  return localStorage.getItem('token_user');
 }
 
 getUser(): User | null {
@@ -49,7 +49,6 @@ getUser(): User | null {
 logout(): void {
   localStorage.clear();
 }
-
 
   getAll(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -12,7 +12,7 @@
     </div>
   </div>
 </div>
-
+<br>
   <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-door-fill text-primary" aria-hidden="true"></i>
     Alojamientos destacados</h2>
 
@@ -51,12 +51,22 @@
 
   <!-- Mensaje cuando no hay alojamientos -->
   <ng-template #noAccommodations>
-    <div class="text-center mt-5">
-      <p class="text-muted fw-semibold">
-        No hay alojamientos disponibles en este momento.
+  <div class="text-center mt-5 d-flex flex-column justify-content-center align-items-center" style="min-height: 50vh;">
+    
+    <div class="p-4 border rounded-4 shadow-sm" style="max-width: 500px;">
+      <h4 class="fw-bold text-primary mb-3">
+        <i class="bi bi-emoji-neutral"></i> No encontramos alojamientos
+      </h4>
+
+      <p class="text-muted mb-4">
+        No hay alojamientos disponibles en este momento.  
+        Vuelve más tarde o ajusta el texto de búsqueda.
       </p>
     </div>
-  </ng-template>
+
+  </div>
+</ng-template>
+
 </div>
 <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">

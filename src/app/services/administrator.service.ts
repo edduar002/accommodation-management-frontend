@@ -5,7 +5,9 @@ import { Administrator } from '../models/administrator';
 import { global } from './global';
 import { RecoveryPassword } from '../models/recoveryPassword';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class AdministratorService{
 
     public url: string;
@@ -27,12 +29,12 @@ export class AdministratorService{
 }
 
 saveSession(data: any): void {
-  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('token_administrator', data.token); // Guarda el token
   localStorage.setItem('administrator', JSON.stringify(data)); // Guarda todo el usuario
 }
 
 getToken(): string | null {
-  return localStorage.getItem('token');
+  return localStorage.getItem('token_administrator');
 }
 
 getAdministrator(): Administrator | null {

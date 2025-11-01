@@ -6,7 +6,9 @@ import { global } from './global';
 import { RecoveryPassword } from '../models/recoveryPassword';
 import { Administrator } from '../models/administrator';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HostService {
   public url: string;
 
@@ -25,12 +27,12 @@ export class HostService {
 }
 
 saveSession(data: any): void {
-  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('token_host', data.token); // Guarda el token
   localStorage.setItem('host', JSON.stringify(data)); // Guarda todo el usuario
 }
 
 getToken(): string | null {
-  return localStorage.getItem('token');
+  return localStorage.getItem('token_host');
 }
 
 getHost(): Host | null {

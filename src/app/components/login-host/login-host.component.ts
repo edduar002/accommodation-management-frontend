@@ -25,11 +25,12 @@ export class LoginHostComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
-// ✅ Guardar token + datos del usuario
-          this._hostService.saveSession(response);
+
 
         // 👀 Validar si el host está activo
         if (Number(response.active) === 1) {
+          // ✅ Guardar token + datos del usuario
+          this._hostService.saveSession(response);
           //Usuario activo → Mostrar modal de éxito
           this.showModal('successModal');
 
@@ -61,7 +62,7 @@ export class LoginHostComponent {
     }
 
     //Redirigir al dashboard del anfitrión
-    this.router.navigate(['/host/dashboard']);
+    this.router.navigate(['/']);
   }
 
   private showModal(id: string): void {

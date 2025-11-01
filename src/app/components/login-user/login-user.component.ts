@@ -42,11 +42,12 @@ export class LoginUserComponent {
         console.log(response)
         console.log('Inicio de sesión exitoso:', response);
 
-        // ✅ Guardar token + datos del usuario
-          this._userService.saveSession(response);
+        
 
         // 👀 Verificar si el usuario está activo
         if (Number(response.active) === 1) {
+          // ✅ Guardar token + datos del usuario
+          this._userService.saveSession(response);
           //Usuario activo → Mostrar modal de éxito
           this.showModal('successModal');
 
@@ -78,7 +79,7 @@ export class LoginUserComponent {
     }
 
     //Redirigir al dashboard del usuario
-    this.router.navigate(['/user/dashboard']);
+    this.router.navigate(['/']);
   }
 
   private showModal(id: string): void {

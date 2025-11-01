@@ -18,9 +18,43 @@ export class AppComponent {
 
   constructor(public userService: UserService, public administratorService: AdministratorService, public hostService: HostService) {} // 👈 Hacemos el servicio accesible al HTML
 
-  logout() {
-    this.userService.logout();
-    this.administratorService.logout();
-    this.hostService.logout();
-  }
+confirmLogout() {
+  this.userService.logout();
+  this.administratorService.logout();
+  this.hostService.logout();
+}
+
+isLoggedIn(): boolean {
+  return (
+    this.userService.getToken() !== null ||
+    this.administratorService.getToken() !== null ||
+    this.hostService.getToken() !== null
+  );
+}
+
+isHostLoggedIn(): boolean {
+  return (
+    this.userService.getToken() === null &&
+    this.administratorService.getToken() === null &&
+    this.hostService.getToken() !== null
+  );
+}
+
+isAdministratorLoggedIn(): boolean {
+  return (
+    this.userService.getToken() === null &&
+    this.administratorService.getToken() !== null &&
+    this.hostService.getToken() === null
+  );
+}
+
+isUserLoggedIn(): boolean {
+  return (
+    this.userService.getToken() !== null &&
+    this.administratorService.getToken() === null &&
+    this.hostService.getToken() === null
+  );
+}
+
+
 }
