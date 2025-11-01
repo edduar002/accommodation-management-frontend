@@ -28,6 +28,8 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
   private successModal: any;
   private errorModal: any;
   selectedFile?: File;
+  uploading = false;
+
 
   constructor(
     private _hostService: HostService,
@@ -46,10 +48,17 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
     this.onDepartmentChange()
   }
 
-    onFileSelected(event: any): void {
+onFileSelected(event: any) {
   this.selectedFile = event.target.files[0];
-  console.log('Nueva imagen seleccionada:', this.selectedFile);
+
+  if (this.selectedFile) {
+    // Vista previa inmediata en la imagen de perfil
+    const reader = new FileReader();
+    reader.onload = (e: any) => (this.host.imgUrl = e.target.result);
+    reader.readAsDataURL(this.selectedFile);
+  }
 }
+
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {

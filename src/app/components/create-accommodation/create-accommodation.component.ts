@@ -52,12 +52,11 @@ export class CreateAccommodationComponent implements OnInit {
   }
 
 onLocationChange(coord: { lat: number, lng: number }) {
-  this.accommodation.latitude = coord.lat.toString();
-  this.accommodation.longitude = coord.lng.toString();
+  this.accommodation.exactLocation = `${coord.lat.toFixed(6)}, ${coord.lng.toFixed(6)}`;
 
-  // Convertimos a string en el formato que necesites:
-  this.accommodation.exactLocation = `${coord.lat}, ${coord.lng}`;
+  console.log("📍 Ubicación formateada:", this.accommodation.exactLocation);
 }
+
 
 
 
