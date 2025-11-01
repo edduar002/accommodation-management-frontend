@@ -21,10 +21,28 @@ export class AdministratorService{
         return this._http.post<any>(`${this.url}administrators/register`, administrator, { headers });
     }
 
-    login(administrator: Administrator): Observable<any> {
-        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-        return this._http.post<any>(`${this.url}administrators/login`, administrator, { headers });
-    }
+  login(administrator: Administrator): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this._http.post<any>(`${this.url}administrators/login`, administrator, { headers });
+}
+
+saveSession(data: any): void {
+  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('administrator', JSON.stringify(data)); // Guarda todo el usuario
+}
+
+getToken(): string | null {
+  return localStorage.getItem('token');
+}
+
+getAdministrator(): Administrator | null {
+  const administrator = localStorage.getItem('administrator');
+  return administrator ? JSON.parse(administrator) : null;
+}
+
+logout(): void {
+  localStorage.clear();
+}
 
     changePassword(id: number, recoveryPassword: RecoveryPassword): Observable<any> {
         const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

@@ -1,9 +1,9 @@
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded-3 mt-3">
     <a class="navbar-brand fw-bold text-primary d-flex align-items-center" routerLink="/">
-  <img src="img/logos/logo.png" alt="StayFinder Logo" width="35" height="35" class="me-2">
-  StayFinder
-</a>
+      <img src="img/logos/logo.png" alt="StayFinder Logo" width="35" height="35" class="me-2">
+      StayFinder
+    </a>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -16,10 +16,10 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/">Inicio</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!userService.getToken()">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" *ngIf="!userService.getToken()">
           <a class="nav-link" routerLink="/register">Registro</a>
         </li>
       </ul>
@@ -43,10 +43,18 @@
             <li><a class="dropdown-item" routerLink="/managementRole">Gestion de roles</a></li>
             <li><a class="dropdown-item" routerLink="/createReservation">Reservar</a></li>
             <li><a class="dropdown-item" routerLink="/editProfileAdmin/2">Editar perfil (admin)</a></li>
-            <li><a class="dropdown-item" routerLink="/editProfileHost/2">Editar perfil (host)</a></li>
-            <li><a class="dropdown-item" routerLink="/editProfileUser/2">Editar perfil (user)</a></li>
+            <li>
+              <a class="dropdown-item" routerLink="/editProfileHost/2">Editar perfil (host)</a>
+            </li>
+            <li>
+              <a class="dropdown-item" [routerLink]="['/editProfileUser', userService.getUser()?.id]">
+                Editar perfil (user)
+              </a>
+            </li>
             <li><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
-            <li><hr class="dropdown-divider"></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
             <li><a class="dropdown-item text-danger" href="#">Salir</a></li>
           </ul>
         </li>
@@ -64,7 +72,7 @@
   <div class="container">
     <p class="mb-1 fw-bold">© 2025 - Todos los derechos reservados</p>
     <small>
-      Creado por <strong>Eduardo Cortes Pineda</strong> y 
+      Creado por <strong>Eduardo Cortes Pineda</strong> y
       <strong>Daniel Eduardo Jurado Celemín</strong><br>
       Universidad del Quindío
     </small>

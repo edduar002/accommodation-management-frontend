@@ -28,6 +28,9 @@ export class LoginAdministratorComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
+// ✅ Guardar token + datos del usuario
+          this._administratorService.saveSession(response);
+
         // 👀 Validar si el usuario está activo
         if (response.active === 1) {
           //Usuario activo → Mostrar modal de éxito

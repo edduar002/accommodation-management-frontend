@@ -25,6 +25,9 @@ export class LoginHostComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
+// ✅ Guardar token + datos del usuario
+          this._hostService.saveSession(response);
+
         // 👀 Validar si el host está activo
         if (Number(response.active) === 1) {
           //Usuario activo → Mostrar modal de éxito

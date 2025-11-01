@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Host } from '../models/host';
 import { global } from './global';
 import { RecoveryPassword } from '../models/recoveryPassword';
+import { Administrator } from '../models/administrator';
 
 @Injectable()
 export class HostService {
@@ -18,10 +19,28 @@ export class HostService {
     return this._http.post<any>(`${this.url}hosts/register`, host, { headers });
   }
 
-  login(user: Host): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.post<any>(`${this.url}hosts/login`, user, { headers });
-  }
+  login(host: Host): Observable<any> {
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this._http.post<any>(`${this.url}hosts/login`, host, { headers });
+}
+
+saveSession(data: any): void {
+  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('host', JSON.stringify(data)); // Guarda todo el usuario
+}
+
+getToken(): string | null {
+  return localStorage.getItem('token');
+}
+
+getHost(): Host | null {
+  const host = localStorage.getItem('host');
+  return host ? JSON.parse(host) : null;
+}
+
+logout(): void {
+  localStorage.clear();
+}
 
   getAll(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });

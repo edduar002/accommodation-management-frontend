@@ -5,7 +5,9 @@ import { User } from '../models/user';
 import { global } from './global';
 import { RecoveryPassword } from '../models/recoveryPassword';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class UserService {
   public url: string;
 
@@ -26,9 +28,28 @@ export class UserService {
 
 
   login(user: User): Observable<any> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.post<any>(`${this.url}users/login`, user, { headers });
-  }
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this._http.post<any>(`${this.url}users/login`, user, { headers });
+}
+
+saveSession(data: any): void {
+  localStorage.setItem('token', data.token); // Guarda el token
+  localStorage.setItem('user', JSON.stringify(data)); // Guarda todo el usuario
+}
+
+getToken(): string | null {
+  return localStorage.getItem('token');
+}
+
+getUser(): User | null {
+  const user = localStorage.getItem('user');
+  return user ? JSON.parse(user) : null;
+}
+
+logout(): void {
+  localStorage.clear();
+}
+
 
   getAll(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
