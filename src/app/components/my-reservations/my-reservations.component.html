@@ -1,139 +1,56 @@
-<!-- Contenedor principal de la página de reservas -->
 <div class="container mt-5">
-
-  <!-- Sección de título y descripción de la página -->
-  <div class="text-center mb-5">
+  <div class="text-center mb-4">
     <h2 class="fw-bold">Mis Reservas</h2>
-    <p class="text-muted">
-      Consulta el estado de tus reservas realizadas, canceladas o rechazadas
-    </p>
+    <p class="text-muted">Consulta el estado de tus reservas realizadas, canceladas o rechazadas</p>
   </div>
 
-  <!-- Sección de pestañas para filtrar las reservas -->
-  <ul class="nav nav-pills justify-content-center mb-4" id="reservasTabs" role="tablist">
-    
-    <!-- Pestaña "Todas" -->
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="todas-tab" data-bs-toggle="pill" data-bs-target="#todas" type="button"
-        role="tab">
-        Todas
-      </button>
-    </li>
-
-    <!-- Pestaña "Realizadas" -->
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="realizadas-tab" data-bs-toggle="pill" data-bs-target="#realizadas" type="button"
-        role="tab">
-        Realizadas
-      </button>
-    </li>
-
-    <!-- Pestaña "Canceladas" -->
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="canceladas-tab" data-bs-toggle="pill" data-bs-target="#canceladas" type="button"
-        role="tab">
-        Canceladas
-      </button>
-    </li>
-
-    <!-- Pestaña "Rechazadas" -->
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="rechazadas-tab" data-bs-toggle="pill" data-bs-target="#rechazadas" type="button"
-        role="tab">
-        Rechazadas
-      </button>
-    </li>
-  </ul>
-
-  <!-- Contenido de las pestañas -->
-  <div class="tab-content" id="reservasTabsContent">
-
-    <!-- Pestaña "Todas" -->
-    <div class="tab-pane fade show active" id="todas" role="tabpanel">
-      <div class="row g-4">
-
-        <!-- Card 1: Hotel San Carlos -->
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm rounded-4">
-            <!-- Imagen del hotel -->
-            <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&w=800&q=80"
-              class="card-img-top rounded-top-4" alt="Hotel San Carlos">
-            <div class="card-body">
-              <!-- Nombre del hotel -->
-              <h5 class="card-title fw-bold">Hotel San Carlos</h5>
-              <!-- Ubicación -->
-              <p class="card-text text-muted mb-2">Medellín, Colombia</p>
-              <!-- Detalles de la reserva -->
-              <p class="card-text small">
-                <strong>Fecha:</strong> 10/11/2025 - 13/11/2025<br>
-                <strong>Estado:</strong> <span class="badge bg-success">Confirmada</span>
-              </p>
-              <!-- Botones de acción -->
-              <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-outline-primary btn-sm">Ver detalles</button>
-                <button class="btn btn-outline-danger btn-sm">Cancelar</button>
-              </div>
-            </div>
-          </div>
+  <div class="row g-4">
+    <!-- Card 1 -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4">
+        <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&w=800&q=80"
+             class="card-img-top rounded-top-4" alt="Hotel San Carlos">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">Hotel San Carlos</h5>
+          <p class="card-text text-muted mb-2">Medellín, Colombia</p>
+          <p class="card-text small">
+            <strong>Fechas:</strong> 10/11/2025 - 13/11/2025<br>
+            <strong>Estado:</strong> <span class="badge bg-success">Confirmada</span>
+          </p>
         </div>
-
-        <!-- Card 2: Resort Playa Blanca -->
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm rounded-4">
-            <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80"
-              class="card-img-top rounded-top-4" alt="Resort Playa Blanca">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">Resort Playa Blanca</h5>
-              <p class="card-text text-muted mb-2">Cartagena, Colombia</p>
-              <p class="card-text small">
-                <strong>Fecha:</strong> 05/10/2025 - 10/10/2025<br>
-                <strong>Estado:</strong> <span class="badge bg-primary">Realizada</span>
-              </p>
-              <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-outline-primary btn-sm">Ver detalles</button>
-                <button class="btn btn-outline-secondary btn-sm">Volver a reservar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Card 3: ApartaHotel Central -->
-        <div class="col-md-4">
-          <div class="card border-0 shadow-sm rounded-4">
-            <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-              class="card-img-top rounded-top-4" alt="ApartaHotel Central">
-            <div class="card-body">
-              <h5 class="card-title fw-bold">ApartaHotel Central</h5>
-              <p class="card-text text-muted mb-2">Bogotá, Colombia</p>
-              <p class="card-text small">
-                <strong>Fecha:</strong> 20/09/2025 - 25/09/2025<br>
-                <strong>Estado:</strong> <span class="badge bg-danger">Cancelada</span>
-              </p>
-              <div class="d-flex justify-content-between mt-3">
-                <button class="btn btn-outline-secondary btn-sm">Ver detalles</button>
-                <button class="btn btn-outline-dark btn-sm">Reintentar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 
-    <!-- Pestaña "Realizadas" vacía -->
-    <div class="tab-pane fade" id="realizadas" role="tabpanel">
-      <p class="text-center text-muted mt-4">Aquí aparecerán tus reservas realizadas.</p>
+    <!-- Card 2 -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4">
+        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80"
+             class="card-img-top rounded-top-4" alt="Resort Playa Blanca">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">Resort Playa Blanca</h5>
+          <p class="card-text text-muted mb-2">Cartagena, Colombia</p>
+          <p class="card-text small">
+            <strong>Fechas:</strong> 05/10/2025 - 10/10/2025<br>
+            <strong>Estado:</strong> <span class="badge bg-primary">Realizada</span>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <!-- Pestaña "Canceladas" vacía -->
-    <div class="tab-pane fade" id="canceladas" role="tabpanel">
-      <p class="text-center text-muted mt-4">Aquí aparecerán tus reservas canceladas.</p>
+    <!-- Card 3 -->
+    <div class="col-md-4">
+      <div class="card border-0 shadow-sm rounded-4">
+        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
+             class="card-img-top rounded-top-4" alt="ApartaHotel Central">
+        <div class="card-body">
+          <h5 class="card-title fw-bold">ApartaHotel Central</h5>
+          <p class="card-text text-muted mb-2">Bogotá, Colombia</p>
+          <p class="card-text small">
+            <strong>Fechas:</strong> 20/09/2025 - 25/09/2025<br>
+            <strong>Estado:</strong> <span class="badge bg-danger">Cancelada</span>
+          </p>
+        </div>
+      </div>
     </div>
-
-    <!-- Pestaña "Rechazadas" vacía -->
-    <div class="tab-pane fade" id="rechazadas" role="tabpanel">
-      <p class="text-center text-muted mt-4">Aquí aparecerán tus reservas rechazadas.</p>
-    </div>
-
   </div>
 </div>

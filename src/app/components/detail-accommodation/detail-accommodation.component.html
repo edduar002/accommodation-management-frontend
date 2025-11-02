@@ -1,28 +1,34 @@
+<!-- DETALLE DEL ALOJAMIENTO -->
+
 <!-- Sección de detalle del alojamiento -->
+<!-- Se muestra solo si no está cargando (isLoading=false) y hay datos de accommodation -->
 <div class="detail-section mt-5" *ngIf="!isLoading && accommodation; else loading">
-  <!-- Título de la sección -->
+
+  <!-- Título principal de la sección -->
   <h2 class="text-center fw-bold mb-4">Detalle del alojamiento</h2>
 
   <!-- Imagen principal del alojamiento -->
   <div class="text-center mt-4">
+    <!-- Se utiliza la propiedad imgUrl del objeto accommodation; si no hay imagen, se muestra un placeholder -->
     <img [src]="accommodation.imgUrl || 'https://via.placeholder.com/800x400?text=Sin+imagen'"
-      alt="Imagen del alojamiento" class="img-fluid rounded-4 shadow-lg"
-      style="max-width: 800px; height: auto; object-fit: cover;" />
+         alt="Imagen del alojamiento"
+         class="img-fluid rounded-4 shadow-lg"
+         style="max-width: 800px; height: auto; object-fit: cover;" />
   </div>
 
-  <!-- Información del alojamiento -->
+  <!-- Información textual del alojamiento -->
   <div class="text-center mt-5">
-    <!-- Descripción detallada del alojamiento -->
+    <!-- Descripción detallada -->
     <h4 class="fw-semibold">{{ accommodation.detailedDescription }}</h4>
 
-    <!-- Departamento y ciudad -->
+    <!-- Departamento y ciudad del alojamiento -->
     <div class="mt-3">
       <p class="fw-semibold mb-1">
         {{ accommodation.departmentName }} - {{ accommodation.cityName }}
       </p>
     </div>
 
-    <!-- Dirección y coordenadas -->
+    <!-- Dirección y coordenadas geográficas -->
     <p class="text-muted mx-auto" style="max-width: 600px;">
       <strong>{{ accommodation.direction }}</strong><br>
       Coordenadas: {{ accommodation.exactLocation }}
@@ -31,15 +37,25 @@
     <!-- Precio por noche -->
     <p class="fw-bold text-success fs-5">{{ accommodation.price | number }} COP / noche</p>
 
-    <!-- Capacidad máxima -->
+    <!-- Capacidad máxima de personas -->
     <p class="text-secondary">Capacidad máxima: {{ accommodation.maximumCapacity }} personas</p>
 
-    <!-- Botón de reserva -->
-    <button *ngIf="isUserLoggedIn()" class="btn btn-primary rounded-pill px-4 mt-3">Reservar ahora</button>
+    <!-- Formulario de reserva (solo botón) -->
+    <form #reservationForm="ngForm">
+      <div class="text-center mt-4">
+        <!-- Botón solo visible si el usuario está logueado -->
+        <button *ngIf="isUserLoggedIn()" 
+                class="btn btn-primary rounded-pill px-4 mt-3"
+                (click)="reservarAhora(reservationForm)">
+          Reservar ahora
+        </button>
+      </div>
+    </form>
+
   </div>
 </div>
 
-<!-- Estado de carga mientras se obtiene el alojamiento -->
+<!-- Template de carga mientras se obtienen los datos -->
 <ng-template #loading>
   <div class="text-center mt-5">
     <div class="spinner-border text-primary" role="status"></div>
@@ -47,38 +63,40 @@
   </div>
 </ng-template>
 
-<!-- Sección de reserva -->
+<!-- SECCIÓN DE RESERVA -->
+
 <div class="container mt-5 p-4 border rounded-4 shadow-sm" style="max-width: 700px;">
-  <!-- Título de la sección -->
+  <!-- Título de la sección de reserva -->
   <h4 class="text-center fw-bold mb-4">Reservar</h4>
 
   <div class="row g-3">
-    <!-- Campo de fecha Check-in -->
+    <!-- Fecha de Check-in -->
     <div class="col-md-4">
       <label class="form-label fw-semibold">Check-in</label>
       <input type="date" class="form-control" [(ngModel)]="checkIn">
     </div>
 
-    <!-- Campo de fecha Check-out -->
+    <!-- Fecha de Check-out -->
     <div class="col-md-4">
       <label class="form-label fw-semibold">Check-out</label>
       <input type="date" class="form-control" [(ngModel)]="checkOut">
     </div>
 
-    <!-- Campo número de personas -->
+    <!-- Número de personas -->
     <div class="col-md-4">
       <label class="form-label fw-semibold">Personas</label>
-      <input type="number" min="1" [max]="accommodation.maximumCapacity" class="form-control" [(ngModel)]="guests">
+      <input type="number" min="1" [max]="accommodation.maximumCapacity" 
+             class="form-control" [(ngModel)]="guests">
     </div>
 
-    <!-- Botón para calcular el total -->
+    <!-- Botón para calcular el total de la reserva -->
     <div class="text-center mt-4">
       <button class="btn btn-success px-4 rounded-pill" (click)="calculateTotal()">
         Calcular total
       </button>
     </div>
 
-    <!-- Resultado del total calculado -->
+    <!-- Mostrar total calculado si existe -->
     <div class="text-center mt-3" *ngIf="totalPrice !== null">
       <h5 class="fw-bold text-success">
         Total: {{ totalPrice | number }} COP
@@ -87,5 +105,45 @@
   </div>
 </div>
 
-<!-- Sección de comentarios del alojamiento -->
+<!-- MODALES -->
+
+<!-- Modal de éxito en reserva -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-success">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title" id="successModalLabel">¡Reserva exitosa!</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Tu reserva se ha realizado correctamente.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de error en reserva -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title" id="errorModalLabel">¡Error al reservar!</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        Ocurrió un error al procesar tu reserva. Por favor, inténtalo de nuevo.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECCIÓN DE COMENTARIOS -->
+
+<!-- Componente de comentarios del alojamiento -->
 <app-comments></app-comments>

@@ -55,7 +55,6 @@ export class ChangePasswordAdminComponent {
     const adminsitrator = JSON.parse(
       localStorage.getItem('administrator') || '{}'
     );
-    console.log(adminsitrator)
     // Asignar el id del administrador al objeto de recuperación de contraseña
     this.recoveryPassword.id = adminsitrator.id;
 
