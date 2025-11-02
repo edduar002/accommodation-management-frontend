@@ -1,5 +1,5 @@
-<!-- Sección principal de la página de inicio -->
-<div class="home-section mt-5">
+<!-- Sección principal de la página de inicio para los usuarios -->
+<div *ngIf="isUserLoggedIn() || !isLoggedIn()" class="home-section mt-5">
 
   <!-- Filtro de búsqueda -->
   <div class="container mb-4">
@@ -122,5 +122,114 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+<!-- Sección principal de la página de inicio para los administradores -->
+<div *ngIf="isAdministratorLoggedIn()" class="home-section mt-5">
+  <h2 class="fw-bold mb-4 text-primary text-center">Panel de Administrador</h2>
+  <p class="text-muted mb-5 text-center">
+    Como administrador, puedes supervisar, gestionar y mantener el correcto funcionamiento de la plataforma.
+  </p>
+
+  <div class="row g-4 justify-content-center">
+
+    <!-- Gestión de Usuarios -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-people-fill fs-1 text-primary"></i>
+          <h5 class="fw-bold mt-3">Gestión de Usuarios</h5>
+          <p class="text-muted">Visualiza, edita o desactiva usuarios y anfitriones registrados.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Administrar Alojamientos -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-house-gear-fill fs-1 text-warning"></i>
+          <h5 class="fw-bold mt-3">Administrar Alojamientos</h5>
+          <p class="text-muted">Revisa alojamientos, controla publicaciones y verifica reportes.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de Ciudades -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-geo-alt-fill fs-1 text-danger"></i>
+          <h5 class="fw-bold mt-3">Gestión de Ciudades</h5>
+          <p class="text-muted">Agrega, actualiza y organiza las ciudades disponibles en la plataforma.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de Departamentos -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-map-fill fs-1 text-success"></i>
+          <h5 class="fw-bold mt-3">Gestión de Departamentos</h5>
+          <p class="text-muted">Administra la lista de departamentos que componen la ubicación de los alojamientos.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de Roles -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-shield-lock-fill fs-1 text-secondary"></i>
+          <h5 class="fw-bold mt-3">Gestión de Roles</h5>
+          <p class="text-muted">Controla los permisos y tipos de acceso dentro de la plataforma.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gestión de Anfitriones -->
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-person-badge-fill fs-1 text-info"></i>
+          <h5 class="fw-bold mt-3">Gestión de Anfitriones</h5>
+          <p class="text-muted">Verifica información, habilita o suspende anfitriones cuando sea necesario.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- Sección principal de la página de inicio para los anfitriones -->
+<div *ngIf="isHostLoggedIn()" class="home-section mt-5">
+  <h2 class="fw-bold mb-4 text-primary">Panel de Anfitrión</h2>
+  <p class="text-muted mb-5">Como anfitrión, puedes gestionar tus alojamientos y visualizar tus reservas.</p>
+
+  <div class="row g-4 justify-content-center">
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-house-add-fill fs-1 text-success"></i>
+          <h5 class="fw-bold mt-3">Publicar Alojamientos</h5>
+          <p class="text-muted">Agrega nuevos alojamientos con fotos, ubicación y precios.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card shadow-sm h-100 text-center border-0 role-card">
+        <div class="card-body">
+          <i class="bi bi-calendar-check-fill fs-1 text-primary"></i>
+          <h5 class="fw-bold mt-3">Ver Reservas</h5>
+          <p class="text-muted">Consulta el historial y estado de reservas en tus alojamientos.</p>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>

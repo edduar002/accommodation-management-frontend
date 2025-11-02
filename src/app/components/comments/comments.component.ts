@@ -6,6 +6,8 @@ import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
 import { ResponseCommentComponent } from '../response-comment/response-comment.component';
 import { UserService } from '../../services/user.service';
+import { HostService } from '../../services/host.service';
+import { AdministratorService } from '../../services/administrator.service';
 
 @Component({
   selector: 'app-comments',
@@ -39,7 +41,9 @@ export class CommentsComponent implements OnInit {
     private _commentService: CommentService,
     private _userService: UserService,
     private _route: ActivatedRoute,
-    private _router: Router
+    private _router: Router,
+    public hostService: HostService,
+    public administratorService: AdministratorService
   ) {
     // Inicializa el objeto comment con valores por defecto
     this.comment = new Comment('', new Date(), 0, 1, '');
@@ -66,6 +70,18 @@ export class CommentsComponent implements OnInit {
         this._router.navigate(['/']);
       }
     });
+  }
+
+  /**
+   * Método para verificar si el usuario logueado es un usuario normal.
+   * Retorna true solo si hay token de usuario y no hay administrador ni anfitrión logueado.
+   */
+  isUserLoggedIn(): boolean {
+    return (
+      this._userService.getToken() !== null && // Usuario logueado
+      this.administratorService.getToken() === null && // Administrador no logueado
+      this.hostService.getToken() === null // Anfitrión no logueado
+    );
   }
 
   /**
@@ -110,7 +126,6 @@ export class CommentsComponent implements OnInit {
     // Llamar al servicio para registrar comentario
     this._commentService.register(this.comment).subscribe({
       next: (response) => {
-
         // Mostrar modal de éxito
         const modalEl = document.getElementById('successModal');
         if (modalEl) {
@@ -143,7 +158,9 @@ export class CommentsComponent implements OnInit {
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       // Remover clase que bloquea scroll
       document.body.classList.remove('modal-open');

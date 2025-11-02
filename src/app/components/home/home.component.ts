@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { AccommodationService } from '../../services/accommodation.service';
 import { Accommodation } from '../../models/accommodation';
 import { FilterAlojamientoPipe } from '../../../pipes/FilterAlojamientoPipe';
+import { UserService } from '../../services/user.service';
+import { AdministratorService } from '../../services/administrator.service';
+import { HostService } from '../../services/host.service';
 
 // Declaración de variable global para modales de Bootstrap
 declare var bootstrap: any;
@@ -23,7 +26,6 @@ declare var bootstrap: any;
   ],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-
   // Array de alojamientos que se mostrarán en la página
   public accommodations: Accommodation[] = [];
 
@@ -41,7 +43,12 @@ export class HomeComponent implements OnInit, AfterViewInit {
    * Constructor del componente
    * @param _accommodationService Servicio para obtener alojamientos
    */
-  constructor(private _accommodationService: AccommodationService) {}
+  constructor(
+    private _accommodationService: AccommodationService,
+    public userService: UserService,
+    public administratorService: AdministratorService,
+    public hostService: HostService
+  ) {}
 
   /**
    * Método de Angular que se ejecuta al inicializar el componente
@@ -81,6 +88,54 @@ export class HomeComponent implements OnInit, AfterViewInit {
         console.error('Error al cargar alojamientos:', err);
       },
     });
+  }
+
+  /**
+   * Método para verificar si el usuario logueado es un anfitrión.
+   * Retorna true solo si no hay usuario ni administrador logueado, y sí hay anfitrión.
+   */
+  isHostLoggedIn(): boolean {
+    return (
+      this.userService.getToken() === null && // Usuario no logueado
+      this.administratorService.getToken() === null && // Administrador no logueado
+      this.hostService.getToken() !== null // Anfitrión logueado
+    );
+  }
+
+  /**
+   * Método para verificar si el usuario logueado es un administrador.
+   * Retorna true solo si no hay usuario ni anfitrión logueado, y sí hay administrador.
+   */
+  isAdministratorLoggedIn(): boolean {
+    return (
+      this.userService.getToken() === null && // Usuario no logueado
+      this.administratorService.getToken() !== null && // Administrador logueado
+      this.hostService.getToken() === null // Anfitrión no logueado
+    );
+  }
+
+  /**
+   * Método para verificar si el usuario logueado es un usuario normal.
+   * Retorna true solo si hay token de usuario y no hay administrador ni anfitrión logueado.
+   */
+  isUserLoggedIn(): boolean {
+    return (
+      this.userService.getToken() !== null && // Usuario logueado
+      this.administratorService.getToken() === null && // Administrador no logueado
+      this.hostService.getToken() === null // Anfitrión no logueado
+    );
+  }
+
+  /**
+   * Método para verificar si hay algún usuario logueado.
+   * Retorna true si alguno de los servicios tiene un token válido.
+   */
+  isLoggedIn(): boolean {
+    return (
+      this.userService.getToken() !== null || // Verifica token de usuario
+      this.administratorService.getToken() !== null || // Verifica token de administrador
+      this.hostService.getToken() !== null // Verifica token de anfitrión
+    );
   }
 
   /**

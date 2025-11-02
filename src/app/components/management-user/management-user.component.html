@@ -20,7 +20,6 @@
           <th scope="col">Teléfono</th>
           <th scope="col">Fecha de nacimiento</th>
           <th scope="col">Departamento</th>
-          <th scope="col">Ciudad</th>
           <th scope="col" class="text-center" style="width: 15%">Acciones</th>
         </tr>
       </thead>
@@ -38,7 +37,6 @@
           <td>{{ user.phone }}</td>
           <td>{{ user.birthday | date:'dd/MM/yyyy' }}</td>
           <td>{{ user.departmentName }}</td>
-          <td>{{ user.cityName }}</td>
           <!-- Botón para eliminar el usuario -->
           <td class="text-center">
             <button type="button"

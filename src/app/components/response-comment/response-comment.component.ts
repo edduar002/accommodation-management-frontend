@@ -4,6 +4,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Response } from '../../models/response';
 import { ResponseService } from '../../services/response.service';
+import { UserService } from '../../services/user.service';
+import { AdministratorService } from '../../services/administrator.service';
 import { HostService } from '../../services/host.service';
 
 @Component({
@@ -15,7 +17,7 @@ import { HostService } from '../../services/host.service';
   providers: [ResponseService],
 })
 export class ResponseCommentComponent implements OnInit {
-  /** 
+  /**
    * Identificador del comentario al que se asociarán las respuestas
    */
   @Input() commentId!: number | undefined;
@@ -31,7 +33,9 @@ export class ResponseCommentComponent implements OnInit {
 
   constructor(
     private _responseService: ResponseService,
-    private _hostService: HostService,
+    public userService: UserService,
+    public administratorService: AdministratorService,
+    public hostService: HostService,
     private router: Router
   ) {
     // Inicializamos la respuesta vacía
@@ -74,7 +78,7 @@ export class ResponseCommentComponent implements OnInit {
     this.response.date = new Date(); // Fecha actual de la respuesta
 
     // Obtenemos el host que está enviando la respuesta
-    const host = this._hostService.getHost();
+    const host = this.hostService.getHost();
     if (host && host.id) {
       this.response.hostsId = host.id; // Asociamos el ID del host
     }
@@ -97,6 +101,18 @@ export class ResponseCommentComponent implements OnInit {
   }
 
   /**
+   * Método para verificar si el usuario logueado es un anfitrión.
+   * Retorna true solo si no hay usuario ni administrador logueado, y sí hay anfitrión.
+   */
+  isHostLoggedIn(): boolean {
+    return (
+      this.userService.getToken() === null && // Usuario no logueado
+      this.administratorService.getToken() === null && // Administrador no logueado
+      this.hostService.getToken() !== null // Anfitrión logueado
+    );
+  }
+
+  /**
    * Muestra un modal de Bootstrap dado su ID
    * @param id ID del modal a mostrar
    */
@@ -116,7 +132,9 @@ export class ResponseCommentComponent implements OnInit {
   closeModal(id: string, redirect: boolean = false): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide(); // Ocultamos el modal
     }
 

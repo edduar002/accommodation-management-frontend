@@ -19,7 +19,7 @@
 
   <!-- Formulario para enviar una nueva respuesta -->
   <div class="mt-3">
-    <form #responseForm="ngForm" (ngSubmit)="onSubmitResponse(responseForm)">
+    <form *ngIf="isHostLoggedIn()" #responseForm="ngForm" (ngSubmit)="onSubmitResponse(responseForm)">
       <div class="mb-2">
         <textarea
           class="form-control"

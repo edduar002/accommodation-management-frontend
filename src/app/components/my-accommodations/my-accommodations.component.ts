@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Accommodation } from '../../models/accommodation';
 import { AccommodationService } from '../../services/accommodation.service';
+import { HostService } from '../../services/host.service';
 
 @Component({
   selector: 'app-management-accommodations', // Selector del componente
@@ -27,7 +28,8 @@ export class MyAccommodationsComponent implements OnInit {
    */
   constructor(
     private http: HttpClient,
-    private _accommodationService: AccommodationService
+    private _accommodationService: AccommodationService,
+    private _hostService: HostService
   ) {}
 
   /**
@@ -41,18 +43,29 @@ export class MyAccommodationsComponent implements OnInit {
   }
 
   /**
-   * Obtiene todos los alojamientos del usuario desde el servicio
-   * Suscribe a la respuesta para manejar los datos o errores
+   * Obtiene todos los alojamientos asociados al anfitrión actual.
+   * Primero valida si el anfitrión está disponible en el servicio.
+   * Si el ID existe, realiza la petición al backend para obtener los alojamientos.
+   * Si el usuario no está identificado correctamente, muestra un error en consola.
    */
   getAll(): void {
-    // Llamada al servicio para obtener alojamientos del usuario con ID 1
-    this._accommodationService.getAllOwn(1).subscribe({
+    // Obtener el anfitrión almacenado en el servicio
+    const host = this._hostService.getHost();
+
+    // Validar si el ID del anfitrión existe
+    if (!host || host.id === undefined) {
+      console.error('No se pudo obtener el ID del anfitrión.');
+      return; // Detener ejecución si no existe el ID
+    }
+
+    // Llamada al servicio para obtener alojamientos del anfitrión
+    this._accommodationService.getAllOwn(host.id).subscribe({
       next: (response: any) => {
-        // Se asigna la respuesta al arreglo de alojamientos
+        // Asignar respuesta a la lista de alojamientos
         this.accommodations = response;
       },
       error: (error) => {
-        // En caso de error, se muestra en consola
+        // Mostrar el error en consola si ocurre
         console.error('Error al obtener alojamientos:', error);
       },
     });

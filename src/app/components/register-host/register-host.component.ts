@@ -160,19 +160,49 @@ export class RegisterHostComponent {
   }
 
   /**
-   * Método privado para registrar al host en el backend
-   * @param form Referencia al formulario Angular
+   * Método privado para registrar al host en el backend.
+   * Tras un registro exitoso, se realiza login automático.
+   * @param form Referencia al formulario Angular.
    */
   private registerUser(form: NgForm): void {
     this._hostService.register(this.host).subscribe({
       next: (response) => {
-        this.showModal('successModal'); // Mostrar modal de éxito
-        form.resetForm(); // Limpiar formulario
-        this.selectedFile = undefined; // Limpiar imagen seleccionada
+        // ✅ Registro exitoso, proceder con login automático
+        this._hostService
+          .login({
+            email: this.host.email, // Se usa el email del host recién registrado
+            password: this.host.password, // Se usa la contraseña ingresada en el formulario
+          })
+          .subscribe({
+            next: (loginResponse) => {
+              // Guardar la sesión del usuario en el almacenamiento local o servicio
+              this._hostService.saveSession(loginResponse);
+
+              // Mostrar modal de éxito tras login automático
+              this.showModal('successModal');
+
+              // Limpiar formulario e imagen seleccionada
+              form.resetForm();
+              this.selectedFile = undefined;
+            },
+            error: (loginError) => {
+              // El registro fue exitoso, pero falló el login automático
+              console.error('Error al hacer login automático:', loginError);
+
+              // Mostrar mensaje de error específico
+              this.errorMessage =
+                'El registro fue exitoso, pero ocurrió un error al iniciar sesión.';
+
+              // Mostrar modal de error
+              this.showModal('errorModal');
+            },
+          });
       },
       error: (error) => {
+        // Error al registrar el usuario
         console.error('Error al registrar usuario:', error);
-        // Detectar correo duplicado
+
+        // Detectar si el correo ya existe en la base de datos
         if (
           error?.error?.message?.includes('Duplicate entry') ||
           error?.error?.includes('Duplicate entry') ||
@@ -181,10 +211,13 @@ export class RegisterHostComponent {
           this.errorMessage =
             'El correo ingresado ya está registrado. Intenta con otro.';
         } else {
+          // Error genérico
           this.errorMessage =
             'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
-        this.showModal('errorModal'); // Mostrar modal de error
+
+        // Mostrar modal de error
+        this.showModal('errorModal');
       },
     });
   }

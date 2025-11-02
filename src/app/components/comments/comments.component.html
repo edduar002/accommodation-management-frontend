@@ -31,7 +31,7 @@
         placeholder="Cuéntanos tu experiencia..." required></textarea>
       <!-- Botón para publicar el comentario -->
       <div class="text-end">
-        <input type="submit" class="btn btn-success rounded-pill px-4" value="Publicar comentario"
+        <input *ngIf="isUserLoggedIn()" type="submit" class="btn btn-success rounded-pill px-4" value="Publicar comentario"
           [disabled]="commentForm.invalid" />
       </div>
     </form>

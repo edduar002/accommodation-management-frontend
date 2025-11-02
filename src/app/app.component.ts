@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { HomeComponent } from './components/home/home.component';
+import { Router } from '@angular/router';
 import { UserService } from './services/user.service'; 
 import { AdministratorService } from './services/administrator.service'; 
 import { HostService } from './services/host.service'; 
@@ -25,7 +25,8 @@ export class AppComponent {
   constructor(
     public userService: UserService,
     public administratorService: AdministratorService,
-    public hostService: HostService
+    public hostService: HostService,
+    private router: Router
   ) {} 
 
   /**
@@ -39,6 +40,8 @@ export class AppComponent {
     this.administratorService.logout();
     // Cierra sesión del anfitrión
     this.hostService.logout();
+    // Redirigir al inicio
+    this.router.navigate(['/']);
   }
 
   /**

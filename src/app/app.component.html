@@ -46,12 +46,12 @@
             <i *ngIf="isAdministratorLoggedIn()" class="bi bi-person-badge-fill fs-4 text-primary me-2"></i>
 
             <!-- Imagen para anfitrión -->
-            <img *ngIf="isHostLoggedIn()" [src]="hostService.getHost()?.imgUrl || 'assets/img/default-user.png'"
+            <img *ngIf="isHostLoggedIn()" [src]="hostService.getHost()?.imgUrl"
               alt="Foto anfitrión" class="rounded-circle me-2 border border-2 border-primary" width="35" height="35"
               style="object-fit: cover;" />
 
             <!-- Imagen para usuario -->
-            <img *ngIf="isUserLoggedIn()" [src]="userService.getUser()?.imgUrl || 'assets/img/default-user.png'"
+            <img *ngIf="isUserLoggedIn()" [src]="userService.getUser()?.imgUrl"
               alt="Foto usuario" class="rounded-circle me-2 border border-2 border-primary" width="35" height="35"
               style="object-fit: cover;" />
 
@@ -98,8 +98,8 @@
             <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementRole">Gestión de roles</a></li>
 
             <!-- Opciones para usuario -->
-            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a></li>
-            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/createReservation">Reservar</a></li>
+            <li *ngIf="isHostLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a></li>
+            <li *ngIf="isHostLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Reservas</a></li>
             <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
 
             <!-- Opciones de edición de perfil según el tipo de usuario -->

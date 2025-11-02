@@ -5,6 +5,9 @@ import { FormsModule } from '@angular/forms';
 import { AccommodationService } from '../../services/accommodation.service';
 import { Accommodation } from '../../models/accommodation';
 import { CommentsComponent } from '../comments/comments.component';
+import { UserService } from '../../services/user.service';
+import { HostService } from '../../services/host.service';
+import { AdministratorService } from '../../services/administrator.service';
 
 declare var bootstrap: any; // Declaración de Bootstrap para poder usar Carousel
 
@@ -32,7 +35,10 @@ export class DetailAccommodationComponent implements OnInit, AfterViewInit {
    */
   constructor(
     private _route: ActivatedRoute,
-    private _accommodationService: AccommodationService
+    private _accommodationService: AccommodationService,
+    public userService: UserService,
+    public hostService: HostService,
+    public administratorService: AdministratorService
   ) {}
 
   /**
@@ -77,6 +83,18 @@ export class DetailAccommodationComponent implements OnInit, AfterViewInit {
         pause: 'hover', // Pausa al pasar el mouse
       });
     }
+  }
+
+  /**
+   * Método para verificar si el usuario logueado es un usuario normal.
+   * Retorna true solo si hay token de usuario y no hay administrador ni anfitrión logueado.
+   */
+  isUserLoggedIn(): boolean {
+    return (
+      this.userService.getToken() !== null && // Usuario logueado
+      this.administratorService.getToken() === null && // Administrador no logueado
+      this.hostService.getToken() === null // Anfitrión no logueado
+    );
   }
 
   /**

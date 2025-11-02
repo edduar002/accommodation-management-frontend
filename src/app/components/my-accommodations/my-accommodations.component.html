@@ -43,16 +43,19 @@
           <td>{{ a.maximumCapacity }}</td>
           <!-- Botones de acción: Editar y Eliminar -->
           <td class="text-center">
-            <!-- Enlace para editar alojamiento -->
+            <!-- Ver alojamiento -->
+            <a [routerLink]="['/detailAccommodation', a.id]" class="text-success fw-semibold me-3 text-decoration-none">
+              Ver
+            </a>
+
+            <!-- Editar alojamiento -->
             <a [routerLink]="['/editAccommodation', a.id]" class="text-primary fw-semibold me-3 text-decoration-none">
               Editar
             </a>
-            <!-- Botón para eliminar alojamiento -->
-            <button type="button"
-                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                    (click)="openDeleteModal(a.id)">
+
+            <!-- Eliminar alojamiento -->
+            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(a.id)">
               Eliminar
             </button>
           </td>

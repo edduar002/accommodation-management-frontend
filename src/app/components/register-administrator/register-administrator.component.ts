@@ -38,8 +38,10 @@ export class RegisterAdministratorComponent {
   }
 
   /**
-   * Método que se ejecuta al enviar el formulario de registro
-   * @param form Referencia al formulario Angular
+   * Método que se ejecuta al enviar el formulario de registro.
+   * Realiza validaciones previas, registra al administrador y,
+   * tras un registro exitoso, ejecuta login automático.
+   * @param form Referencia al formulario Angular.
    */
   onSubmit(form: NgForm): void {
     // Validar que la contraseña sea segura antes de enviar al backend
@@ -47,21 +49,46 @@ export class RegisterAdministratorComponent {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
       this.showModal('errorModal'); // Mostrar modal de error
-      return;
+      return; // Detener ejecución
     }
 
     // Asignar rol fijo de Administrador
     this.administrator.rolesId = 1;
 
-    // Llamar al servicio para registrar el administrador
+    // ✅ Llamar al servicio para registrar al administrador
     this._administratorService.register(this.administrator).subscribe({
       next: (response) => {
-        // Registro exitoso
-        this.showModal('successModal'); // Mostrar modal de éxito
-        form.resetForm(); // Limpiar formulario
+        // Registro exitoso, proceder con login automático
+        this._administratorService
+          .login({
+            email: this.administrator.email, // Email ingresado en el registro
+            password: this.administrator.password, // Contraseña del formulario
+          })
+          .subscribe({
+            next: (loginResponse) => {
+              // Guardar sesión del administrador en el almacenamiento correspondiente
+              this._administratorService.saveSession(loginResponse);
+
+              // Mostrar modal de éxito tras registro + login
+              this.showModal('successModal');
+
+              // Limpiar formulario
+              form.resetForm();
+            },
+            error: (loginError) => {
+              // El registro fue exitoso, pero falló el login automático
+              console.error('Error al hacer login automático:', loginError);
+
+              this.errorMessage =
+                'El registro fue exitoso, pero ocurrió un error al iniciar sesión.';
+
+              // Mostrar modal de error
+              this.showModal('errorModal');
+            },
+          });
       },
       error: (error) => {
-        // Manejo de errores
+        // Error durante el registro
         console.error('Error al registrar administrador:', error);
 
         // Detectar error por correo duplicado
@@ -77,7 +104,8 @@ export class RegisterAdministratorComponent {
             'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
 
-        this.showModal('errorModal'); // Mostrar modal de error
+        // Mostrar modal de error
+        this.showModal('errorModal');
       },
     });
   }

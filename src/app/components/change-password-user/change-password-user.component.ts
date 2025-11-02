@@ -55,7 +55,7 @@ export class ChangePasswordUserComponent {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
 
     // Asignar el id del usuario al objeto de recuperación de contraseña
-    this.recoveryPassword.id = user.id || 2; // Valor por defecto en caso de no existir
+    this.recoveryPassword.id = user.id; // Valor por defecto en caso de no existir
 
     // Llamar al servicio para cambiar la contraseña
     this._userService

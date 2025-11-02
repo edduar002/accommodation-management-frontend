@@ -35,7 +35,7 @@
     <p class="text-secondary">Capacidad máxima: {{ accommodation.maximumCapacity }} personas</p>
 
     <!-- Botón de reserva -->
-    <button class="btn btn-primary rounded-pill px-4 mt-3">Reservar ahora</button>
+    <button *ngIf="isUserLoggedIn()" class="btn btn-primary rounded-pill px-4 mt-3">Reservar ahora</button>
   </div>
 </div>
 
