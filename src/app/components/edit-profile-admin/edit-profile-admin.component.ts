@@ -13,10 +13,9 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile-admin.component.html',
   styleUrls: ['./edit-profile-admin.component.css'],
-  providers: [AdministratorService]
+  providers: [AdministratorService],
 })
 export class EditProfileAdminComponent implements OnInit, AfterViewInit {
-
   public admin: Administrator;
   public errorMessage: string = '';
 
@@ -38,19 +37,23 @@ export class EditProfileAdminComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // Inicializa los modales Bootstrap cuando el DOM ya está cargado
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   /** Cargar datos del administrador */
   getOne(): void {
-    this._route.params.subscribe(params => {
+    this._route.params.subscribe((params) => {
       const id = +params['id'];
       this._adminService.getOne(id).subscribe(
-        response => {
+        (response) => {
           this.admin = response;
         },
-        error => {
+        (error) => {
           console.error('Error al cargar administrador:', error);
           this._router.navigate(['/']);
         }
@@ -67,11 +70,12 @@ export class EditProfileAdminComponent implements OnInit, AfterViewInit {
     }
 
     this._adminService.update(this.admin.id!, this.admin).subscribe(
-      response => {
+      (response) => {
         this.successModal.show();
       },
-      error => {
-        this.errorMessage = 'Error al actualizar el perfil del administrador. Intenta nuevamente.';
+      (error) => {
+        this.errorMessage =
+          'Error al actualizar el perfil del administrador. Intenta nuevamente.';
         this.errorModal.show();
       }
     );

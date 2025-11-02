@@ -11,10 +11,9 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, RouterLink],
   templateUrl: './management-department.component.html',
   styleUrls: ['./management-department.component.css'],
-  providers: [DepartmentService]
+  providers: [DepartmentService],
 })
 export class ManagementDepartmentComponent implements OnInit {
-
   departments: Department[] = [];
   selectedCityId?: number;
 
@@ -35,7 +34,7 @@ export class ManagementDepartmentComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener departments:', error);
-      }
+      },
     });
   }
 
@@ -51,8 +50,7 @@ export class ManagementDepartmentComponent implements OnInit {
         this.getAll();
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
     });
   }
-
 }

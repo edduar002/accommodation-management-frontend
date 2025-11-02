@@ -9,18 +9,18 @@ import { CommonModule } from '@angular/common'; // 👈 IMPORTA ESTO
   templateUrl: './location.component.html',
   standalone: true,
   imports: [
-    CommonModule,   // ✅ AGREGA AQUÍ
+    CommonModule, // ✅ AGREGA AQUÍ
     FormsModule,
-    HttpClientModule
-  ]
+    HttpClientModule,
+  ],
 })
 export class LocationComponent implements AfterViewInit {
   map!: L.Map;
   marker!: L.Marker;
-  selected: { lat: number, lng: number } | null = null;
+  selected: { lat: number; lng: number } | null = null;
   searchText: string = '';
 
-  @Output() locationSelected = new EventEmitter<{ lat: number, lng: number }>();
+  @Output() locationSelected = new EventEmitter<{ lat: number; lng: number }>();
 
   constructor(private http: HttpClient) {}
 
@@ -28,10 +28,12 @@ export class LocationComponent implements AfterViewInit {
     this.map = L.map('map').setView([4.6482837, -74.0636163], 13);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors'
+      attribution: '© OpenStreetMap contributors',
     }).addTo(this.map);
 
-    this.marker = L.marker([4.6482837, -74.0636163], { draggable: true }).addTo(this.map);
+    this.marker = L.marker([4.6482837, -74.0636163], { draggable: true }).addTo(
+      this.map
+    );
 
     this.marker.on('dragend', () => {
       const pos = this.marker.getLatLng();
@@ -50,8 +52,10 @@ export class LocationComponent implements AfterViewInit {
   searchLocation() {
     if (!this.searchText) return;
 
-    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(this.searchText)}`;
-    this.http.get<any[]>(url).subscribe(results => {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
+      this.searchText
+    )}`;
+    this.http.get<any[]>(url).subscribe((results) => {
       if (results.length > 0) {
         const place = results[0];
         const lat = parseFloat(place.lat);

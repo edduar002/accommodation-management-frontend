@@ -61,7 +61,8 @@ export class ResponseCommentComponent implements OnInit {
       error: (err) => {
         console.error('Error al crear respuesta:', err);
         this.errorMessage =
-          err?.error?.message || 'No se pudo enviar la respuesta. Inténtalo nuevamente.';
+          err?.error?.message ||
+          'No se pudo enviar la respuesta. Inténtalo nuevamente.';
         this.showModal('errorModal');
       },
     });
@@ -80,7 +81,9 @@ export class ResponseCommentComponent implements OnInit {
   closeModal(id: string, redirect: boolean = false): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
     }
 

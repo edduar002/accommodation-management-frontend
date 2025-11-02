@@ -11,20 +11,12 @@
 
         <div class="card-body p-4">
           <form #registerAdministratorForm="ngForm" (ngSubmit)="onSubmit(registerAdministratorForm)">
-            
+
             <!-- Nombre -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="form-control"
-                placeholder="Ingresa tu nombre"
-                #name="ngModel"
-                [(ngModel)]="administrator.name"
-                required
-              >
+              <input type="text" name="name" id="name" class="form-control" placeholder="Ingresa tu nombre"
+                #name="ngModel" [(ngModel)]="administrator.name" required>
               <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
                 <small>El nombre es obligatorio.</small>
               </div>
@@ -33,16 +25,8 @@
             <!-- Apellido -->
             <div class="mb-3">
               <label for="surname" class="form-label fw-semibold">Apellido</label>
-              <input
-                type="text"
-                name="surname"
-                id="surname"
-                class="form-control"
-                placeholder="Ingresa tu apellido"
-                #surname="ngModel"
-                [(ngModel)]="administrator.surname"
-                required
-              >
+              <input type="text" name="surname" id="surname" class="form-control" placeholder="Ingresa tu apellido"
+                #surname="ngModel" [(ngModel)]="administrator.surname" required>
               <div *ngIf="surname.invalid && surname.touched" class="text-danger mt-1">
                 <small>El apellido es obligatorio.</small>
               </div>
@@ -51,17 +35,8 @@
             <!-- Correo -->
             <div class="mb-3">
               <label for="email" class="form-label fw-semibold">Correo electrónico</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                class="form-control"
-                placeholder="ejemplo@correo.com"
-                #email="ngModel"
-                [(ngModel)]="administrator.email"
-                required
-                email
-              >
+              <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@correo.com"
+                #email="ngModel" [(ngModel)]="administrator.email" required email>
               <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
                 <small *ngIf="email.errors?.['required']">El correo es obligatorio.</small>
                 <small *ngIf="email.errors?.['email']">Formato de correo inválido.</small>
@@ -71,17 +46,8 @@
             <!-- Contraseña -->
             <div class="mb-4">
               <label for="password" class="form-label fw-semibold">Contraseña</label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                class="form-control"
-                placeholder="********"
-                minlength="6"
-                #password="ngModel"
-                [(ngModel)]="administrator.password"
-                required
-              >
+              <input type="password" name="password" id="password" class="form-control" placeholder="********"
+                minlength="6" #password="ngModel" [(ngModel)]="administrator.password" required>
               <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
                 <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
                 <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
@@ -90,12 +56,8 @@
 
             <!-- Botón -->
             <div class="d-grid">
-              <input
-                type="submit"
-                value="Registrarme"
-                class="btn bg-primary btn-lg text-white px-5"
-                [disabled]="registerAdministratorForm.invalid"
-              >
+              <input type="submit" value="Registrarme" class="btn bg-primary btn-lg text-white px-5"
+                [disabled]="registerAdministratorForm.invalid">
             </div>
           </form>
         </div>
@@ -114,7 +76,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
+          exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El administrador ha sido registrado correctamente.</p>
@@ -131,7 +94,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al registrar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
+          registrar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

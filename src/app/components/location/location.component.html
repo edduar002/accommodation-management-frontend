@@ -1,16 +1,10 @@
 <!-- Mapa y captura de ubicación -->
 <div class="mb-4">
   <label class="form-label fw-bold">Ubicación</label>
-  
+
   <!-- Input búsqueda -->
   <div class="input-group mb-2">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Buscar dirección"
-      [(ngModel)]="searchText"
-      name="searchText"
-    />
+    <input type="text" class="form-control" placeholder="Buscar dirección" [(ngModel)]="searchText" name="searchText" />
     <button class="btn btn-outline-primary" type="button" (click)="searchLocation()">Buscar</button>
   </div>
 

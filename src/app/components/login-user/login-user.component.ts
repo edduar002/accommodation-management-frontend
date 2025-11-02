@@ -39,10 +39,8 @@ export class LoginUserComponent {
   onSubmit(form: NgForm): void {
     this._userService.login(this.user).subscribe({
       next: (response) => {
-        console.log(response)
+        console.log(response);
         console.log('Inicio de sesión exitoso:', response);
-
-        
 
         // 👀 Verificar si el usuario está activo
         if (Number(response.active) === 1) {

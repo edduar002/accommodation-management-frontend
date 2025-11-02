@@ -15,12 +15,16 @@ export class ResponseService {
 
   register(response: Response): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.post<any>(`${this.url}responses/register`, response, { headers });
+    return this._http.post<any>(`${this.url}responses/register`, response, {
+      headers,
+    });
   }
 
   getByComment(commentId: number): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.get<any>(`${this.url}responses/getByComment?commentId=${commentId}`, { headers });
+    return this._http.get<any>(
+      `${this.url}responses/getByComment?commentId=${commentId}`,
+      { headers }
+    );
   }
-
 }

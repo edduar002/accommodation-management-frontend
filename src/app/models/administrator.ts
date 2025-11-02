@@ -5,6 +5,6 @@ export class Administrator {
     public email: string,
     public password: string,
     public rolesId: number,
-    public id?:number
+    public id?: number
   ) {}
 }

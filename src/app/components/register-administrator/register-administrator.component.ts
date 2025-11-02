@@ -12,7 +12,7 @@ import { PasswordUtilsService } from '../../core/utils/password-utils.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './register-administrator.component.html',
   styleUrl: './register-administrator.component.css',
-  providers: [AdministratorService]
+  providers: [AdministratorService],
 })
 export class RegisterAdministratorComponent {
   public administrator: Administrator;
@@ -21,13 +21,13 @@ export class RegisterAdministratorComponent {
   constructor(
     private _administratorService: AdministratorService,
     private router: Router,
-    private passwordUtils: PasswordUtilsService,
+    private passwordUtils: PasswordUtilsService
   ) {
     this.administrator = new Administrator('', '', '', '', 1);
   }
 
   onSubmit(form: NgForm): void {
-        // Validación de contraseña segura antes de llamar al backend
+    // Validación de contraseña segura antes de llamar al backend
     if (!this.passwordUtils.isStrong(this.administrator.password)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
@@ -52,20 +52,24 @@ export class RegisterAdministratorComponent {
           error?.error?.includes('Duplicate entry') ||
           error?.status === 409 // Si el backend devuelve Conflict (409)
         ) {
-          this.errorMessage = 'El correo ingresado ya está registrado. Intenta con otro.';
+          this.errorMessage =
+            'El correo ingresado ya está registrado. Intenta con otro.';
         } else {
-          this.errorMessage = 'Ocurrió un error inesperado. Inténtalo nuevamente.';
+          this.errorMessage =
+            'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
 
         this.showModal('errorModal');
-      }
+      },
     });
   }
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

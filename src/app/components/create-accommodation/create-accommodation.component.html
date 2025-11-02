@@ -1,23 +1,18 @@
 <div class="alojamiento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-add text-primary" aria-hidden="true"></i> Crear nuevo alojamiento</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-add text-primary" aria-hidden="true"></i> Crear nuevo
+    alojamiento</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-                  <!-- Imagen -->
-<label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
-<input
-  type="file"
-  id="imageFile"
-  name="imageFile"
-  class="form-control"
-  accept="image/*"
-  (change)="onFileSelected($event)"
-/>
-<div *ngIf="uploading" class="text-info mt-1">
-  <small>Subiendo imagen...</small>
-</div>
+          <!-- Imagen -->
+          <label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
+          <input type="file" id="imageFile" name="imageFile" class="form-control" accept="image/*"
+            (change)="onFileSelected($event)" />
+          <div *ngIf="uploading" class="text-info mt-1">
+            <small>Subiendo imagen...</small>
+          </div>
           <form #registerAccommodationForm="ngForm" (ngSubmit)="onSubmit(registerAccommodationForm)">
             <!-- 🔹 Descripción -->
             <div class="mb-3">
@@ -31,23 +26,16 @@
                 <small>La descripción es obligatoria.</small>
               </div>
             </div>
-<!-- 🔹 Servicios -->
-<div class="mb-3">
-  <label for="services" class="form-label fw-semibold">Servicios</label>
-  <textarea
-    name="services"
-    id="services"
-    class="form-control"
-    rows="3"
-    placeholder="Ej: Wifi, Parqueadero, Aire acondicionado, Lavadora..."
-    #services="ngModel"
-    [(ngModel)]="accommodation.services"
-    required
-  ></textarea>
-  <div *ngIf="services.invalid && services.touched" class="text-danger mt-1">
-    <small>Este campo es obligatorio.</small>
-  </div>
-</div>
+            <!-- 🔹 Servicios -->
+            <div class="mb-3">
+              <label for="services" class="form-label fw-semibold">Servicios</label>
+              <textarea name="services" id="services" class="form-control" rows="3"
+                placeholder="Ej: Wifi, Parqueadero, Aire acondicionado, Lavadora..." #services="ngModel"
+                [(ngModel)]="accommodation.services" required></textarea>
+              <div *ngIf="services.invalid && services.touched" class="text-danger mt-1">
+                <small>Este campo es obligatorio.</small>
+              </div>
+            </div>
 
             <!-- 🔹 Dirección -->
             <div class="mb-3">
@@ -100,7 +88,8 @@
             <!-- Ciudad dinámico -->
             <div class="mb-3">
               <label for="city" class="form-label fw-bold">Ciudad</label>
-              <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="accommodation.citiesId" required>
+              <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="accommodation.citiesId"
+                required>
                 <option value="" disabled selected>Seleccione una ciudad</option>
                 <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
               </select>
@@ -126,7 +115,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
+          exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El alojamiento se ha creado correctamente.</p>

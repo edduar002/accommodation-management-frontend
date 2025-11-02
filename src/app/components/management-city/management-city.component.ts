@@ -11,17 +11,13 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, RouterLink],
   templateUrl: './management-city.component.html',
   styleUrls: ['./management-city.component.css'],
-  providers: [CityService]
+  providers: [CityService],
 })
 export class ManagementCityComponent implements OnInit {
-
   cities: City[] = [];
   selectedCityId?: number;
 
-  constructor(
-    private http: HttpClient,
-    private _cityService: CityService
-  ) {}
+  constructor(private http: HttpClient, private _cityService: CityService) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -35,7 +31,7 @@ export class ManagementCityComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener ciudades:', error);
-      }
+      },
     });
   }
 
@@ -51,8 +47,7 @@ export class ManagementCityComponent implements OnInit {
         this.getAll();
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
     });
   }
-  
 }

@@ -11,17 +11,13 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule],
   templateUrl: './management-host.component.html',
   styleUrls: ['./management-host.component.css'],
-  providers: [HostService]
+  providers: [HostService],
 })
 export class ManagementHostComponent implements OnInit {
-
   hosts: Host[] = [];
   selectedCityId?: number;
 
-  constructor(
-    private http: HttpClient,
-    private _hostService: HostService
-  ) {}
+  constructor(private http: HttpClient, private _hostService: HostService) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -35,10 +31,10 @@ export class ManagementHostComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener anfitriones:', error);
-      }
+      },
     });
   }
-  
+
   openDeleteModal(id?: number) {
     if (!id) return;
     this.selectedCityId = id;
@@ -51,8 +47,7 @@ export class ManagementHostComponent implements OnInit {
         this.getAll();
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
     });
   }
-
 }

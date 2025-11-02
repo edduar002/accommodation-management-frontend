@@ -17,12 +17,11 @@ declare var bootstrap: any;
   imports: [
     CommonModule,
     RouterLink,
-    FormsModule,              // ✅ Necesario para ngModel
-    FilterAlojamientoPipe     // ✅ Necesario para usar el pipe
-  ]
+    FormsModule, // ✅ Necesario para ngModel
+    FilterAlojamientoPipe, // ✅ Necesario para usar el pipe
+  ],
 })
 export class HomeComponent implements OnInit {
-
   public accommodations: Accommodation[] = [];
   public searchText: string = ''; // ✅ Filtro
   public errorMessage: string = '';
@@ -36,8 +35,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngAfterViewInit(): void {
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   loadAccommodations(): void {
@@ -47,7 +50,7 @@ export class HomeComponent implements OnInit {
       },
       error: (err) => {
         console.error('Error al cargar alojamientos:', err);
-      }
+      },
     });
   }
 

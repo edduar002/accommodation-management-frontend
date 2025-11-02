@@ -1,35 +1,28 @@
 <div class="profile-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del anfitrion</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del
+    anfitrion</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-7">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <!-- Imagen y encabezado -->
-<div class="text-center mb-4">
-  <!-- Imagen de perfil -->
-  <img
-    [src]="host.imgUrl"
-    alt="Foto de perfil"
-    class="rounded-circle img-thumbnail shadow-sm mb-3"
-    style="width: 120px; height: 120px; object-fit: cover;"
-  />
+        <div class="text-center mb-4">
+          <!-- Imagen de perfil -->
+          <img [src]="host.imgUrl" alt="Foto de perfil" class="rounded-circle img-thumbnail shadow-sm mb-3"
+            style="width: 120px; height: 120px; object-fit: cover;" />
 
-  <!-- Input para cambiar imagen -->
-  <input
-    type="file"
-    accept="image/*"
-    (change)="onFileSelected($event)"
-    class="form-control w-75 mx-auto mt-2"
-  />
-  <small class="text-muted d-block mt-2">
-    Sube una nueva imagen para actualizar tu foto de perfil.
-  </small>
+          <!-- Input para cambiar imagen -->
+          <input type="file" accept="image/*" (change)="onFileSelected($event)"
+            class="form-control w-75 mx-auto mt-2" />
+          <small class="text-muted d-block mt-2">
+            Sube una nueva imagen para actualizar tu foto de perfil.
+          </small>
 
-  <h5 class="mt-3 fw-semibold">
-    {{ host.name }} {{ host.surname }}
-  </h5>
-  <p class="text-muted mb-0">{{ host.email }}</p>
-</div>
+          <h5 class="mt-3 fw-semibold">
+            {{ host.name }} {{ host.surname }}
+          </h5>
+          <p class="text-muted mb-0">{{ host.email }}</p>
+        </div>
 
         <!-- Formulario -->
         <div class="card-body">
@@ -37,99 +30,63 @@
             <!-- Nombre -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre</label>
-              <input
-                type="text"
-                id="name"
-                class="form-control"
-                name="name"
-                [(ngModel)]="host.name"
-                required
-              />
+              <input type="text" id="name" class="form-control" name="name" [(ngModel)]="host.name" required />
             </div>
 
             <!-- Apellido -->
             <div class="mb-3">
               <label for="surname" class="form-label fw-semibold">Apellido</label>
-              <input
-                type="text"
-                id="surname"
-                class="form-control"
-                name="surname"
-                [(ngModel)]="host.surname"
-                required
-              />
+              <input type="text" id="surname" class="form-control" name="surname" [(ngModel)]="host.surname" required />
             </div>
 
             <!-- Correo -->
             <div class="mb-3">
               <label for="email" class="form-label fw-semibold">Correo Electrónico</label>
-              <input
-                type="email"
-                id="email"
-                class="form-control"
-                name="email"
-                [(ngModel)]="host.email"
-                required
-              />
+              <input type="email" id="email" class="form-control" name="email" [(ngModel)]="host.email" required />
             </div>
 
             <!-- Teléfono -->
             <div class="mb-3">
               <label for="phone" class="form-label fw-semibold">Teléfono</label>
-              <input
-                type="tel"
-                id="phone"
-                class="form-control"
-                name="phone"
-                [(ngModel)]="host.phone"
-              />
+              <input type="tel" id="phone" class="form-control" name="phone" [(ngModel)]="host.phone" />
             </div>
 
 
             <!-- Descripción personal -->
             <div class="mb-3">
               <label for="personalDescription" class="form-label fw-semibold">Descripción personal</label>
-              <textarea
-                id="personalDescription"
-                class="form-control"
-                name="personalDescription"
-                rows="3"
-                [(ngModel)]="host.personalDescription"
-              ></textarea>
+              <textarea id="personalDescription" class="form-control" name="personalDescription" rows="3"
+                [(ngModel)]="host.personalDescription"></textarea>
             </div>
 
-                    <!-- Departamento dinámico -->
-        <div class="mb-3">
-          <label for="department" class="form-label fw-bold">Departamento</label>
-          <select class="form-select" id="department" name="department" #department="ngModel" [(ngModel)]="host.departmentsId"
-            (change)="onDepartmentChange()" required>
-            <option value="" disabled selected>Seleccione un departamento</option>
-            <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
-          </select>
-          <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
-            <small>Seleccione un departamento.</small>
-          </div>
-        </div>
+            <!-- Departamento dinámico -->
+            <div class="mb-3">
+              <label for="department" class="form-label fw-bold">Departamento</label>
+              <select class="form-select" id="department" name="department" #department="ngModel"
+                [(ngModel)]="host.departmentsId" (change)="onDepartmentChange()" required>
+                <option value="" disabled selected>Seleccione un departamento</option>
+                <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
+              </select>
+              <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
+                <small>Seleccione un departamento.</small>
+              </div>
+            </div>
 
-        <!-- Ciudad dinámico -->
-        <div class="mb-3">
-          <label for="city" class="form-label fw-bold">Ciudad</label>
-          <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="host.citiesId" required>
-            <option value="" disabled selected>Seleccione una ciudad</option>
-            <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
-          </select>
-          <div *ngIf="city.invalid && city.touched" class="text-danger mt-1">
-            <small>Seleccione una ciudad.</small>
-          </div>
-        </div>
+            <!-- Ciudad dinámico -->
+            <div class="mb-3">
+              <label for="city" class="form-label fw-bold">Ciudad</label>
+              <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="host.citiesId" required>
+                <option value="" disabled selected>Seleccione una ciudad</option>
+                <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
+              </select>
+              <div *ngIf="city.invalid && city.touched" class="text-danger mt-1">
+                <small>Seleccione una ciudad.</small>
+              </div>
+            </div>
 
             <!-- Botón -->
             <div class="d-grid mt-4">
-              <button
-                type="submit"
-                class="btn btn-primary btn-lg rounded-pill"
-                [disabled]="!hostForm.valid"
-              >
+              <button type="submit" class="btn btn-primary btn-lg rounded-pill" [disabled]="!hostForm.valid">
                 Guardar cambios
               </button>
             </div>

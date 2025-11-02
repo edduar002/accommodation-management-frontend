@@ -1,5 +1,6 @@
 <div class="ciudad-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar ciudad existente</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar ciudad
+    existente</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-6">
@@ -8,26 +9,14 @@
           <form #cityForm="ngForm" (ngSubmit)="onSubmit(cityForm)">
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre de la ciudad</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="form-control"
-                [(ngModel)]="city.name"
-                required
-              />
+              <input type="text" name="name" id="name" class="form-control" [(ngModel)]="city.name" required />
             </div>
 
-                        <!-- Departamento dinámico -->
-<div class="mb-3">
+            <!-- Departamento dinámico -->
+            <div class="mb-3">
               <label for="departmentId" class="form-label fw-semibold">Departamento</label>
-              <select
-                id="departmentId"
-                class="form-select"
-                name="departmentId"
-                [(ngModel)]="city.departmentsId"
-                required
-              >
+              <select id="departmentId" class="form-select" name="departmentId" [(ngModel)]="city.departmentsId"
+                required>
                 <option value="" disabled>Seleccione un departamento</option>
                 <option *ngFor="let dep of departamentos" [value]="dep.id">
                   {{ dep.name }}
@@ -58,7 +47,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Actualizacion exitosa</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i>
+          Actualizacion exitosa</h5>
       </div>
       <div class="modal-body">
         <p>La ciudad se ha actualizado correctamente.</p>
@@ -75,7 +65,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
+          actualizar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

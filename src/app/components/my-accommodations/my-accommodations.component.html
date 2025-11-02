@@ -37,11 +37,8 @@
             <a [routerLink]="['/editAccommodation', a.id]" class="text-primary fw-semibold me-3 text-decoration-none">
               <i class="bi bi-pencil-square"></i> Editar
             </a>
-            <button type="button"
-                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                    (click)="openDeleteModal(a.id)">
+            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(a.id)">
               <i class="bi bi-trash"></i> Eliminar
             </button>
           </td>
@@ -72,7 +69,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">Eliminar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()"
+            data-bs-dismiss="modal">Eliminar</button>
         </div>
       </div>
     </div>

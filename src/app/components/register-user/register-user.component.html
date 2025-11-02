@@ -74,18 +74,12 @@
         </div>
 
         <!-- Imagen -->
-<label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
-<input
-  type="file"
-  id="imageFile"
-  name="imageFile"
-  class="form-control"
-  accept="image/*"
-  (change)="onFileSelected($event)"
-/>
-<div *ngIf="uploading" class="text-info mt-1">
-  <small>Subiendo imagen...</small>
-</div>
+        <label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
+        <input type="file" id="imageFile" name="imageFile" class="form-control" accept="image/*"
+          (change)="onFileSelected($event)" />
+        <div *ngIf="uploading" class="text-info mt-1">
+          <small>Subiendo imagen...</small>
+        </div>
 
 
         <!-- Departamento dinámico -->
@@ -128,7 +122,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
+          exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El usuario se ha registrado correctamente.</p>
@@ -145,7 +140,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al registrar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
+          registrar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

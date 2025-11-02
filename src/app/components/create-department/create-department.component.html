@@ -1,5 +1,6 @@
 <div class="departamento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-building fs-3 text-primary me-2"></i> Crear nuevo departamento</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-building fs-3 text-primary me-2"></i> Crear nuevo departamento
+  </h2>
 
   <div class="row justify-content-center">
     <div class="col-md-5">
@@ -9,16 +10,8 @@
             <!-- 🔹 Campo nombre del departamento -->
             <div class="mb-3">
               <label for="departmentName" class="form-label fw-semibold">Nombre del departamento</label>
-              <input
-                type="text"
-                name="departmentName"
-                id="departmentName"
-                class="form-control"
-                placeholder="Ej: Antioquia"
-                #name="ngModel"
-                [(ngModel)]="department.name"
-                required
-              >
+              <input type="text" name="departmentName" id="departmentName" class="form-control"
+                placeholder="Ej: Antioquia" #name="ngModel" [(ngModel)]="department.name" required>
               <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
                 <small>El nombre del departamento es obligatorio.</small>
               </div>
@@ -26,12 +19,8 @@
 
             <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Botón Crear -->
             <div class="d-grid mt-4">
-              <input
-                type="submit"
-                value="Crear"
-                class="btn btn-primary btn-lg text-white px-5"
-                [disabled]="createDepartmentForm.invalid"
-              >
+              <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
+                [disabled]="createDepartmentForm.invalid">
             </div>
           </form>
         </div>
@@ -45,18 +34,14 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
+          exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El departamento se ha creado correctamente.</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button
-          type="button"
-          class="btn btn-success"
-          data-bs-dismiss="modal"
-          (click)="closeModal()"
-        >
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar
         </button>
       </div>

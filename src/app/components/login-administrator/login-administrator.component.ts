@@ -28,15 +28,13 @@ export class LoginAdministratorComponent {
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
 
+        // ✅ Guardar token + datos del usuario
+        this._administratorService.saveSession(response);
+        //Usuario activo → Mostrar modal de éxito
+        this.showModal('successModal');
 
-// ✅ Guardar token + datos del usuario
-          this._administratorService.saveSession(response);
-          //Usuario activo → Mostrar modal de éxito
-          this.showModal('successModal');
-
-          // Limpiar formulario
-          form.resetForm();
-        
+        // Limpiar formulario
+        form.resetForm();
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);

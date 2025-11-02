@@ -14,6 +14,6 @@ export class Host {
     public departmentName: string,
     public cityName: string,
     public active: boolean,
-    public id?:number
+    public id?: number
   ) {}
 }

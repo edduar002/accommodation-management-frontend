@@ -17,10 +17,9 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile-host.component.html',
   styleUrls: ['./edit-profile-host.component.css'],
-  providers: [HostService, DepartmentService, CityService]
+  providers: [HostService, DepartmentService, CityService],
 })
 export class EditProfileHostComponent implements OnInit, AfterViewInit {
-
   public host: Host;
   departamentos: Department[] = [];
   public errorMessage: string = '';
@@ -30,7 +29,6 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
   selectedFile?: File;
   uploading = false;
 
-
   constructor(
     private _hostService: HostService,
     private _departmentService: DepartmentService,
@@ -39,26 +37,40 @@ export class EditProfileHostComponent implements OnInit, AfterViewInit {
     private _router: Router
   ) {
     // Inicializa el host vacío
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, '', '', true);
+    this.host = new Host(
+      '',
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      '',
+      1,
+      '',
+      1,
+      1,
+      '',
+      '',
+      true
+    );
   }
 
   ngOnInit(): void {
     this.loadDepartments();
     this.getOne();
-    this.onDepartmentChange()
+    this.onDepartmentChange();
   }
 
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
 
-  if (this.selectedFile) {
-    // Vista previa inmediata en la imagen de perfil
-    const reader = new FileReader();
-    reader.onload = (e: any) => (this.host.imgUrl = e.target.result);
-    reader.readAsDataURL(this.selectedFile);
+    if (this.selectedFile) {
+      // Vista previa inmediata en la imagen de perfil
+      const reader = new FileReader();
+      reader.onload = (e: any) => (this.host.imgUrl = e.target.result);
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
-}
-
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {
@@ -80,42 +92,44 @@ onFileSelected(event: any) {
     });
   }
 
-
   ngAfterViewInit(): void {
     // Inicializa los modales Bootstrap cuando el DOM ya está cargado
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   /** Cargar departamentos */
   loadDepartments(): void {
     this._departmentService.getAll().subscribe(
-      response => this.departamentos = response,
-      error => console.error('Error al cargar departamentos', error)
+      (response) => (this.departamentos = response),
+      (error) => console.error('Error al cargar departamentos', error)
     );
   }
 
   /** Cargar datos del host */
-getOne(): void {
-  this._route.params.subscribe(params => {
-    const id = +params['id'];
-    this._hostService.getOne(id).subscribe(
-      response => {
-        this.host = response;
+  getOne(): void {
+    this._route.params.subscribe((params) => {
+      const id = +params['id'];
+      this._hostService.getOne(id).subscribe(
+        (response) => {
+          this.host = response;
 
-        // ✅ Cargar ciudades basadas en el departamento del host
-        if (this.host.departmentsId) {
-          this.getCities(this.host.departmentsId);
+          // ✅ Cargar ciudades basadas en el departamento del host
+          if (this.host.departmentsId) {
+            this.getCities(this.host.departmentsId);
+          }
+        },
+        (error) => {
+          console.error('Error al cargar host:', error);
+          this._router.navigate(['/']);
         }
-      },
-      error => {
-        console.error('Error al cargar host:', error);
-        this._router.navigate(['/']);
-      }
-    );
-  });
-}
-
+      );
+    });
+  }
 
   /** Guardar cambios */
   onSubmit(form: NgForm): void {
@@ -126,11 +140,12 @@ getOne(): void {
     }
 
     this._hostService.update(this.host.id!, this.host).subscribe(
-      response => {
+      (response) => {
         this.successModal.show();
       },
-      error => {
-        this.errorMessage = 'Error al actualizar el perfil del anfitrión. Intenta nuevamente.';
+      (error) => {
+        this.errorMessage =
+          'Error al actualizar el perfil del anfitrión. Intenta nuevamente.';
         this.errorModal.show();
       }
     );

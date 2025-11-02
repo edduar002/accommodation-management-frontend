@@ -11,17 +11,13 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, RouterLink],
   templateUrl: './management-user.component.html',
   styleUrls: ['./management-user.component.css'],
-  providers: [UserService]
+  providers: [UserService],
 })
 export class ManagementUserComponent implements OnInit {
-
   users: User[] = [];
   selectedCityId?: number;
 
-  constructor(
-    private http: HttpClient,
-    private _userService: UserService
-  ) {}
+  constructor(private http: HttpClient, private _userService: UserService) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -35,7 +31,7 @@ export class ManagementUserComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener usuarios:', error);
-      }
+      },
     });
   }
 
@@ -51,8 +47,7 @@ export class ManagementUserComponent implements OnInit {
         this.getAll();
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
     });
   }
-
 }

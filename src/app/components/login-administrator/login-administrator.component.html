@@ -11,16 +11,8 @@
             <!-- Correo -->
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Correo o usuario</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                class="form-control"
-                placeholder="admin@ejemplo.com"
-                #email="ngModel"
-                [(ngModel)]="administrator.email"
-                required
-              >
+              <input type="text" id="email" name="email" class="form-control" placeholder="admin@ejemplo.com"
+                #email="ngModel" [(ngModel)]="administrator.email" required>
               <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
                 <small>El correo o usuario es obligatorio.</small>
               </div>
@@ -29,17 +21,8 @@
             <!-- Contraseña -->
             <div class="mb-3">
               <label for="password" class="form-label fw-bold">Contraseña</label>
-              <input
-                type="password"
-                id="password"
-                name="password"
-                class="form-control"
-                placeholder="Contraseña"
-                minlength="6"
-                #password="ngModel"
-                [(ngModel)]="administrator.password"
-                required
-              >
+              <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña"
+                minlength="6" #password="ngModel" [(ngModel)]="administrator.password" required>
               <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
                 <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
                 <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
@@ -48,12 +31,8 @@
 
             <!-- Botón ingresar -->
             <div class="d-grid">
-              <input
-                type="submit"
-                value="Ingresar"
-                class="btn bg-primary btn-lg text-white px-5"
-                [disabled]="loginAdminForm.invalid"
-              >
+              <input type="submit" value="Ingresar" class="btn bg-primary btn-lg text-white px-5"
+                [disabled]="loginAdminForm.invalid">
             </div>
           </form>
         </div>
@@ -76,7 +55,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
       <div class="modal-body">
-        <p class="small text-muted">Ingresa el correo asociado a tu cuenta para recibir instrucciones de recuperación.</p>
+        <p class="small text-muted">Ingresa el correo asociado a tu cuenta para recibir instrucciones de recuperación.
+        </p>
         <div class="mb-3">
           <label class="form-label">Correo electrónico</label>
           <input type="email" class="form-control" placeholder="admin@ejemplo.com">
@@ -95,7 +75,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Inicio de sesión exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Inicio de
+          sesión exitoso</h5>
       </div>
       <div class="modal-body">
         <p>Bienvenido, administrador.</p>
@@ -114,7 +95,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error de autenticación</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error de
+          autenticación</h5>
       </div>
       <div class="modal-body">
         <p>Correo o contraseña incorrectos. Intenta nuevamente.</p>

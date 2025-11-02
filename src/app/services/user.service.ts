@@ -6,7 +6,7 @@ import { global } from './global';
 import { RecoveryPassword } from '../models/recoveryPassword';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   public url: string;
@@ -21,34 +21,33 @@ export class UserService {
   }
 
   uploadImage(file: File): Observable<any> {
-  const formData = new FormData();
-  formData.append('file', file);
-  return this._http.post<any>(`${this.url}images/upload`, formData);
-}
-
+    const formData = new FormData();
+    formData.append('file', file);
+    return this._http.post<any>(`${this.url}images/upload`, formData);
+  }
 
   login(user: User): Observable<any> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this._http.post<any>(`${this.url}users/login`, user, { headers });
-}
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post<any>(`${this.url}users/login`, user, { headers });
+  }
 
-saveSession(data: any): void {
-  localStorage.setItem('token_user', data.token); // Guarda el token
-  localStorage.setItem('user', JSON.stringify(data)); // Guarda todo el usuario
-}
+  saveSession(data: any): void {
+    localStorage.setItem('token_user', data.token); // Guarda el token
+    localStorage.setItem('user', JSON.stringify(data)); // Guarda todo el usuario
+  }
 
-getToken(): string | null {
-  return localStorage.getItem('token_user');
-}
+  getToken(): string | null {
+    return localStorage.getItem('token_user');
+  }
 
-getUser(): User | null {
-  const user = localStorage.getItem('user');
-  return user ? JSON.parse(user) : null;
-}
+  getUser(): User | null {
+    const user = localStorage.getItem('user');
+    return user ? JSON.parse(user) : null;
+  }
 
-logout(): void {
-  localStorage.clear();
-}
+  logout(): void {
+    localStorage.clear();
+  }
 
   getAll(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -60,21 +59,29 @@ logout(): void {
     return this._http.put<any>(`${this.url}users/delete/${id}`, { headers });
   }
 
-  changePassword(id: number, recoveryPassword: RecoveryPassword): Observable<any> {
+  changePassword(
+    id: number,
+    recoveryPassword: RecoveryPassword
+  ): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.put<any>(`${this.url}users/changePassword/${id}`, recoveryPassword, {
-      headers,
-    });
+    return this._http.put<any>(
+      `${this.url}users/changePassword/${id}`,
+      recoveryPassword,
+      {
+        headers,
+      }
+    );
   }
 
   getOne(id: Number): Observable<any> {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this._http.get<any>(`${this.url}users/getOne/${id}`, { headers });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.get<any>(`${this.url}users/getOne/${id}`, { headers });
   }
 
   update(id: number, user: User): Observable<any> {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this._http.put<any>(`${this.url}users/edit/${id}`, user, { headers });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.put<any>(`${this.url}users/edit/${id}`, user, {
+      headers,
+    });
   }
-  
 }

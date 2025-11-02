@@ -34,18 +34,32 @@ export class RegisterHostComponent {
     private router: Router,
     private passwordUtils: PasswordUtilsService
   ) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, '', '', true);
+    this.host = new Host(
+      '',
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      '',
+      1,
+      '',
+      1,
+      1,
+      '',
+      '',
+      true
+    );
   }
 
   ngOnInit(): void {
     this.getAllDepartments();
-    this.onDepartmentChange()
+    this.onDepartmentChange();
   }
 
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
-
 
   getAllDepartments(): void {
     this._departmentService.getAll().subscribe({

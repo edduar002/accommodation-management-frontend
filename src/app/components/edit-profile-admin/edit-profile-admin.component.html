@@ -1,5 +1,6 @@
 <div class="profile-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del Administrador</h2>
+  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del
+    Administrador</h2>
   <div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4 text-center">
@@ -8,43 +9,21 @@
           <form #adminForm="ngForm" (ngSubmit)="onSubmit(adminForm)">
             <div class="mb-3">
               <label class="form-label fw-semibold">Nombre</label>
-              <input
-                type="text"
-                class="form-control text-center"
-                name="name"
-                [(ngModel)]="admin.name"
-                required
-              />
+              <input type="text" class="form-control text-center" name="name" [(ngModel)]="admin.name" required />
             </div>
 
             <div class="mb-3">
               <label class="form-label fw-semibold">Apellido</label>
-              <input
-                type="text"
-                class="form-control text-center"
-                name="surname"
-                [(ngModel)]="admin.surname"
-                required
-              />
+              <input type="text" class="form-control text-center" name="surname" [(ngModel)]="admin.surname" required />
             </div>
 
             <div class="mb-3">
               <label class="form-label fw-semibold">Correo Electrónico</label>
-              <input
-                type="email"
-                class="form-control text-center"
-                name="email"
-                [(ngModel)]="admin.email"
-                required
-              />
+              <input type="email" class="form-control text-center" name="email" [(ngModel)]="admin.email" required />
             </div>
 
             <div class="d-grid mt-4">
-              <button
-                type="submit"
-                class="btn btn-outline-primary btn-lg rounded-pill"
-                [disabled]="!adminForm.valid"
-              >
+              <button type="submit" class="btn btn-outline-primary btn-lg rounded-pill" [disabled]="!adminForm.valid">
                 Guardar cambios
               </button>
             </div>

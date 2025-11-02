@@ -7,7 +7,7 @@ import { RecoveryPassword } from '../models/recoveryPassword';
 import { Administrator } from '../models/administrator';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class HostService {
   public url: string;
@@ -22,27 +22,27 @@ export class HostService {
   }
 
   login(host: Host): Observable<any> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this._http.post<any>(`${this.url}hosts/login`, host, { headers });
-}
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.post<any>(`${this.url}hosts/login`, host, { headers });
+  }
 
-saveSession(data: any): void {
-  localStorage.setItem('token_host', data.token); // Guarda el token
-  localStorage.setItem('host', JSON.stringify(data)); // Guarda todo el usuario
-}
+  saveSession(data: any): void {
+    localStorage.setItem('token_host', data.token); // Guarda el token
+    localStorage.setItem('host', JSON.stringify(data)); // Guarda todo el usuario
+  }
 
-getToken(): string | null {
-  return localStorage.getItem('token_host');
-}
+  getToken(): string | null {
+    return localStorage.getItem('token_host');
+  }
 
-getHost(): Host | null {
-  const host = localStorage.getItem('host');
-  return host ? JSON.parse(host) : null;
-}
+  getHost(): Host | null {
+    const host = localStorage.getItem('host');
+    return host ? JSON.parse(host) : null;
+  }
 
-logout(): void {
-  localStorage.clear();
-}
+  logout(): void {
+    localStorage.clear();
+  }
 
   getAll(): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
@@ -54,11 +54,18 @@ logout(): void {
     return this._http.put<any>(`${this.url}hosts/delete/${id}`, { headers });
   }
 
-  changePassword(id: number, recoveryPassword: RecoveryPassword): Observable<any> {
+  changePassword(
+    id: number,
+    recoveryPassword: RecoveryPassword
+  ): Observable<any> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this._http.put<any>(`${this.url}hosts/changePassword/${id}`, recoveryPassword, {
-      headers,
-    });
+    return this._http.put<any>(
+      `${this.url}hosts/changePassword/${id}`,
+      recoveryPassword,
+      {
+        headers,
+      }
+    );
   }
 
   getOne(id: Number): Observable<any> {
@@ -67,14 +74,15 @@ logout(): void {
   }
 
   update(id: number, host: Host): Observable<any> {
-      const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-      return this._http.put<any>(`${this.url}hosts/edit/${id}`, host, { headers });
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.put<any>(`${this.url}hosts/edit/${id}`, host, {
+      headers,
+    });
   }
 
-    uploadImage(file: File): Observable<any> {
-  const formData = new FormData();
-  formData.append('file', file);
-  return this._http.post<any>(`${this.url}images/upload`, formData);
-}
-
+  uploadImage(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this._http.post<any>(`${this.url}images/upload`, formData);
+  }
 }

@@ -9,7 +9,7 @@ import { DepartmentService } from '../../services/department.service';
 import { City } from '../../models/city';
 import { CityService } from '../../services/city.service';
 import { UserService } from '../../services/user.service';
-import { LocationComponent } from "../location/location.component"; // 👈 Importa el que sube imágenes
+import { LocationComponent } from '../location/location.component'; // 👈 Importa el que sube imágenes
 
 @Component({
   selector: 'app-create-accommodation',
@@ -17,7 +17,12 @@ import { LocationComponent } from "../location/location.component"; // 👈 Impo
   imports: [CommonModule, FormsModule, LocationComponent],
   templateUrl: './create-accommodation.component.html',
   styleUrls: ['./create-accommodation.component.css'],
-  providers: [AccommodationService, DepartmentService, CityService, UserService],
+  providers: [
+    AccommodationService,
+    DepartmentService,
+    CityService,
+    UserService,
+  ],
 })
 export class CreateAccommodationComponent implements OnInit {
   public accommodation: Accommodation;
@@ -33,7 +38,23 @@ export class CreateAccommodationComponent implements OnInit {
     private _userService: UserService, // 👈 para usar uploadImage()
     private router: Router
   ) {
-    this.accommodation = new Accommodation('', '', '', 0, 0, 1, true, 0, 1, 1, '', '', true, '', '');
+    this.accommodation = new Accommodation(
+      '',
+      '',
+      '',
+      0,
+      0,
+      1,
+      true,
+      0,
+      1,
+      1,
+      '',
+      '',
+      true,
+      '',
+      ''
+    );
   }
 
   ngOnInit(): void {
@@ -51,14 +72,13 @@ export class CreateAccommodationComponent implements OnInit {
     }
   }
 
-onLocationChange(coord: { lat: number, lng: number }) {
-  this.accommodation.exactLocation = `${coord.lat.toFixed(6)}, ${coord.lng.toFixed(6)}`;
+  onLocationChange(coord: { lat: number; lng: number }) {
+    this.accommodation.exactLocation = `${coord.lat.toFixed(
+      6
+    )}, ${coord.lng.toFixed(6)}`;
 
-  console.log("📍 Ubicación formateada:", this.accommodation.exactLocation);
-}
-
-
-
+    console.log('📍 Ubicación formateada:', this.accommodation.exactLocation);
+  }
 
   onDepartmentChange() {
     const selectedId = this.accommodation.departmentsId;
@@ -105,7 +125,7 @@ onLocationChange(coord: { lat: number, lng: number }) {
   }
 
   private registerAccommodation(form: NgForm): void {
-    console.log(this.accommodation.exactLocation)
+    console.log(this.accommodation.exactLocation);
     this._accommodationService.register(this.accommodation).subscribe({
       next: (response) => {
         console.log('Alojamiento creado:', response);
@@ -124,7 +144,9 @@ onLocationChange(coord: { lat: number, lng: number }) {
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

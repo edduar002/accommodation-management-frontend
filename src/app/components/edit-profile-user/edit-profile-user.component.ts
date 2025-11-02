@@ -17,10 +17,9 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule],
   templateUrl: './edit-profile-user.component.html',
   styleUrls: ['./edit-profile-user.component.css'],
-  providers: [UserService, DepartmentService, CityService]
+  providers: [UserService, DepartmentService, CityService],
 })
 export class EditProfileUserComponent implements OnInit, AfterViewInit {
-
   public user: User;
   departamentos: Department[] = [];
   public errorMessage: string = '';
@@ -39,29 +38,40 @@ export class EditProfileUserComponent implements OnInit, AfterViewInit {
   ) {
     // Inicializa el usuario vacío
     this.user = new User(
-      '', '', '', '', '', new Date(),
-      '', 1, 1, 1, '', '', new Date(), new Date(), true
+      '',
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      '',
+      1,
+      1,
+      1,
+      '',
+      '',
+      new Date(),
+      new Date(),
+      true
     );
   }
 
   ngOnInit(): void {
     this.loadDepartments();
     this.getOne();
-    this.onDepartmentChange()
+    this.onDepartmentChange();
   }
 
-  
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
 
-  if (this.selectedFile) {
-    // Vista previa inmediata en la imagen de perfil
-    const reader = new FileReader();
-    reader.onload = (e: any) => (this.user.imgUrl = e.target.result);
-    reader.readAsDataURL(this.selectedFile);
+    if (this.selectedFile) {
+      // Vista previa inmediata en la imagen de perfil
+      const reader = new FileReader();
+      reader.onload = (e: any) => (this.user.imgUrl = e.target.result);
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
-}
-
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {
@@ -83,33 +93,36 @@ onFileSelected(event: any) {
     });
   }
 
-
   ngAfterViewInit(): void {
     // Inicializa los modales Bootstrap cuando el DOM ya está cargado
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   /** Cargar departamentos */
   loadDepartments(): void {
     this._departmentService.getAll().subscribe(
-      response => this.departamentos = response,
-      error => console.error('Error al cargar departamentos', error)
+      (response) => (this.departamentos = response),
+      (error) => console.error('Error al cargar departamentos', error)
     );
   }
 
   /** Cargar datos del usuario */
   getOne(): void {
-    this._route.params.subscribe(params => {
+    this._route.params.subscribe((params) => {
       const id = +params['id'];
       this._userService.getOne(id).subscribe(
-        response => {
+        (response) => {
           this.user = response;
-                  if (this.user.departmentId) {
-          this.getCities(this.user.departmentId);
-        }
+          if (this.user.departmentId) {
+            this.getCities(this.user.departmentId);
+          }
         },
-        error => {
+        (error) => {
           console.error('Error al cargar usuario:', error);
           this._router.navigate(['/']);
         }
@@ -126,11 +139,12 @@ onFileSelected(event: any) {
     }
 
     this._userService.update(this.user.id!, this.user).subscribe(
-      response => {
+      (response) => {
         this.successModal.show();
       },
-      error => {
-        this.errorMessage = 'Error al actualizar el perfil. Intenta nuevamente.';
+      (error) => {
+        this.errorMessage =
+          'Error al actualizar el perfil. Intenta nuevamente.';
         this.errorModal.show();
       }
     );

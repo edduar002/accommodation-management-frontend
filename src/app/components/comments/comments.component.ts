@@ -4,7 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommentService } from '../../services/comment.service';
 import { Comment } from '../../models/comment';
-import { ResponseCommentComponent } from "../response-comment/response-comment.component";
+import { ResponseCommentComponent } from '../response-comment/response-comment.component';
 
 @Component({
   selector: 'app-comments',
@@ -70,7 +70,7 @@ export class CommentsComponent implements OnInit {
     }
 
     this.comment.accommodationsId = this.accommodationId;
-    this.comment.date = new Date()
+    this.comment.date = new Date();
     this.comment.usersId = 2;
     this._commentService.register(this.comment).subscribe({
       next: (response) => {
@@ -103,7 +103,9 @@ export class CommentsComponent implements OnInit {
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

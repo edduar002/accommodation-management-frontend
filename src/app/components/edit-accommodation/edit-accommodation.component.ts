@@ -17,10 +17,9 @@ declare var bootstrap: any;
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './edit-accommodation.component.html',
   styleUrls: ['./edit-accommodation.component.css'],
-  providers: [AccommodationService, DepartmentService, CityService]
+  providers: [AccommodationService, DepartmentService, CityService],
 })
 export class EditAccommodationComponent implements OnInit, AfterViewInit {
-
   public accommodation: Accommodation;
   public departments: Department[] = [];
   public errorMessage: string = '';
@@ -40,27 +39,40 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
   ) {
     // Inicializa un alojamiento con valores por defecto
     this.accommodation = new Accommodation(
-      '', '', '', 0, 0, 1, true, null!, 1, 1, '', '', true, '', ''
+      '',
+      '',
+      '',
+      0,
+      0,
+      1,
+      true,
+      null!,
+      1,
+      1,
+      '',
+      '',
+      true,
+      '',
+      ''
     );
   }
 
   ngOnInit(): void {
     this.loadDepartments();
     this.getOne();
-    this.onDepartmentChange()
+    this.onDepartmentChange();
   }
 
-onFileSelected(event: any) {
-  this.selectedFile = event.target.files[0];
+  onFileSelected(event: any) {
+    this.selectedFile = event.target.files[0];
 
-  if (this.selectedFile) {
-    // Vista previa inmediata en la imagen de perfil
-    const reader = new FileReader();
-    reader.onload = (e: any) => (this.accommodation.imgUrl = e.target.result);
-    reader.readAsDataURL(this.selectedFile);
+    if (this.selectedFile) {
+      // Vista previa inmediata en la imagen de perfil
+      const reader = new FileReader();
+      reader.onload = (e: any) => (this.accommodation.imgUrl = e.target.result);
+      reader.readAsDataURL(this.selectedFile);
+    }
   }
-}
-
 
   // Este método se dispara al cambiar de departamento
   onDepartmentChange() {
@@ -82,35 +94,38 @@ onFileSelected(event: any) {
     });
   }
 
-
   ngAfterViewInit(): void {
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   /** 🔹 Cargar departamentos desde el servicio */
   loadDepartments(): void {
     this._departmentService.getAll().subscribe(
-      response => this.departamentos = response,
-      error => console.error('Error al cargar departamentos', error)
+      (response) => (this.departamentos = response),
+      (error) => console.error('Error al cargar departamentos', error)
     );
   }
 
   /** 🔹 Obtener alojamiento por ID (desde la URL) */
   getOne(): void {
-    this._route.params.subscribe(params => {
-      const id = + params['id'];
+    this._route.params.subscribe((params) => {
+      const id = +params['id'];
       this._accommodationService.getOne(id).subscribe({
         next: (response) => {
           this.accommodation = response;
-                  if (this.accommodation.departmentsId) {
-          this.getCities(this.accommodation.departmentsId);
-        }
+          if (this.accommodation.departmentsId) {
+            this.getCities(this.accommodation.departmentsId);
+          }
         },
         error: (error) => {
           console.error('Error al cargar alojamiento:', error);
           this._router.navigate(['/myAccommodations']);
-        }
+        },
       });
     });
   }
@@ -129,13 +144,16 @@ onFileSelected(event: any) {
       return;
     }
 
-    this._accommodationService.update(this.accommodation.id, this.accommodation).subscribe({
-      next: () => this.successModal.show(),
-      error: () => {
-        this.errorMessage = 'Error al actualizar el alojamiento. Intenta nuevamente.';
-        this.errorModal.show();
-      }
-    });
+    this._accommodationService
+      .update(this.accommodation.id, this.accommodation)
+      .subscribe({
+        next: () => this.successModal.show(),
+        error: () => {
+          this.errorMessage =
+            'Error al actualizar el alojamiento. Intenta nuevamente.';
+          this.errorModal.show();
+        },
+      });
   }
 
   /** 🔹 Cerrar modal y regresar */

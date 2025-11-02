@@ -2,7 +2,7 @@
   <!-- Encabezado -->
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="fw-bold"><i class="bi bi-person-badge fs-3 text-primary me-2"></i>
- Gestión de Anfitriones</h2>
+      Gestión de Anfitriones</h2>
   </div>
 
   <!-- Tabla de Hosts -->
@@ -32,11 +32,8 @@
           <td>{{ host.departmentName }}</td>
           <td>{{ host.cityName }}</td>
           <td class="text-center">
-            <button type="button"
-                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteModal"
-                    (click)="openDeleteModal(host.id)">
+            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(host.id)">
               <i class="bi bi-trash"></i> Eliminar
             </button>
           </td>
@@ -67,7 +64,8 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">Eliminar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()"
+            data-bs-dismiss="modal">Eliminar</button>
         </div>
       </div>
     </div>

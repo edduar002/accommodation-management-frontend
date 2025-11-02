@@ -7,8 +7,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './my-reservations.component.html',
-  styleUrl: './my-reservations.component.css'
+  styleUrl: './my-reservations.component.css',
 })
-export class MyReservationsComponent {
-
-}
+export class MyReservationsComponent {}

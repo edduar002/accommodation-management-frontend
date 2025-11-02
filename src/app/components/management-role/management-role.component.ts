@@ -11,17 +11,13 @@ import { HttpClient } from '@angular/common/http';
   imports: [CommonModule, RouterLink],
   templateUrl: './management-role.component.html',
   styleUrls: ['./management-role.component.css'],
-  providers: [RoleService]
+  providers: [RoleService],
 })
 export class ManagementRoleComponent implements OnInit {
-
   roles: Role[] = [];
   selectedCityId?: number;
 
-  constructor(
-    private http: HttpClient,
-    private _roleService: RoleService
-  ) {}
+  constructor(private http: HttpClient, private _roleService: RoleService) {}
 
   ngOnInit(): void {
     this.getAll();
@@ -35,11 +31,11 @@ export class ManagementRoleComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener roles:', error);
-      }
+      },
     });
   }
 
-    openDeleteModal(id?: number) {
+  openDeleteModal(id?: number) {
     if (!id) return;
     this.selectedCityId = id;
   }
@@ -51,8 +47,7 @@ export class ManagementRoleComponent implements OnInit {
         this.getAll();
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error)
+      error: (error) => console.error(error),
     });
   }
-
 }

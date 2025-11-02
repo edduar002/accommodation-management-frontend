@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Role } from '../../models/role';
 import { RoleService } from '../../services/role.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormsModule, NgForm  } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 declare var bootstrap: any;
 
@@ -14,10 +14,9 @@ declare var bootstrap: any;
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './edit-role.component.html',
   styleUrl: './edit-role.component.css',
-  providers: [RoleService]
+  providers: [RoleService],
 })
 export class EditRoleComponent {
-
   public role: Role;
   public errorMessage: string = '';
   private successModal: any;
@@ -28,7 +27,7 @@ export class EditRoleComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.role = new Role('', true)
+    this.role = new Role('', true);
   }
 
   ngOnInit(): void {
@@ -36,19 +35,23 @@ export class EditRoleComponent {
   }
 
   ngAfterViewInit(): void {
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   getOne(): void {
-    this._route.params.subscribe(params => {
+    this._route.params.subscribe((params) => {
       const id = +params['id'];
       this._roleService.getOne(id).subscribe(
-        response => {
+        (response) => {
           this.role = response;
           console.log('Rol cargada:', this.role);
         },
-        error => {
+        (error) => {
           console.error('Error al cargar rol:', error);
           this._router.navigate(['/managementRole']);
         }
@@ -64,8 +67,8 @@ export class EditRoleComponent {
     }
 
     this._roleService.update(this.role.id!, this.role).subscribe(
-      response => this.successModal.show(),
-      error => {
+      (response) => this.successModal.show(),
+      (error) => {
         this.errorMessage = 'Error al actualizar la ciudad';
         this.errorModal.show();
       }
@@ -76,5 +79,4 @@ export class EditRoleComponent {
     this.successModal.hide();
     this._router.navigate(['/managementRole']);
   }
-
 }

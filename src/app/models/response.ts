@@ -5,6 +5,6 @@ export class Response {
     public date: Date,
     public hostName: string,
     public commentsId?: number,
-    public id?:number
+    public id?: number
   ) {}
 }

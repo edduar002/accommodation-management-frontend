@@ -29,7 +29,7 @@ export class EditCityComponent implements OnInit, AfterViewInit {
     private _cityService: CityService,
     private _route: ActivatedRoute,
     private _router: Router,
-    private _departmentService: DepartmentService,
+    private _departmentService: DepartmentService
   ) {
     this.city = new City('', 1, '', true);
   }
@@ -40,24 +40,28 @@ export class EditCityComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   /** Cargar departamentos */
   loadDepartments(): void {
     this._departmentService.getAll().subscribe(
-      response => this.departamentos = response,
-      error => console.error('Error al cargar departamentos', error)
+      (response) => (this.departamentos = response),
+      (error) => console.error('Error al cargar departamentos', error)
     );
   }
 
   getOne(): void {
-    this._route.params.subscribe(params => {
-      const id = + params['id'];
+    this._route.params.subscribe((params) => {
+      const id = +params['id'];
       this._cityService.getOne(id).subscribe(
-        response => this.city = response,
-        error => this._router.navigate(['/managementCity'])
+        (response) => (this.city = response),
+        (error) => this._router.navigate(['/managementCity'])
       );
     });
   }
@@ -70,8 +74,8 @@ export class EditCityComponent implements OnInit, AfterViewInit {
     }
 
     this._cityService.update(this.city.id!, this.city).subscribe(
-      response => this.successModal.show(),
-      error => {
+      (response) => this.successModal.show(),
+      (error) => {
         this.errorMessage = 'Error al actualizar la ciudad';
         this.errorModal.show();
       }

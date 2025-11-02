@@ -1,26 +1,21 @@
 <div class="home-section mt-5">
   <!-- 🔍 Filtro de búsqueda -->
-<div class="container mb-4">
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-      <input
-        type="text"
-        class="form-control rounded-pill shadow-sm"
-        placeholder="Buscar por descripción, ciudad o departamento..."
-        [(ngModel)]="searchText"
-      />
+  <div class="container mb-4">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <input type="text" class="form-control rounded-pill shadow-sm"
+          placeholder="Buscar por descripción, ciudad o departamento..." [(ngModel)]="searchText" />
+      </div>
     </div>
   </div>
-</div>
-<br>
+  <br>
   <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-door-fill text-primary" aria-hidden="true"></i>
     Alojamientos destacados</h2>
 
 
 
   <div class="row g-4" *ngIf="accommodations.length > 0; else noAccommodations">
-    <div class="col-md-4"
-     *ngFor="let alojamiento of accommodations
+    <div class="col-md-4" *ngFor="let alojamiento of accommodations
        | filterAlojamiento: searchText; let i = index">
 
       <div class="card alojamiento-card shadow-sm border-0 h-100 position-relative">
@@ -51,21 +46,22 @@
 
   <!-- Mensaje cuando no hay alojamientos -->
   <ng-template #noAccommodations>
-  <div class="text-center mt-5 d-flex flex-column justify-content-center align-items-center" style="min-height: 50vh;">
-    
-    <div class="p-4 border rounded-4 shadow-sm" style="max-width: 500px;">
-      <h4 class="fw-bold text-primary mb-3">
-        <i class="bi bi-emoji-neutral"></i> No encontramos alojamientos
-      </h4>
+    <div class="text-center mt-5 d-flex flex-column justify-content-center align-items-center"
+      style="min-height: 50vh;">
 
-      <p class="text-muted mb-4">
-        No hay alojamientos disponibles en este momento.  
-        Vuelve más tarde o ajusta el texto de búsqueda.
-      </p>
+      <div class="p-4 border rounded-4 shadow-sm" style="max-width: 500px;">
+        <h4 class="fw-bold text-primary mb-3">
+          <i class="bi bi-emoji-neutral"></i> No encontramos alojamientos
+        </h4>
+
+        <p class="text-muted mb-4">
+          No hay alojamientos disponibles en este momento.
+          Vuelve más tarde o ajusta el texto de búsqueda.
+        </p>
+      </div>
+
     </div>
-
-  </div>
-</ng-template>
+  </ng-template>
 
 </div>
 <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
@@ -73,7 +69,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Favorito agregado con exito</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Favorito
+          agregado con exito</h5>
       </div>
       <div class="modal-body">
         <p>El alojamiento ha sido agregado a favoritos con exito.</p>
@@ -90,7 +87,8 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
+          actualizar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

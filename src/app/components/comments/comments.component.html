@@ -19,23 +19,14 @@
 
   <!-- Formulario de nuevo comentario -->
   <div class="new-comment mt-4 p-4 rounded-4 shadow-sm bg-white">
-    <h5 class="fw-semibold mb-3 text-secondary"><i class="bi bi-pencil-square" aria-hidden="true"></i> Deja tu comentario</h5>
+    <h5 class="fw-semibold mb-3 text-secondary"><i class="bi bi-pencil-square" aria-hidden="true"></i> Deja tu
+      comentario</h5>
     <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
-      <textarea
-        class="form-control mb-3"
-        rows="3"
-        name="content"
-        [(ngModel)]="comment.content"
-        placeholder="Cuéntanos tu experiencia..."
-        required
-      ></textarea>
+      <textarea class="form-control mb-3" rows="3" name="content" [(ngModel)]="comment.content"
+        placeholder="Cuéntanos tu experiencia..." required></textarea>
       <div class="text-end">
-        <input
-          type="submit"
-          class="btn btn-success rounded-pill px-4"
-          value="Publicar comentario"
-          [disabled]="commentForm.invalid"
-        />
+        <input type="submit" class="btn btn-success rounded-pill px-4" value="Publicar comentario"
+          [disabled]="commentForm.invalid" />
       </div>
     </form>
   </div>
@@ -46,18 +37,14 @@
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Comentario publicado</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i>
+          Comentario publicado</h5>
       </div>
       <div class="modal-body">
         <p>Tu comentario se ha publicado correctamente.</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button
-          type="button"
-          class="btn btn-success"
-          data-bs-dismiss="modal"
-          (click)="closeModal()"
-        >
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar
         </button>
       </div>

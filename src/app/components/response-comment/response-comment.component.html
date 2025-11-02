@@ -27,28 +27,20 @@
   </div>
 </div>
 <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
-<div
-  class="modal fade"
-  [id]="'successModal-' + commentId"
-  tabindex="-1"
-  aria-labelledby="successModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" [id]="'successModal-' + commentId" tabindex="-1" aria-labelledby="successModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Respuesta enviada</h5>
+        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Respuesta
+          enviada</h5>
       </div>
       <div class="modal-body">
         <p>Tu respuesta se ha publicado correctamente.</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button
-          type="button"
-          class="btn btn-success"
-          data-bs-dismiss="modal"
-          (click)="closeModal('successModal-' + commentId)"
-        >
+        <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+          (click)="closeModal('successModal-' + commentId)">
           Aceptar
         </button>
       </div>
@@ -57,13 +49,8 @@
 </div>
 
 <!-- ❌ Modal de error -->
-<div
-  class="modal fade"
-  [id]="'errorModal-' + commentId"
-  tabindex="-1"
-  aria-labelledby="errorModalLabel"
-  aria-hidden="true"
->
+<div class="modal fade" [id]="'errorModal-' + commentId" tabindex="-1" aria-labelledby="errorModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
@@ -73,12 +60,8 @@
         <p>{{ errorMessage }}</p>
       </div>
       <div class="modal-footer justify-content-center">
-        <button
-          type="button"
-          class="btn btn-danger"
-          data-bs-dismiss="modal"
-          (click)="closeModal('errorModal-' + commentId)"
-        >
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"
+          (click)="closeModal('errorModal-' + commentId)">
           Cerrar
         </button>
       </div>

@@ -11,7 +11,7 @@ import { DepartmentService } from '../../services/department.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './create-department.component.html',
   styleUrl: './create-department.component.css',
-  providers: [DepartmentService]
+  providers: [DepartmentService],
 })
 export class CreateDepartmentComponent {
   public department: Department;
@@ -41,14 +41,16 @@ export class CreateDepartmentComponent {
       },
       error: (error) => {
         console.error('Error al crear departamento:', error);
-      }
+      },
     });
   }
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

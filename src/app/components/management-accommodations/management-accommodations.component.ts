@@ -11,10 +11,9 @@ import { AccommodationService } from '../../services/accommodation.service';
   imports: [CommonModule, RouterLink],
   templateUrl: './management-accommodations.component.html',
   styleUrls: ['./management-accommodations.component.css'],
-  providers: [AccommodationService]
+  providers: [AccommodationService],
 })
 export class ManagementAccommodationsComponent implements OnInit {
-
   accommodations: Accommodation[] = [];
   selectedAccommodationId?: number;
 
@@ -35,7 +34,7 @@ export class ManagementAccommodationsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al obtener alojamientos:', error);
-      }
+      },
     });
   }
 
@@ -53,7 +52,7 @@ export class ManagementAccommodationsComponent implements OnInit {
       },
       error: (error) => {
         console.error('Error al eliminar alojamiento:', error);
-      }
+      },
     });
   }
 }

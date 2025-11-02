@@ -17,15 +17,28 @@ export class LoginHostComponent {
   public host: Host;
 
   constructor(private _hostService: HostService, private router: Router) {
-    this.host = new Host('', '', '', '', '', new Date(), '', 1, '', 1, 1, '', '', true);
+    this.host = new Host(
+      '',
+      '',
+      '',
+      '',
+      '',
+      new Date(),
+      '',
+      1,
+      '',
+      1,
+      1,
+      '',
+      '',
+      true
+    );
   }
 
   onSubmit(form: NgForm): void {
     this._hostService.login(this.host).subscribe({
       next: (response) => {
         console.log('Inicio de sesión exitoso:', response);
-
-
 
         // 👀 Validar si el host está activo
         if (Number(response.active) === 1) {

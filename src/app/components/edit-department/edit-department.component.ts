@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Department } from '../../models/department';
 import { DepartmentService } from '../../services/department.service';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormsModule, NgForm  } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 
 declare var bootstrap: any;
 
@@ -14,10 +14,9 @@ declare var bootstrap: any;
   imports: [CommonModule, RouterLink, FormsModule],
   templateUrl: './edit-department.component.html',
   styleUrl: './edit-department.component.css',
-  providers: [DepartmentService]
+  providers: [DepartmentService],
 })
 export class EditDepartmentComponent {
-
   public department: Department;
   public errorMessage: string = '';
   private successModal: any;
@@ -28,7 +27,7 @@ export class EditDepartmentComponent {
     private _route: ActivatedRoute,
     private _router: Router
   ) {
-    this.department = new Department('', true)
+    this.department = new Department('', true);
   }
 
   ngOnInit(): void {
@@ -36,19 +35,23 @@ export class EditDepartmentComponent {
   }
 
   ngAfterViewInit(): void {
-    this.successModal = new bootstrap.Modal(document.getElementById('successModal'));
-    this.errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+    this.successModal = new bootstrap.Modal(
+      document.getElementById('successModal')
+    );
+    this.errorModal = new bootstrap.Modal(
+      document.getElementById('errorModal')
+    );
   }
 
   getOne(): void {
-    this._route.params.subscribe(params => {
+    this._route.params.subscribe((params) => {
       const id = +params['id'];
       this._departmentService.getOne(id).subscribe(
-        response => {
+        (response) => {
           this.department = response;
           console.log('Departamento cargada:', this.department);
         },
-        error => {
+        (error) => {
           console.error('Error al cargar departamento:', error);
           this._router.navigate(['/managementDepartment']);
         }
@@ -63,18 +66,19 @@ export class EditDepartmentComponent {
       return;
     }
 
-    this._departmentService.update(this.department.id!, this.department).subscribe(
-      response => this.successModal.show(),
-      error => {
-        this.errorMessage = 'Error al actualizar la ciudad';
-        this.errorModal.show();
-      }
-    );
+    this._departmentService
+      .update(this.department.id!, this.department)
+      .subscribe(
+        (response) => this.successModal.show(),
+        (error) => {
+          this.errorMessage = 'Error al actualizar la ciudad';
+          this.errorModal.show();
+        }
+      );
   }
 
   closeModal(): void {
     this.successModal.hide();
     this._router.navigate(['/managementDepartment']);
   }
-
 }

@@ -24,58 +24,69 @@
         </li>
       </ul>
 
- <ul class="navbar-nav" *ngIf="isLoggedIn()">
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-      aria-expanded="false">
-      👤 Cuenta
-    </a>
-    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-      <li *ngIf="isAdministratorLoggedIn()">
-  <a class="dropdown-item" [routerLink]="['/changePasswordAdmin', administratorService.getAdministrator()?.id]">Cambiar clave</a>
-</li>
+      <ul class="navbar-nav" *ngIf="isLoggedIn()">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            👤 Cuenta
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li *ngIf="isAdministratorLoggedIn()">
+              <a class="dropdown-item"
+                [routerLink]="['/changePasswordAdmin', administratorService.getAdministrator()?.id]">Cambiar clave</a>
+            </li>
 
-<li *ngIf="isHostLoggedIn()">
-  <a class="dropdown-item" [routerLink]="['/changePasswordHost', hostService.getHost()?.id]">Cambiar clave</a>
-</li>
+            <li *ngIf="isHostLoggedIn()">
+              <a class="dropdown-item" [routerLink]="['/changePasswordHost', hostService.getHost()?.id]">Cambiar
+                clave</a>
+            </li>
 
-<li *ngIf="isUserLoggedIn()">
-  <a class="dropdown-item" [routerLink]="['/changePasswordUser', userService.getUser()?.id]">Cambiar clave (user)</a>
-</li>
+            <li *ngIf="isUserLoggedIn()">
+              <a class="dropdown-item" [routerLink]="['/changePasswordUser', userService.getUser()?.id]">Cambiar clave
+                (user)</a>
+            </li>
 
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementAccommodations">Gestión de alojamientos</a></li>
-      <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a></li>
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementCity">Gestión de ciudades</a></li>
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementUser">Gestión de usuarios</a></li>
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementHost">Gestión de anfitriones</a></li>
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementDepartment">Gestión de departamentos</a></li>
-      <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementRole">Gestión de roles</a></li>
-      <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/createReservation">Reservar</a></li>
-<li *ngIf="isAdministratorLoggedIn()">
-  <a class="dropdown-item" [routerLink]="['/editProfileAdmin', administratorService.getAdministrator()?.id]">Editar perfil</a>
-</li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item"
+                routerLink="/managementAccommodations">Gestión de alojamientos</a></li>
+            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a>
+            </li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementCity">Gestión de
+                ciudades</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementUser">Gestión de
+                usuarios</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementHost">Gestión de
+                anfitriones</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementDepartment">Gestión de
+                departamentos</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementRole">Gestión de
+                roles</a></li>
+            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/createReservation">Reservar</a></li>
+            <li *ngIf="isAdministratorLoggedIn()">
+              <a class="dropdown-item"
+                [routerLink]="['/editProfileAdmin', administratorService.getAdministrator()?.id]">Editar perfil</a>
+            </li>
 
-<li *ngIf="isHostLoggedIn()">
-  <a class="dropdown-item" [routerLink]="['/editProfileHost', hostService.getHost()?.id]">Editar perfil</a>
-</li>
+            <li *ngIf="isHostLoggedIn()">
+              <a class="dropdown-item" [routerLink]="['/editProfileHost', hostService.getHost()?.id]">Editar perfil</a>
+            </li>
 
-      <li *ngIf="isUserLoggedIn()">
-        <a class="dropdown-item" [routerLink]="['/editProfileUser', userService.getUser()?.id]">
-          Editar perfil (user)
-        </a>
-      </li>
-      <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
-      <li>
-        <hr class="dropdown-divider">
-      </li>
-      <li *ngIf="isLoggedIn()">
-        <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
-          Salir
-        </a>
-      </li>
-    </ul>
-  </li>
-</ul>
+            <li *ngIf="isUserLoggedIn()">
+              <a class="dropdown-item" [routerLink]="['/editProfileUser', userService.getUser()?.id]">
+                Editar perfil (user)
+              </a>
+            </li>
+            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li *ngIf="isLoggedIn()">
+              <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
+                Salir
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
 
     </div>
   </nav>

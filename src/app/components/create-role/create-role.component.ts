@@ -11,15 +11,12 @@ import { RoleService } from '../../services/role.service';
   imports: [CommonModule, FormsModule],
   templateUrl: './create-role.component.html',
   styleUrl: './create-role.component.css',
-  providers: [RoleService]
+  providers: [RoleService],
 })
 export class CreateRoleComponent {
   public role: Role;
 
-  constructor(
-    private _roleService: RoleService,
-    private router: Router
-  ) {
+  constructor(private _roleService: RoleService, private router: Router) {
     this.role = new Role('', true);
   }
 
@@ -40,14 +37,16 @@ export class CreateRoleComponent {
       },
       error: (error) => {
         console.error('Error al crear rol:', error);
-      }
+      },
     });
   }
 
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(
+        modalEl
+      );
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();

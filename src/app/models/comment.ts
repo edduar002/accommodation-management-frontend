@@ -5,6 +5,6 @@ export class Comment {
     public accommodationsId: number,
     public usersId: number,
     public userName: string,
-    public id?:number
+    public id?: number
   ) {}
 }

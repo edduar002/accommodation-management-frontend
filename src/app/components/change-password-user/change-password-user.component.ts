@@ -21,13 +21,13 @@ export class ChangePasswordUserComponent {
   constructor(
     private _userService: UserService,
     private router: Router,
-    private passwordUtils: PasswordUtilsService,
+    private passwordUtils: PasswordUtilsService
   ) {
     this.recoveryPassword = new RecoveryPassword('', '');
   }
 
   onSubmit(form: NgForm): void {
-        // Validación de contraseña segura antes de llamar al backend
+    // Validación de contraseña segura antes de llamar al backend
     if (!this.passwordUtils.isStrong(this.recoveryPassword.newPassword)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
@@ -37,25 +37,28 @@ export class ChangePasswordUserComponent {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
     this.recoveryPassword.id = user.id || 2;
 
-    this._userService.changePassword(this.recoveryPassword.id!, this.recoveryPassword).subscribe({
-      next: (response) => {
-        console.log('Contraseña cambiada correctamente:', response);
-        this.showModal('successModal');
-        form.resetForm();
-      },
-      error: (error) => {
-        console.error('Error al cambiar la contraseña:', error);
+    this._userService
+      .changePassword(this.recoveryPassword.id!, this.recoveryPassword)
+      .subscribe({
+        next: (response) => {
+          console.log('Contraseña cambiada correctamente:', response);
+          this.showModal('successModal');
+          form.resetForm();
+        },
+        error: (error) => {
+          console.error('Error al cambiar la contraseña:', error);
 
-        // Si la contraseña actual es incorrecta
-        if (error?.error?.error === 'La contraseña actual es incorrecta') {
-          this.errorMessage = 'La contraseña actual es incorrecta.';
-        } else {
-          this.errorMessage = 'Ocurrió un error al cambiar la contraseña. Inténtalo nuevamente.';
-        }
+          // Si la contraseña actual es incorrecta
+          if (error?.error?.error === 'La contraseña actual es incorrecta') {
+            this.errorMessage = 'La contraseña actual es incorrecta.';
+          } else {
+            this.errorMessage =
+              'Ocurrió un error al cambiar la contraseña. Inténtalo nuevamente.';
+          }
 
-        this.showModal('errorModal');
-      },
-    });
+          this.showModal('errorModal');
+        },
+      });
   }
 
   closeModal(): void {
