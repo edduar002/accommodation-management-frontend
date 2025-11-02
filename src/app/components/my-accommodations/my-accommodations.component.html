@@ -1,15 +1,20 @@
 <div class="container mt-5">
-  <!-- Encabezado -->
+  <!-- Encabezado de la página -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="bi bi-house-door-fill text-primary fs-3 me-2"></i> Gestión de mis Alojamientos</h2>
+    <!-- Título principal -->
+    <h2 class="fw-bold">
+      Gestión de mis Alojamientos
+    </h2>
+    <!-- Botón para crear un nuevo alojamiento -->
     <a routerLink="/createAccommodation" class="btn btn-primary btn-lg shadow-sm rounded-pill">
-      <i class="bi bi-plus-circle me-2"></i> Crear nuevo
+      Crear nuevo
     </a>
   </div>
 
-  <!-- Tabla de Alojamientos -->
+  <!-- Tabla que muestra la lista de alojamientos -->
   <div class="table-responsive shadow-sm rounded-4">
     <table class="table table-hover align-middle mb-0 text-center">
+      <!-- Encabezado de la tabla -->
       <thead class="table-light">
         <tr>
           <th scope="col">#</th>
@@ -23,30 +28,39 @@
         </tr>
       </thead>
 
+      <!-- Cuerpo de la tabla -->
       <tbody>
-        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Recorrer alojamientos dinámicamente -->
+        <!-- Iteración sobre el arreglo de alojamientos -->
         <tr *ngFor="let a of accommodations; let i = index">
+          <!-- Número de fila -->
           <th scope="row">{{ i + 1 }}</th>
+          <!-- Datos del alojamiento -->
           <td>{{ a.detailedDescription }}</td>
           <td>{{ a.direction }}</td>
           <td>{{ a.departmentName }}</td>
           <td>{{ a.cityName }}</td>
           <td>{{ a.price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
           <td>{{ a.maximumCapacity }}</td>
+          <!-- Botones de acción: Editar y Eliminar -->
           <td class="text-center">
+            <!-- Enlace para editar alojamiento -->
             <a [routerLink]="['/editAccommodation', a.id]" class="text-primary fw-semibold me-3 text-decoration-none">
-              <i class="bi bi-pencil-square"></i> Editar
+              Editar
             </a>
-            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(a.id)">
-              <i class="bi bi-trash"></i> Eliminar
+            <!-- Botón para eliminar alojamiento -->
+            <button type="button"
+                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    (click)="openDeleteModal(a.id)">
+              Eliminar
             </button>
           </td>
         </tr>
 
-        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Mostrar mensaje si no hay datos -->
+        <!-- Mensaje cuando no hay alojamientos registrados -->
         <tr *ngIf="accommodations.length === 0">
-          <td colspan="7" class="text-center text-muted py-4">
+          <td colspan="8" class="text-center text-muted py-4">
             No hay alojamientos registrados.
           </td>
         </tr>
@@ -54,23 +68,30 @@
     </table>
   </div>
 
-  <!-- 🔴 Modal de confirmación -->
+  <!-- Modal de confirmación de eliminación -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg">
+        <!-- Encabezado del modal -->
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
+            Confirmar eliminación
           </h5>
+          <!-- Botón para cerrar el modal -->
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
+        <!-- Cuerpo del modal con mensaje de advertencia -->
         <div class="modal-body">
           <p>¿Estás seguro de que deseas eliminar este alojamiento?</p>
         </div>
+        <!-- Pie del modal con botones de acción -->
         <div class="modal-footer">
+          <!-- Botón para cancelar -->
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()"
-            data-bs-dismiss="modal">Eliminar</button>
+          <!-- Botón para confirmar eliminación -->
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>

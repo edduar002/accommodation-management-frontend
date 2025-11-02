@@ -1,56 +1,74 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
-import { Administrator } from '../../models/administrator';
-import { AdministratorService } from '../../services/administrator.service';
-import { PasswordUtilsService } from '../../core/utils/password-utils.service';
+// Importaciones necesarias para el componente Angular
+import { Component } from '@angular/core'; // Decorador para definir un componente
+import { Router } from '@angular/router'; // Para redirecciones entre rutas
+import { CommonModule } from '@angular/common'; // Proporciona directivas comunes como ngIf y ngFor
+import { FormsModule, NgForm } from '@angular/forms'; // Para trabajar con formularios template-driven
+import { Administrator } from '../../models/administrator'; // Modelo de datos de administrador
+import { AdministratorService } from '../../services/administrator.service'; // Servicio para registro de administradores
+import { PasswordUtilsService } from '../../core/utils/password-utils.service'; // Servicio para validar contraseñas
 
 @Component({
-  selector: 'app-register-administrator',
-  standalone: true,
-  imports: [CommonModule, FormsModule],
-  templateUrl: './register-administrator.component.html',
-  styleUrl: './register-administrator.component.css',
-  providers: [AdministratorService],
+  selector: 'app-register-administrator', // Selector del componente
+  standalone: true, // Componente independiente
+  imports: [CommonModule, FormsModule], // Módulos requeridos en la plantilla
+  templateUrl: './register-administrator.component.html', // Archivo HTML del componente
+  styleUrl: './register-administrator.component.css', // Archivo CSS del componente
+  providers: [AdministratorService], // Servicio inyectado localmente
 })
 export class RegisterAdministratorComponent {
+  // Objeto que contiene los datos del administrador a registrar
   public administrator: Administrator;
+
+  // Mensaje de error para mostrar en el modal de error
   public errorMessage: string = '';
 
+  /**
+   * Constructor del componente
+   * @param _administratorService Servicio para interactuar con el backend de administradores
+   * @param router Servicio para navegación entre rutas
+   * @param passwordUtils Servicio para validar la seguridad de contraseñas
+   */
   constructor(
     private _administratorService: AdministratorService,
     private router: Router,
     private passwordUtils: PasswordUtilsService
   ) {
+    // Inicializar administrador con valores vacíos y rol 1 (Administrador)
     this.administrator = new Administrator('', '', '', '', 1);
   }
 
+  /**
+   * Método que se ejecuta al enviar el formulario de registro
+   * @param form Referencia al formulario Angular
+   */
   onSubmit(form: NgForm): void {
-    // Validación de contraseña segura antes de llamar al backend
+    // Validar que la contraseña sea segura antes de enviar al backend
     if (!this.passwordUtils.isStrong(this.administrator.password)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
-      this.showModal('errorModal');
+      this.showModal('errorModal'); // Mostrar modal de error
       return;
     }
-    this.administrator.rolesId = 1; // Rol fijo: Administrador
-    console.log('Administrador a enviar:', this.administrator);
 
+    // Asignar rol fijo de Administrador
+    this.administrator.rolesId = 1;
+
+    // Llamar al servicio para registrar el administrador
     this._administratorService.register(this.administrator).subscribe({
       next: (response) => {
-        console.log('Administrador registrado:', response);
-        this.showModal('successModal');
-        form.resetForm();
+        // Registro exitoso
+        this.showModal('successModal'); // Mostrar modal de éxito
+        form.resetForm(); // Limpiar formulario
       },
       error: (error) => {
+        // Manejo de errores
         console.error('Error al registrar administrador:', error);
 
-        // 🧩 Detectar error por correo duplicado
+        // Detectar error por correo duplicado
         if (
           error?.error?.message?.includes('Duplicate entry') ||
           error?.error?.includes('Duplicate entry') ||
-          error?.status === 409 // Si el backend devuelve Conflict (409)
+          error?.status === 409 // Código HTTP Conflict
         ) {
           this.errorMessage =
             'El correo ingresado ya está registrado. Intenta con otro.';
@@ -59,31 +77,41 @@ export class RegisterAdministratorComponent {
             'Ocurrió un error inesperado. Inténtalo nuevamente.';
         }
 
-        this.showModal('errorModal');
+        this.showModal('errorModal'); // Mostrar modal de error
       },
     });
   }
 
+  /**
+   * Método para cerrar el modal de éxito y redirigir a la página principal
+   */
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
+      // Obtener instancia del modal y ocultarlo
       const modalInstance = (window as any).bootstrap.Modal.getInstance(
         modalEl
       );
       modalInstance?.hide();
+
+      // Eliminar clases y backdrop generados por Bootstrap
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();
     }
 
-    //Redirigir después de cerrar el modal
+    // Redirigir a la página principal
     this.router.navigate(['/']);
   }
 
+  /**
+   * Método privado para mostrar un modal por su ID
+   * @param id ID del modal a mostrar
+   */
   private showModal(id: string): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {
       const modal = new (window as any).bootstrap.Modal(modalEl);
-      modal.show();
+      modal.show(); // Mostrar modal
     }
   }
 }

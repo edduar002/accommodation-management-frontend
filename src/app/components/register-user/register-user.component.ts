@@ -19,10 +19,17 @@ import { CityService } from '../../services/city.service';
   providers: [UserService, DepartmentService, CityService],
 })
 export class RegisterUserComponent {
+  // Modelo del usuario a registrar
   public user: User;
+
+  // Mensaje de error a mostrar en modales
   public errorMessage: string = '';
+
+  // Listado de departamentos y ciudades dinámicos
   departamentos: Department[] = [];
   ciudades: City[] = [];
+
+  // Archivo seleccionado por el usuario
   selectedFile?: File;
   uploading = false;
 
@@ -33,6 +40,7 @@ export class RegisterUserComponent {
     private passwordUtils: PasswordUtilsService,
     private router: Router
   ) {
+    // Inicializamos el objeto usuario con valores por defecto
     this.user = new User(
       '',
       '',
@@ -52,24 +60,37 @@ export class RegisterUserComponent {
     );
   }
 
+  /**
+   * Método de ciclo de vida Angular que se ejecuta al inicializar el componente.
+   * Obtiene todos los departamentos y carga las ciudades correspondientes.
+   */
   ngOnInit(): void {
     this.getAllDepartments();
     this.onDepartmentChange();
   }
 
+  /**
+   * Maneja la selección de un archivo de imagen.
+   * @param event Evento de cambio del input file
+   */
   onFileSelected(event: any) {
     this.selectedFile = event.target.files[0];
   }
 
-  // Este método se dispara al cambiar de departamento
+  /**
+   * Método disparado al cambiar el departamento.
+   * Obtiene las ciudades correspondientes al departamento seleccionado.
+   */
   onDepartmentChange() {
-    const selectedId = this.user.departmentId; // aquí tienes el ID seleccionado
-    console.log('Departamento seleccionado:', selectedId);
+    const selectedId = this.user.departmentId;
 
-    // Llamas a getCities con ese ID
     this.getCities(Number(selectedId));
   }
 
+  /**
+   * Obtiene todas las ciudades de un departamento específico
+   * @param departmentId Id del departamento seleccionado
+   */
   getCities(departmentId: number): void {
     this._cityService.getAllForDepartment(departmentId).subscribe({
       next: (response: any) => {
@@ -81,6 +102,9 @@ export class RegisterUserComponent {
     });
   }
 
+  /**
+   * Obtiene todos los departamentos del sistema
+   */
   getAllDepartments(): void {
     this._departmentService.getAll().subscribe({
       next: (response: any) => {
@@ -92,7 +116,13 @@ export class RegisterUserComponent {
     });
   }
 
+  /**
+   * Método que se ejecuta al enviar el formulario de registro.
+   * Valida contraseña, maneja imagen y registra al usuario.
+   * @param form Formulario de Angular
+   */
   onSubmit(form: NgForm): void {
+    // Validación de contraseña segura
     if (!this.passwordUtils.isStrong(this.user.password)) {
       this.errorMessage =
         'La contraseña es insegura. Debe tener mínimo 6 caracteres, incluir mayúsculas, minúsculas, números y un símbolo.';
@@ -103,13 +133,12 @@ export class RegisterUserComponent {
     this.user.rolesId = 3;
     this.user.active = true;
 
-    // Si el usuario seleccionó una imagen
+    // Subida de imagen si el usuario seleccionó un archivo
     if (this.selectedFile) {
       this.uploading = true;
       this._userService.uploadImage(this.selectedFile).subscribe({
         next: (res) => {
-          console.log('Respuesta Cloudinary:', res); // 🔍 revisa en consola
-          this.user.imgUrl = res.secure_url; // ✅ URL segura de Cloudinary
+          this.user.imgUrl = res.secure_url;
           this.uploading = false;
           this.registerUser(form);
         },
@@ -125,16 +154,42 @@ export class RegisterUserComponent {
     }
   }
 
+  /**
+   * Registro real del usuario en el backend.
+   * También realiza login automático tras el registro exitoso.
+   * @param form Formulario de Angular
+   */
   private registerUser(form: NgForm): void {
     this._userService.register(this.user).subscribe({
       next: (response) => {
-        console.log('Usuario registrado:', response);
-        this.showModal('successModal');
-        form.resetForm();
-        this.selectedFile = undefined;
+
+        // Login automático del usuario recién registrado
+        this._userService
+          .login({
+            email: this.user.email,
+            password: this.user.password,
+          })
+          .subscribe({
+            next: (loginResponse) => {
+              this._userService.saveSession(loginResponse);
+
+              // Mostrar modal de éxito y resetear formulario
+              this.showModal('successModal');
+              form.resetForm();
+              this.selectedFile = undefined;
+            },
+            error: (loginError) => {
+              console.error('Error al hacer login automático:', loginError);
+              this.errorMessage =
+                'El registro fue exitoso, pero ocurrió un error al iniciar sesión.';
+              this.showModal('errorModal');
+            },
+          });
       },
       error: (error) => {
         console.error('Error al registrar usuario:', error);
+
+        // Manejo de correo duplicado
         if (
           error?.error?.message?.includes('Duplicate entry') ||
           error?.error?.includes('Duplicate entry') ||
@@ -151,12 +206,13 @@ export class RegisterUserComponent {
     });
   }
 
+  /**
+   * Cierra el modal de éxito y redirige al inicio
+   */
   closeModal(): void {
     const modalEl = document.getElementById('successModal');
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(
-        modalEl
-      );
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
       modalInstance?.hide();
       document.body.classList.remove('modal-open');
       document.querySelector('.modal-backdrop')?.remove();
@@ -165,6 +221,10 @@ export class RegisterUserComponent {
     this.router.navigate(['/']);
   }
 
+  /**
+   * Muestra un modal de Bootstrap por id
+   * @param id Id del modal a mostrar
+   */
   private showModal(id: string): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {

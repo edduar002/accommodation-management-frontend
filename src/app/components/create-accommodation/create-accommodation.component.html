@@ -1,24 +1,27 @@
+<!-- Sección principal para crear un nuevo alojamiento -->
 <div class="alojamiento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-add text-primary" aria-hidden="true"></i> Crear nuevo
-    alojamiento</h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">Crear nuevo alojamiento</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
-          <!-- Imagen -->
+
+          <!-- Selección de imagen (opcional) -->
           <label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
           <input type="file" id="imageFile" name="imageFile" class="form-control" accept="image/*"
             (change)="onFileSelected($event)" />
           <div *ngIf="uploading" class="text-info mt-1">
             <small>Subiendo imagen...</small>
           </div>
+
+          <!-- Formulario de registro de alojamiento -->
           <form #registerAccommodationForm="ngForm" (ngSubmit)="onSubmit(registerAccommodationForm)">
-            <!-- 🔹 Descripción -->
+
+            <!-- Descripción detallada del alojamiento -->
             <div class="mb-3">
-              <label for="detailedDescription" class="form-label fw-semibold">
-                Descripción detallada
-              </label>
+              <label for="detailedDescription" class="form-label fw-semibold">Descripción detallada</label>
               <textarea name="detailedDescription" id="detailedDescription" class="form-control" rows="3"
                 placeholder="Ej: Hermosa cabaña con chimenea..." #detailedDescription="ngModel"
                 [(ngModel)]="accommodation.detailedDescription" required></textarea>
@@ -26,7 +29,8 @@
                 <small>La descripción es obligatoria.</small>
               </div>
             </div>
-            <!-- 🔹 Servicios -->
+
+            <!-- Servicios ofrecidos en el alojamiento -->
             <div class="mb-3">
               <label for="services" class="form-label fw-semibold">Servicios</label>
               <textarea name="services" id="services" class="form-control" rows="3"
@@ -37,42 +41,44 @@
               </div>
             </div>
 
-            <!-- 🔹 Dirección -->
+            <!-- Dirección del alojamiento -->
             <div class="mb-3">
               <label for="direction" class="form-label fw-semibold">Dirección</label>
               <input type="text" name="direction" id="direction" class="form-control"
-                placeholder="Ej: Vereda El Retiro, Km 5" #direction="ngModel" [(ngModel)]="accommodation.direction"
-                required />
+                placeholder="Ej: Vereda El Retiro, Km 5" #direction="ngModel"
+                [(ngModel)]="accommodation.direction" required />
               <div *ngIf="direction.invalid && direction.touched" class="text-danger mt-1">
                 <small>La dirección es obligatoria.</small>
               </div>
             </div>
 
+            <!-- Selector de ubicación usando componente hijo -->
             <app-location (locationSelected)="onLocationChange($event)"></app-location>
 
             <div class="row">
-              <!-- 🔹 Precio -->
+              <!-- Precio por noche -->
               <div class="col-md-6 mb-3">
                 <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
-                <input type="number" name="price" id="price" class="form-control" min="1" placeholder="Ej: 250000"
-                  #price="ngModel" [(ngModel)]="accommodation.price" required />
+                <input type="number" name="price" id="price" class="form-control" min="1"
+                  placeholder="Ej: 250000" #price="ngModel" [(ngModel)]="accommodation.price" required />
                 <div *ngIf="price.invalid && price.touched" class="text-danger mt-1">
                   <small>Ingrese un precio válido.</small>
                 </div>
               </div>
 
-              <!-- 🔹 Capacidad -->
+              <!-- Capacidad máxima de huéspedes -->
               <div class="col-md-6 mb-3">
                 <label for="maximumCapacity" class="form-label fw-semibold">Capacidad máxima</label>
                 <input type="number" name="maximumCapacity" id="maximumCapacity" class="form-control" min="1"
-                  placeholder="Ej: 6" #maximumCapacity="ngModel" [(ngModel)]="accommodation.maximumCapacity" required />
+                  placeholder="Ej: 6" #maximumCapacity="ngModel"
+                  [(ngModel)]="accommodation.maximumCapacity" required />
                 <div *ngIf="maximumCapacity.invalid && maximumCapacity.touched" class="text-danger mt-1">
                   <small>Ingrese una capacidad válida.</small>
                 </div>
               </div>
             </div>
 
-            <!-- Departamento dinámico -->
+            <!-- Selección de departamento -->
             <div class="mb-3">
               <label for="department" class="form-label fw-bold">Departamento</label>
               <select class="form-select" id="department" name="department" #department="ngModel"
@@ -85,11 +91,11 @@
               </div>
             </div>
 
-            <!-- Ciudad dinámico -->
+            <!-- Selección de ciudad dinámica según departamento -->
             <div class="mb-3">
               <label for="city" class="form-label fw-bold">Ciudad</label>
-              <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="accommodation.citiesId"
-                required>
+              <select class="form-select" id="city" name="city" #city="ngModel"
+                [(ngModel)]="accommodation.citiesId" required>
                 <option value="" disabled selected>Seleccione una ciudad</option>
                 <option *ngFor="let c of ciudades" [ngValue]="c.id">{{ c.name }}</option>
               </select>
@@ -98,10 +104,10 @@
               </div>
             </div>
 
-            <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Botón de envío -->
+            <!-- Botón para enviar formulario -->
             <div class="d-grid mt-4">
               <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
-                [disabled]="registerAccommodationForm.invalid" data-bs-toggle="modal" data-bs-target="#successModal" />
+                [disabled]="registerAccommodationForm.invalid" />
             </div>
           </form>
         </div>
@@ -110,13 +116,12 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al crear alojamiento -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
-          exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Registro exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El alojamiento se ha creado correctamente.</p>

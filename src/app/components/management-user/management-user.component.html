@@ -1,13 +1,16 @@
 <div class="container mt-5">
-  <!-- Encabezado -->
+  <!-- Encabezado de la página -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="bi bi-person fs-3 text-primary me-2"></i>
-      Gestión de Usuarios</h2>
+    <!-- Título principal -->
+    <h2 class="fw-bold">
+      Gestión de Usuarios
+    </h2>
   </div>
 
-  <!-- Tabla de usuarios -->
+  <!-- Tabla que muestra la lista de usuarios -->
   <div class="table-responsive shadow-sm rounded-4">
     <table class="table table-hover align-middle mb-0">
+      <!-- Encabezado de la tabla -->
       <thead class="table-light">
         <tr>
           <th scope="col" style="width: 5%">#</th>
@@ -22,10 +25,13 @@
         </tr>
       </thead>
 
+      <!-- Cuerpo de la tabla -->
       <tbody>
-        <!-- Recorrer los usuarios -->
+        <!-- Iteración sobre el arreglo de usuarios -->
         <tr *ngFor="let user of users; let i = index">
+          <!-- Número de fila -->
           <th scope="row">{{ i + 1 }}</th>
+          <!-- Datos del usuario -->
           <td>{{ user.name }}</td>
           <td>{{ user.surname }}</td>
           <td>{{ user.email }}</td>
@@ -33,17 +39,21 @@
           <td>{{ user.birthday | date:'dd/MM/yyyy' }}</td>
           <td>{{ user.departmentName }}</td>
           <td>{{ user.cityName }}</td>
+          <!-- Botón para eliminar el usuario -->
           <td class="text-center">
-            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(user.id)">
-              <i class="bi bi-trash"></i> Eliminar
+            <button type="button"
+                    class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+                    data-bs-toggle="modal"
+                    data-bs-target="#deleteModal"
+                    (click)="openDeleteModal(user.id)">
+              Eliminar
             </button>
           </td>
         </tr>
 
-        <!-- Mostrar mensaje si no hay usuarios -->
+        <!-- Mensaje cuando no hay usuarios registrados -->
         <tr *ngIf="users.length === 0">
-          <td colspan="8" class="text-center text-muted py-4">
+          <td colspan="9" class="text-center text-muted py-4">
             No hay usuarios registrados.
           </td>
         </tr>
@@ -51,23 +61,30 @@
     </table>
   </div>
 
-  <!-- Modal de confirmación -->
+  <!-- Modal de confirmación de eliminación -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg">
+        <!-- Encabezado del modal -->
         <div class="modal-header bg-danger text-white">
           <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
+            Confirmar eliminación
           </h5>
+          <!-- Botón para cerrar el modal -->
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
+        <!-- Cuerpo del modal con mensaje de advertencia -->
         <div class="modal-body">
           <p>¿Estás seguro de que deseas eliminar este usuario?</p>
         </div>
+        <!-- Pie del modal con botones de acción -->
         <div class="modal-footer">
+          <!-- Botón para cancelar -->
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()"
-            data-bs-dismiss="modal">Eliminar</button>
+          <!-- Botón para confirmar eliminación -->
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">
+            Eliminar
+          </button>
         </div>
       </div>
     </div>

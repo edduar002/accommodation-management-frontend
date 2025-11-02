@@ -1,50 +1,85 @@
+<!-- Contenedor principal de la página de inicio de sesión -->
 <div class="container mt-5">
+
+  <!-- Título centrado -->
   <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+  <!-- Descripción centrada indicando la acción a realizar -->
   <p class="text-center text-muted mb-5">
     Elige el tipo de cuenta con la que deseas iniciar sesión.
   </p>
 
+  <!-- Fila para alinear las tarjetas de los distintos tipos de cuenta -->
   <div class="row justify-content-center">
-    <!-- Administrador -->
+
+    <!-- Tarjeta: Administrador -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" class="card-img-top p-4" alt="Administrador">
+
+        <!-- Imagen representativa del Administrador -->
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" 
+          class="card-img-top p-4" 
+          alt="Administrador"
+        >
+
+        <!-- Cuerpo de la tarjeta con título, descripción y botón -->
         <div class="card-body text-center">
           <h5 class="card-title">Administrador</h5>
           <p class="card-text">
             Gestiona el sistema, usuarios y alojamientos. Acceso completo a la plataforma.
           </p>
+          <!-- Botón que redirige al login de administrador -->
           <a routerLink="/loginAdmin" class="btn btn-primary">Iniciar sesión</a>
         </div>
       </div>
     </div>
 
-    <!-- Usuario -->
+    <!-- Tarjeta: Usuario -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/219/219986.png" class="card-img-top p-4" alt="Usuario">
+
+        <!-- Imagen representativa del Usuario -->
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/219/219986.png" 
+          class="card-img-top p-4" 
+          alt="Usuario"
+        >
+
+        <!-- Cuerpo de la tarjeta con título, descripción y botón -->
         <div class="card-body text-center">
           <h5 class="card-title">Usuario</h5>
           <p class="card-text">
             Accede a tu cuenta para buscar, reservar y gestionar tus alojamientos favoritos.
           </p>
+          <!-- Botón que redirige al login de usuario -->
           <a routerLink="/loginUser" class="btn btn-success">Iniciar sesión</a>
         </div>
       </div>
     </div>
 
-    <!-- Anfitrión -->
+    <!-- Tarjeta: Anfitrión -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
-        <img src="https://cdn-icons-png.flaticon.com/512/4202/4202833.png" class="card-img-top p-4" alt="Anfitrión">
+
+        <!-- Imagen representativa del Anfitrión -->
+        <img 
+          src="https://cdn-icons-png.flaticon.com/512/4202/4202833.png" 
+          class="card-img-top p-4" 
+          alt="Anfitrión"
+        >
+
+        <!-- Cuerpo de la tarjeta con título, descripción y botón -->
         <div class="card-body text-center">
           <h5 class="card-title">Anfitrión</h5>
           <p class="card-text">
             Administra tus propiedades, responde a reservas y mejora tu perfil como anfitrión.
           </p>
+          <!-- Botón que redirige al login de anfitrión -->
           <a routerLink="/loginHost" class="btn btn-warning text-white">Iniciar sesión</a>
         </div>
       </div>
     </div>
+
   </div>
 </div>

@@ -1,22 +1,26 @@
+<!-- Sección de edición de ciudad -->
 <div class="ciudad-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar ciudad
-    existente</h2>
+  <!-- Título principal -->
+  <h2 class="text-center mb-5 fw-bold">Editar ciudad existente</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario de edición de ciudad -->
           <form #cityForm="ngForm" (ngSubmit)="onSubmit(cityForm)">
+            <!-- Campo: Nombre de la ciudad -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre de la ciudad</label>
-              <input type="text" name="name" id="name" class="form-control" [(ngModel)]="city.name" required />
+              <input type="text" name="name" id="name" class="form-control"
+                     [(ngModel)]="city.name" required />
             </div>
 
-            <!-- Departamento dinámico -->
+            <!-- Selección dinámica de departamento -->
             <div class="mb-3">
               <label for="departmentId" class="form-label fw-semibold">Departamento</label>
-              <select id="departmentId" class="form-select" name="departmentId" [(ngModel)]="city.departmentsId"
-                required>
+              <select id="departmentId" class="form-select" name="departmentId"
+                      [(ngModel)]="city.departmentsId" required>
                 <option value="" disabled>Seleccione un departamento</option>
                 <option *ngFor="let dep of departamentos" [value]="dep.id">
                   {{ dep.name }}
@@ -24,15 +28,17 @@
               </select>
             </div>
 
+            <!-- Botón de actualización -->
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary btn-lg text-white px-5">
                 Actualizar
               </button>
             </div>
 
+            <!-- Enlace de retorno a la gestión de ciudades -->
             <div class="text-center mt-3">
               <a routerLink="/managementCity" class="text-decoration-none text-secondary fw-semibold">
-                <i class="bi bi-arrow-left-short" aria-hidden="true"></i> Volver a la gestión de ciudades
+                Volver a la gestión de ciudades
               </a>
             </div>
           </form>
@@ -42,13 +48,12 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al actualizar la ciudad -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i>
-          Actualizacion exitosa</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Actualización exitosa</h5>
       </div>
       <div class="modal-body">
         <p>La ciudad se ha actualizado correctamente.</p>
@@ -60,13 +65,12 @@
   </div>
 </div>
 
-<!-- ❌ Modal de error -->
+<!-- Modal de error al actualizar la ciudad -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
-          actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">Error al actualizar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

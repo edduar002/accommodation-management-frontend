@@ -1,24 +1,29 @@
 <div class="departamento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar
-    departamento existente</h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">
+    <i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> 
+    Editar departamento existente
+  </h2>
 
   <div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario de edición de departamento -->
           <form #departmentForm="ngForm" (ngSubmit)="onSubmit(departmentForm)">
-            <!-- Campo para el nombre -->
+            
+            <!-- Campo para editar el nombre del departamento -->
             <div class="mb-3">
               <label for="name" class="form-label fw-semibold">Nombre del departamento</label>
               <input type="text" name="name" id="name" class="form-control" [(ngModel)]="department.name" required />
             </div>
 
-            <!-- Botón para guardar -->
+            <!-- Botón para enviar el formulario y actualizar el departamento -->
             <div class="d-grid mt-4">
               <input type="submit" value="Actualizar" class="btn btn-primary btn-lg text-white px-5">
             </div>
 
-            <!-- Enlace para volver -->
+            <!-- Enlace para regresar a la gestión de departamentos -->
             <div class="text-center mt-3">
               <a routerLink="/managementDepartment" class="text-decoration-none text-secondary fw-semibold">
                 <i class="bi bi-arrow-left-short" aria-hidden="true"></i> Volver a la gestión de departamentos
@@ -30,13 +35,15 @@
     </div>
   </div>
 </div>
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+
+<!-- Modal de éxito al actualizar el departamento -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i>
-          Actualizacion exitosa</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">
+          Actualización exitosa
+        </h5>
       </div>
       <div class="modal-body">
         <p>El departamento se ha actualizado correctamente.</p>
@@ -48,13 +55,12 @@
   </div>
 </div>
 
-<!-- ❌ Modal de error -->
+<!-- Modal de error al actualizar el departamento -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
-          actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">Error al actualizar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

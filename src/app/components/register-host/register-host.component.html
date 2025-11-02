@@ -1,13 +1,18 @@
+<!-- Contenedor principal del formulario de registro de anfitrión -->
 <div class="container mt-5">
   <div class="card shadow-lg border-0 rounded-4">
+
+    <!-- Encabezado de la tarjeta -->
     <div class="card-header bg-warning text-white text-center py-3 rounded-top-4">
       <h3 class="mb-0">Registro de Anfitrión</h3>
     </div>
 
+    <!-- Cuerpo de la tarjeta: formulario de registro -->
     <div class="card-body p-4">
       <form #registerHostForm="ngForm" (ngSubmit)="onSubmit(registerHostForm)">
         <div class="row">
-          <!-- Nombre -->
+
+          <!-- Campo: Nombre -->
           <div class="col-md-6 mb-3">
             <label for="name" class="form-label fw-bold">Nombre</label>
             <input type="text" name="name" id="name" class="form-control" placeholder="Ingrese su nombre"
@@ -17,7 +22,7 @@
             </div>
           </div>
 
-          <!-- Apellido -->
+          <!-- Campo: Apellido -->
           <div class="col-md-6 mb-3">
             <label for="surname" class="form-label fw-bold">Apellido</label>
             <input type="text" name="surname" id="surname" class="form-control" placeholder="Ingrese su apellido"
@@ -28,7 +33,7 @@
           </div>
         </div>
 
-        <!-- Correo -->
+        <!-- Campo: Correo Electrónico -->
         <div class="mb-3">
           <label for="email" class="form-label fw-bold">Correo Electrónico</label>
           <input type="email" name="email" id="email" class="form-control" placeholder="ejemplo@correo.com"
@@ -39,7 +44,7 @@
           </div>
         </div>
 
-        <!-- Contraseña -->
+        <!-- Campo: Contraseña -->
         <div class="mb-3">
           <label for="password" class="form-label fw-bold">Contraseña</label>
           <input type="password" name="password" id="password" class="form-control" placeholder="Mínimo 6 caracteres"
@@ -51,7 +56,8 @@
         </div>
 
         <div class="row">
-          <!-- Teléfono -->
+
+          <!-- Campo: Teléfono -->
           <div class="col-md-6 mb-3">
             <label for="phone" class="form-label fw-bold">Teléfono</label>
             <input type="text" name="phone" id="phone" class="form-control" placeholder="Ej: 3201234567"
@@ -62,7 +68,7 @@
             </div>
           </div>
 
-          <!-- Fecha de nacimiento -->
+          <!-- Campo: Fecha de Nacimiento -->
           <div class="col-md-6 mb-3">
             <label for="birthday" class="form-label fw-bold">Fecha de Nacimiento</label>
             <input type="date" name="birthday" id="birthday" class="form-control" #birthday="ngModel"
@@ -73,7 +79,7 @@
           </div>
         </div>
 
-        <!-- Imagen -->
+        <!-- Campo: Imagen opcional -->
         <label for="imageFile" class="form-label fw-bold">Selecciona una imagen (opcional)</label>
         <input type="file" id="imageFile" name="imageFile" class="form-control" accept="image/*"
           (change)="onFileSelected($event)" />
@@ -81,7 +87,7 @@
           <small>Subiendo imagen...</small>
         </div>
 
-        <!-- Descripción -->
+        <!-- Campo: Descripción Personal -->
         <div class="mb-3">
           <label for="personalDescription" class="form-label fw-bold">Descripción Personal</label>
           <textarea class="form-control" name="personalDescription" id="personalDescription" rows="3"
@@ -92,7 +98,7 @@
           </div>
         </div>
 
-        <!-- Departamento dinámico -->
+        <!-- Campo: Departamento dinámico -->
         <div class="mb-3">
           <label for="department" class="form-label fw-bold">Departamento</label>
           <select class="form-select" id="department" name="department" #department="ngModel"
@@ -105,7 +111,7 @@
           </div>
         </div>
 
-        <!-- Ciudad dinámico -->
+        <!-- Campo: Ciudad dinámico -->
         <div class="mb-3">
           <label for="city" class="form-label fw-bold">Ciudad</label>
           <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="host.citiesId" required>
@@ -117,8 +123,7 @@
           </div>
         </div>
 
-
-        <!-- Botón -->
+        <!-- Botón de envío -->
         <div class="text-center mt-4">
           <input type="submit" value="Registrarme" class="btn btn-warning btn-lg text-white px-5"
             [disabled]="registerHostForm.invalid">
@@ -128,13 +133,12 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito: muestra cuando el registro fue exitoso -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
-          exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Registro exitoso</h5>
       </div>
       <div class="modal-body">
         <p>El anfitrión se ha registrado correctamente.</p>
@@ -148,13 +152,12 @@
   </div>
 </div>
 
-<!-- ❌ Modal de error -->
+<!-- Modal de error: muestra cuando ocurre un fallo en el registro -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
-          registrar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">Error al registrar</h5>
       </div>
       <div class="modal-body">
         <p>{{ errorMessage }}</p>

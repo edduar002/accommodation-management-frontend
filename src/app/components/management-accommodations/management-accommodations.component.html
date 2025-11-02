@@ -1,12 +1,15 @@
 <div class="container mt-5">
-  <!-- Encabezado -->
+
+  <!-- Encabezado de la página -->
   <div class="d-flex justify-content-between align-items-center mb-4">
-    <h2 class="fw-bold"><i class="bi bi-house-door-fill text-primary fs-3 me-2"></i> Gestión de Alojamientos</h2>
+    <h2 class="fw-bold">Gestión de Alojamientos</h2>
   </div>
 
-  <!-- Tabla de Alojamientos -->
+  <!-- Tabla de alojamientos -->
   <div class="table-responsive shadow-sm rounded-4">
     <table class="table table-hover align-middle mb-0 text-center">
+
+      <!-- Encabezado de la tabla -->
       <thead class="table-light">
         <tr>
           <th scope="col">#</th>
@@ -20,8 +23,9 @@
         </tr>
       </thead>
 
+      <!-- Cuerpo de la tabla -->
       <tbody>
-        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Recorrer alojamientos dinámicamente -->
+        <!-- Recorrer alojamientos dinámicamente -->
         <tr *ngFor="let a of accommodations; let i = index">
           <th scope="row">{{ i + 1 }}</th>
           <td>{{ a.detailedDescription }}</td>
@@ -31,16 +35,21 @@
           <td>{{ a.price | currency:'COP':'symbol-narrow':'1.0-0' }}</td>
           <td>{{ a.maximumCapacity }}</td>
           <td class="text-center">
-            <button type="button" class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
-              data-bs-toggle="modal" data-bs-target="#deleteModal" (click)="openDeleteModal(a.id)">
-              <i class="bi bi-trash"></i> Eliminar
+            <!-- Botón eliminar alojamiento -->
+            <button 
+              type="button" 
+              class="btn btn-link text-danger text-decoration-none fw-semibold p-0"
+              data-bs-toggle="modal" 
+              data-bs-target="#deleteModal" 
+              (click)="openDeleteModal(a.id)">
+              Eliminar
             </button>
           </td>
         </tr>
 
-        <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Mostrar mensaje si no hay datos -->
+        <!-- Mensaje si no hay alojamientos registrados -->
         <tr *ngIf="accommodations.length === 0">
-          <td colspan="7" class="text-center text-muted py-4">
+          <td colspan="8" class="text-center text-muted py-4">
             No hay alojamientos registrados.
           </td>
         </tr>
@@ -48,25 +57,30 @@
     </table>
   </div>
 
-  <!-- 🔴 Modal de confirmación -->
+  <!-- Modal de confirmación de eliminación -->
   <div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content border-0 shadow-lg">
+
+        <!-- Cabecera del modal -->
         <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i> Confirmar eliminación
-          </h5>
+          <h5 class="modal-title">Confirmar eliminación</h5>
           <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
         </div>
+
+        <!-- Cuerpo del modal -->
         <div class="modal-body">
           <p>¿Estás seguro de que deseas eliminar este alojamiento?</p>
         </div>
+
+        <!-- Pie del modal con botones -->
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <button type="button" class="btn btn-danger" (click)="confirmDelete()"
-            data-bs-dismiss="modal">Eliminar</button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()" data-bs-dismiss="modal">Eliminar</button>
         </div>
+
       </div>
     </div>
   </div>
+
 </div>

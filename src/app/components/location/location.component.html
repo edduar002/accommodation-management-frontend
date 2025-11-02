@@ -1,18 +1,47 @@
-<!-- Mapa y captura de ubicación -->
+<!-- Sección: Mapa y captura de ubicación del usuario -->
 <div class="mb-4">
+  
+  <!-- Etiqueta para el campo de ubicación -->
   <label class="form-label fw-bold">Ubicación</label>
 
-  <!-- Input búsqueda -->
+  <!-- Bloque de búsqueda de dirección -->
   <div class="input-group mb-2">
-    <input type="text" class="form-control" placeholder="Buscar dirección" [(ngModel)]="searchText" name="searchText" />
-    <button class="btn btn-outline-primary" type="button" (click)="searchLocation()">Buscar</button>
+    
+    <!-- Input de texto para buscar dirección -->
+    <!-- [(ngModel)] enlaza la variable searchText del componente -->
+    <!-- name="searchText" es necesario para formularios Angular -->
+    <input 
+      type="text" 
+      class="form-control" 
+      placeholder="Buscar dirección" 
+      [(ngModel)]="searchText" 
+      name="searchText" 
+    />
+
+    <!-- Botón que llama al método searchLocation() del componente -->
+    <button 
+      class="btn btn-outline-primary" 
+      type="button" 
+      (click)="searchLocation()"
+    >
+      Buscar
+    </button>
   </div>
 
-  <!-- Mapa Leaflet -->
-  <div id="map" style="height: 300px; border-radius: 0.5rem; border: 1px solid #ddd;"></div>
+  <!-- Contenedor del mapa Leaflet -->
+  <div 
+    id="map" 
+    style="height: 300px; border-radius: 0.5rem; border: 1px solid #ddd;"
+  >
+    <!-- El mapa se renderiza desde el componente usando Leaflet -->
+  </div>
 
-  <!-- Coordenadas seleccionadas -->
+  <!-- Mostrar coordenadas seleccionadas si existen -->
   <div *ngIf="selected" class="mt-2 text-muted">
-    <small *ngIf="selected">Latitud: {{ selected?.lat }}, Longitud: {{ selected?.lng }}</small>
+    <!-- Muestra latitud y longitud del punto seleccionado -->
+    <small>
+      Latitud: {{ selected.lat }}, Longitud: {{ selected.lng }}
+    </small>
   </div>
+
 </div>

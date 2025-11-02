@@ -1,56 +1,83 @@
+<!-- Sección principal del perfil del administrador -->
 <div class="profile-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-person-circle fs-2 text-primary"></i> Editar información del
-    Administrador</h2>
+
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">
+    Editar información del Administrador
+  </h2>
+
   <div class="row justify-content-center">
     <div class="col-md-5">
+
+      <!-- Card contenedor del formulario -->
       <div class="card shadow-sm border-0 rounded-4 p-4 text-center">
 
         <div class="card-body">
+
+          <!-- Formulario de edición del administrador -->
+          <!-- #adminForm="ngForm" crea una referencia local para validación -->
+          <!-- (ngSubmit)="onSubmit(adminForm)" llama al método onSubmit al enviar el formulario -->
           <form #adminForm="ngForm" (ngSubmit)="onSubmit(adminForm)">
+
+            <!-- Campo de Nombre -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Nombre</label>
+              <!-- [(ngModel)] vincula el valor del input con admin.name -->
               <input type="text" class="form-control text-center" name="name" [(ngModel)]="admin.name" required />
             </div>
 
+            <!-- Campo de Apellido -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Apellido</label>
+              <!-- [(ngModel)] vincula el valor del input con admin.surname -->
               <input type="text" class="form-control text-center" name="surname" [(ngModel)]="admin.surname" required />
             </div>
 
+            <!-- Campo de Correo Electrónico -->
             <div class="mb-3">
               <label class="form-label fw-semibold">Correo Electrónico</label>
+              <!-- [(ngModel)] vincula el valor del input con admin.email -->
               <input type="email" class="form-control text-center" name="email" [(ngModel)]="admin.email" required />
             </div>
 
+            <!-- Botón de envío del formulario -->
             <div class="d-grid mt-4">
+              <!-- [disabled]="!adminForm.valid" desactiva el botón si el formulario no es válido -->
               <button type="submit" class="btn btn-outline-primary btn-lg rounded-pill" [disabled]="!adminForm.valid">
                 Guardar cambios
               </button>
             </div>
+
           </form>
         </div>
+
       </div>
     </div>
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal Éxito -->
+<!-- Modal de éxito al guardar cambios -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">
+      <!-- Mensaje de éxito -->
       <h4 class="text-success fw-bold mb-3">¡Cambios guardados!</h4>
       <p>El perfil del administrador se ha actualizado correctamente.</p>
+      <!-- Botón para cerrar modal y llamar a closeModal() -->
       <button class="btn btn-success rounded-pill px-4" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
     </div>
   </div>
 </div>
 
-<!-- ❌ Modal Error -->
+<!-- Modal de error al guardar cambios -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">
+      <!-- Mensaje de error -->
       <h4 class="text-danger fw-bold mb-3">Error al guardar</h4>
+      <!-- Muestra el mensaje de error dinámicamente -->
       <p>{{ errorMessage }}</p>
+      <!-- Botón para cerrar el modal -->
       <button class="btn btn-danger rounded-pill px-4" data-bs-dismiss="modal">Cerrar</button>
     </div>
   </div>

@@ -4,6 +4,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Response } from '../../models/response';
 import { ResponseService } from '../../services/response.service';
+import { HostService } from '../../services/host.service';
 
 @Component({
   selector: 'app-response-comment',
@@ -14,61 +15,91 @@ import { ResponseService } from '../../services/response.service';
   providers: [ResponseService],
 })
 export class ResponseCommentComponent implements OnInit {
-  // 📥 Entrada
+  /** 
+   * Identificador del comentario al que se asociarán las respuestas
+   */
   @Input() commentId!: number | undefined;
 
-  // <i class="bi bi-chat-fill" aria-hidden="true"></i> Propiedades
+  /** Objeto para crear una nueva respuesta */
   public response: Response;
+
+  /** Listado de respuestas existentes para el comentario */
   public responses: Response[] = [];
+
+  /** Mensaje de error para mostrar en modales */
   public errorMessage: string = '';
 
   constructor(
     private _responseService: ResponseService,
+    private _hostService: HostService,
     private router: Router
   ) {
+    // Inicializamos la respuesta vacía
     this.response = new Response('', 1, new Date(), '');
   }
 
-  // 🚀 Al iniciar, cargar respuestas existentes
+  /**
+   * Ciclo de vida OnInit
+   * Carga las respuestas existentes al iniciar el componente
+   */
   ngOnInit(): void {
     this.loadResponses();
   }
 
-  // 📦 Cargar respuestas asociadas al comentario
+  /**
+   * Carga todas las respuestas asociadas al comentario
+   */
   loadResponses(): void {
-    if (!this.commentId) return;
+    if (!this.commentId) return; // Si no hay commentId, no hacemos nada
 
+    // Llamamos al servicio para obtener respuestas por comentario
     this._responseService.getByComment(this.commentId).subscribe({
-      next: (resp) => (this.responses = resp),
-      error: (err) => console.error('Error al cargar respuestas:', err),
+      next: (resp) => {
+        this.responses = resp; // Guardamos las respuestas recibidas
+      },
+      error: (err) => {
+        console.error('Error al cargar respuestas:', err);
+      },
     });
   }
 
-  // ✉️ Enviar nueva respuesta
+  /**
+   * Envía una nueva respuesta asociada al comentario actual
+   * @param form Formulario de Angular para validación y reset
+   */
   onSubmitResponse(form: NgForm): void {
-    if (!form.valid) return;
+    if (!form.valid) return; // Validación: no enviar si el formulario es inválido
 
-    this.response.commentsId = this.commentId;
-    this.response.date = new Date();
-    this.response.hostsId = 2; // ID temporal o dinámico
+    this.response.commentsId = this.commentId; // Asociamos la respuesta al comentario
+    this.response.date = new Date(); // Fecha actual de la respuesta
 
+    // Obtenemos el host que está enviando la respuesta
+    const host = this._hostService.getHost();
+    if (host && host.id) {
+      this.response.hostsId = host.id; // Asociamos el ID del host
+    }
+
+    // Llamamos al servicio para registrar la respuesta
     this._responseService.register(this.response).subscribe({
       next: () => {
-        form.resetForm();
-        this.loadResponses();
-        this.showModal('successModal');
+        form.resetForm(); // Limpiamos el formulario
+        this.loadResponses(); // Recargamos las respuestas para actualizar la lista
+        this.showModal('successModal'); // Mostramos modal de éxito
       },
       error: (err) => {
         console.error('Error al crear respuesta:', err);
         this.errorMessage =
           err?.error?.message ||
           'No se pudo enviar la respuesta. Inténtalo nuevamente.';
-        this.showModal('errorModal');
+        this.showModal('errorModal'); // Mostramos modal de error
       },
     });
   }
 
-  // 🪟 Mostrar modal (usa API Bootstrap)
+  /**
+   * Muestra un modal de Bootstrap dado su ID
+   * @param id ID del modal a mostrar
+   */
   private showModal(id: string): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {
@@ -77,18 +108,20 @@ export class ResponseCommentComponent implements OnInit {
     }
   }
 
-  // 🔒 Cerrar modal y redirigir opcionalmente
+  /**
+   * Cierra un modal de Bootstrap dado su ID
+   * @param id ID del modal a cerrar
+   * @param redirect Indica si se debe redirigir después de cerrar
+   */
   closeModal(id: string, redirect: boolean = false): void {
     const modalEl = document.getElementById(id);
     if (modalEl && (window as any).bootstrap?.Modal) {
-      const modalInstance = (window as any).bootstrap.Modal.getInstance(
-        modalEl
-      );
-      modalInstance?.hide();
+      const modalInstance = (window as any).bootstrap.Modal.getInstance(modalEl);
+      modalInstance?.hide(); // Ocultamos el modal
     }
 
     if (redirect) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/']); // Redirigimos a la página principal
     }
   }
 }

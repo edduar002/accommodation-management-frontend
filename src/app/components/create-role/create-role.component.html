@@ -1,23 +1,27 @@
+<!-- Sección para crear un nuevo rol -->
 <div class="rol-section mt-5">
-  <h2 class="text-center mb-5 fw-bold text-primary"><i class="bi bi-person-badge fs-3 text-bg-primary me-2"></i> Crear
-    nuevo rol</h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold text-primary">Crear nuevo rol</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario para crear rol -->
           <form #createRoleForm="ngForm" (ngSubmit)="onSubmit(createRoleForm)">
-            <!-- 🔹 Campo nombre del rol -->
+            
+            <!-- Campo: nombre del rol -->
             <div class="mb-3">
               <label for="roleName" class="form-label fw-semibold">Nombre del rol</label>
               <input type="text" name="roleName" id="roleName" class="form-control" placeholder="Ej: Administrador"
                 #name="ngModel" [(ngModel)]="role.name" required>
+              <!-- Mensaje de error si el nombre es inválido o vacío -->
               <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
                 <small>El nombre del rol es obligatorio.</small>
               </div>
             </div>
 
-            <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Botón deshabilitado hasta que el formulario sea válido -->
+            <!-- Botón para enviar el formulario -->
             <div class="d-grid mt-4">
               <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
                 [disabled]="createRoleForm.invalid">
@@ -29,17 +33,19 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al crear el rol -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+      <!-- Encabezado del modal -->
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
-          exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Registro exitoso</h5>
       </div>
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <p>El rol se ha creado correctamente.</p>
       </div>
+      <!-- Pie del modal con botón de cierre -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar

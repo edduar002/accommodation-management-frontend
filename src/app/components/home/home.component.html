@@ -1,41 +1,49 @@
+<!-- Sección principal de la página de inicio -->
 <div class="home-section mt-5">
-  <!-- 🔍 Filtro de búsqueda -->
+
+  <!-- Filtro de búsqueda -->
   <div class="container mb-4">
     <div class="row justify-content-center">
       <div class="col-md-6">
+        <!-- Input de búsqueda vinculado a searchText -->
         <input type="text" class="form-control rounded-pill shadow-sm"
           placeholder="Buscar por descripción, ciudad o departamento..." [(ngModel)]="searchText" />
       </div>
     </div>
   </div>
+
   <br>
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-house-door-fill text-primary" aria-hidden="true"></i>
-    Alojamientos destacados</h2>
 
+  <!-- Título de la sección de alojamientos destacados -->
+  <h2 class="text-center mb-5 fw-bold">
+    Alojamientos destacados
+  </h2>
 
-
+  <!-- Listado de alojamientos filtrado por searchText -->
   <div class="row g-4" *ngIf="accommodations.length > 0; else noAccommodations">
     <div class="col-md-4" *ngFor="let alojamiento of accommodations
        | filterAlojamiento: searchText; let i = index">
 
+      <!-- Card individual de alojamiento -->
       <div class="card alojamiento-card shadow-sm border-0 h-100 position-relative">
 
-
-
-        <!-- Imagen -->
+        <!-- Imagen principal del alojamiento -->
         <img [src]="alojamiento.imgUrl" class="card-img-top" alt="Imagen de alojamiento"
           style="height: 220px; object-fit: cover;">
 
-
-
-
+        <!-- Información del alojamiento -->
         <div class="card-body">
+          <!-- Descripción detallada -->
           <h5 class="card-title fw-semibold">{{ alojamiento.detailedDescription }}</h5>
+          <!-- Dirección -->
           <p class="card-text text-muted">{{ alojamiento.direction }}</p>
-          <p class="text-primary fw-bold mb-2"><i class="bi bi-geo-alt" aria-hidden="true"></i> {{
-            alojamiento.exactLocation }}</p>
-          <p class="fw-semibold"><i class="bi bi-currency-dollar" aria-hidden="true"></i>{{ alojamiento.price | number
-            }} / noche</p>
+          <!-- Ubicación exacta -->
+          <p class="text-primary fw-bold mb-2">
+            {{ alojamiento.exactLocation }}
+          </p>
+          <!-- Precio por noche -->
+          <p class="fw-semibold">{{ alojamiento.price | number }} / noche</p>
+          <!-- Botón para ver detalles -->
           <a class="btn btn-outline-primary w-100" [routerLink]="['/detailAccommodation', alojamiento.id]">
             Ver detalles
           </a>
@@ -44,14 +52,14 @@
     </div>
   </div>
 
-  <!-- Mensaje cuando no hay alojamientos -->
+  <!-- Mensaje cuando no hay alojamientos disponibles -->
   <ng-template #noAccommodations>
     <div class="text-center mt-5 d-flex flex-column justify-content-center align-items-center"
       style="min-height: 50vh;">
 
       <div class="p-4 border rounded-4 shadow-sm" style="max-width: 500px;">
         <h4 class="fw-bold text-primary mb-3">
-          <i class="bi bi-emoji-neutral"></i> No encontramos alojamientos
+          No encontramos alojamientos
         </h4>
 
         <p class="text-muted mb-4">
@@ -64,38 +72,55 @@
   </ng-template>
 
 </div>
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+
+<!-- Modal de éxito al agregar un alojamiento a favoritos -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+
+      <!-- Encabezado del modal de éxito -->
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Favorito
-          agregado con exito</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">
+          Favorito agregado con éxito
+        </h5>
       </div>
+
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
-        <p>El alojamiento ha sido agregado a favoritos con exito.</p>
+        <p>El alojamiento ha sido agregado a favoritos con éxito.</p>
       </div>
+
+      <!-- Botón para cerrar modal -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">Aceptar</button>
       </div>
+
     </div>
   </div>
 </div>
 
-<!-- ❌ Modal de error -->
+<!-- Modal de error -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+
+      <!-- Encabezado del modal de error -->
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error al
-          actualizar</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">
+          Error al actualizar
+        </h5>
       </div>
+
+      <!-- Cuerpo del modal con mensaje dinámico -->
       <div class="modal-body">
         <p>{{ errorMessage }}</p>
       </div>
+
+      <!-- Botón de cierre del modal -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
+
     </div>
   </div>
 </div>

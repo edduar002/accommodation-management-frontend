@@ -1,109 +1,160 @@
+<!-- Contenedor principal de la página de login de administrador -->
 <div class="container mt-5">
   <div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card shadow-lg border-0 rounded-4">
+
+        <!-- Cabecera de la tarjeta -->
         <div class="card-header bg-primary text-white text-center py-3 rounded-top-4">
           <h4 class="mb-0">Ingreso - Administrador</h4>
         </div>
 
+        <!-- Cuerpo de la tarjeta con formulario -->
         <div class="card-body p-4">
           <form #loginAdminForm="ngForm" (ngSubmit)="onSubmit(loginAdminForm)">
-            <!-- Correo -->
+
+            <!-- Campo de correo o usuario -->
             <div class="mb-3">
               <label for="email" class="form-label fw-bold">Correo o usuario</label>
-              <input type="text" id="email" name="email" class="form-control" placeholder="admin@ejemplo.com"
-                #email="ngModel" [(ngModel)]="administrator.email" required>
+              <input 
+                type="text" 
+                id="email" 
+                name="email" 
+                class="form-control" 
+                placeholder="admin@ejemplo.com"
+                #email="ngModel" 
+                [(ngModel)]="administrator.email" 
+                required
+              >
+              <!-- Mensaje de error si el campo es inválido y se ha tocado -->
               <div *ngIf="email.invalid && email.touched" class="text-danger mt-1">
                 <small>El correo o usuario es obligatorio.</small>
               </div>
             </div>
 
-            <!-- Contraseña -->
+            <!-- Campo de contraseña -->
             <div class="mb-3">
               <label for="password" class="form-label fw-bold">Contraseña</label>
-              <input type="password" id="password" name="password" class="form-control" placeholder="Contraseña"
-                minlength="6" #password="ngModel" [(ngModel)]="administrator.password" required>
+              <input 
+                type="password" 
+                id="password" 
+                name="password" 
+                class="form-control" 
+                placeholder="Contraseña"
+                minlength="6" 
+                #password="ngModel" 
+                [(ngModel)]="administrator.password" 
+                required
+              >
+              <!-- Mensajes de error según la validación -->
               <div *ngIf="password.invalid && password.touched" class="text-danger mt-1">
                 <small *ngIf="password.errors?.['required']">La contraseña es obligatoria.</small>
                 <small *ngIf="password.errors?.['minlength']">Debe tener al menos 6 caracteres.</small>
               </div>
             </div>
 
-            <!-- Botón ingresar -->
+            <!-- Botón de enviar formulario -->
             <div class="d-grid">
-              <input type="submit" value="Ingresar" class="btn bg-primary btn-lg text-white px-5"
-                [disabled]="loginAdminForm.invalid">
+              <input 
+                type="submit" 
+                value="Ingresar" 
+                class="btn bg-primary btn-lg text-white px-5"
+                [disabled]="loginAdminForm.invalid"
+              >
             </div>
+
           </form>
         </div>
 
+        <!-- Pie de tarjeta con enlace a registro -->
         <div class="card-footer text-center text-muted">
           ¿No tienes cuenta?
           <a routerLink="/register" class="text-decoration-none">Regístrate</a>
         </div>
+
       </div>
     </div>
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal Olvidé contraseña -->
+<!-- Modal para recuperar contraseña de administrador -->
 <div class="modal fade" id="forgotModalAdmin" tabindex="-1" aria-labelledby="forgotModalAdminLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
+
+      <!-- Cabecera del modal -->
       <div class="modal-header">
         <h5 class="modal-title" id="forgotModalAdminLabel">Recuperar contraseña - Administrador</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
-        <p class="small text-muted">Ingresa el correo asociado a tu cuenta para recibir instrucciones de recuperación.
+        <p class="small text-muted">
+          Ingresa el correo asociado a tu cuenta para recibir instrucciones de recuperación.
         </p>
         <div class="mb-3">
           <label class="form-label">Correo electrónico</label>
           <input type="email" class="form-control" placeholder="admin@ejemplo.com">
         </div>
       </div>
+
+      <!-- Pie del modal con botones -->
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-primary">Enviar instrucciones</button>
       </div>
+
     </div>
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al iniciar sesión -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+
+      <!-- Cabecera verde indicando éxito -->
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Inicio de
-          sesión exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Inicio de sesión exitoso</h5>
       </div>
+
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <p>Bienvenido, administrador.</p>
       </div>
+
+      <!-- Pie del modal con botón aceptar -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar
         </button>
       </div>
+
     </div>
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de error -->
+<!-- Modal de error de autenticación -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+
+      <!-- Cabecera roja indicando error -->
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel"><i class="bi bi-x-lg" aria-hidden="true"></i> Error de
-          autenticación</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">Error de autenticación</h5>
       </div>
+
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <p>Correo o contraseña incorrectos. Intenta nuevamente.</p>
       </div>
+
+      <!-- Pie del modal con botón cerrar -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
       </div>
+
     </div>
   </div>
 </div>

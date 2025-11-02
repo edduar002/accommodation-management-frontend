@@ -1,17 +1,25 @@
+<!-- Contenedor principal del componente -->
 <div class="container mt-5">
+  <!-- Título de la página -->
   <h2 class="text-center mb-4">Elige tu tipo de registro</h2>
 
+  <!-- Fila que centra las tarjetas de registro -->
   <div class="row justify-content-center">
-    <!-- ADMINISTRADOR -->
+
+    <!-- CARD: Administrador -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
+        <!-- Imagen representativa del administrador -->
         <img src="img/logos/admin.png" class="card-img-top p-4" alt="Administrador" />
         <div class="card-body text-center">
+          <!-- Título de la tarjeta -->
           <h5 class="card-title">Administrador</h5>
+          <!-- Descripción del tipo de registro -->
           <p class="card-text">
             Regístrate como <strong>administrador</strong> para gestionar usuarios, alojamientos y configuraciones del
             sistema.
           </p>
+          <!-- Botón que redirige al formulario de registro de administrador -->
           <a routerLink="/registerAdmin" class="btn btn-primary">
             Registrarse como Administrador
           </a>
@@ -19,16 +27,20 @@
       </div>
     </div>
 
-    <!-- USUARIO -->
+    <!-- CARD: Usuario -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
+        <!-- Imagen representativa del usuario -->
         <img src="img/logos/user.png" class="card-img-top p-4" alt="Usuario" />
         <div class="card-body text-center">
+          <!-- Título de la tarjeta -->
           <h5 class="card-title">Usuario</h5>
+          <!-- Descripción del tipo de registro -->
           <p class="card-text">
             Regístrate como <strong>usuario</strong> para explorar alojamientos, hacer reservas y disfrutar de tu
             experiencia.
           </p>
+          <!-- Botón que redirige al formulario de registro de usuario -->
           <a routerLink="/registerUser" class="btn btn-success">
             Registrarse como Usuario
           </a>
@@ -36,21 +48,26 @@
       </div>
     </div>
 
-    <!-- ANFITRIÓN -->
+    <!-- CARD: Anfitrión -->
     <div class="col-md-4 mb-4">
       <div class="card shadow-sm h-100">
+        <!-- Imagen representativa del anfitrión -->
         <img src="img/logos/anfitrion.png" class="card-img-top p-4" alt="Anfitrión" />
         <div class="card-body text-center">
+          <!-- Título de la tarjeta -->
           <h5 class="card-title">Anfitrión</h5>
+          <!-- Descripción del tipo de registro -->
           <p class="card-text">
             Regístrate como <strong>anfitrión</strong> para publicar tus propiedades y administrar tus reservas
             fácilmente.
           </p>
+          <!-- Botón que redirige al formulario de registro de anfitrión -->
           <a routerLink="/registerHost" class="btn btn-warning text-white">
             Registrarse como Anfitrión
           </a>
         </div>
       </div>
     </div>
+
   </div>
 </div>

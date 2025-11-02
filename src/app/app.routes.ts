@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+// Importación de todos los componentes que serán usados en las rutas
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { LoginAdministratorComponent } from './components/login-administrator/login-administrator.component';
@@ -36,40 +37,67 @@ import { DetailAccommodationComponent } from './components/detail-accommodation/
 import { ResponseCommentComponent } from './components/response-comment/response-comment.component';
 import { LocationComponent } from './components/location/location.component';
 
+/**
+ * Definición de las rutas de la aplicación.
+ * Cada ruta está asociada a un componente que Angular cargará cuando se navegue a la URL correspondiente.
+ */
 export const routes: Routes = [
+  // Ruta principal: Home
   { path: '', component: HomeComponent },
+
+  // Rutas de login
   { path: 'login', component: LoginComponent },
+  { path: 'loginHost', component: LoginHostComponent },
+  { path: 'loginAdmin', component: LoginAdministratorComponent },
+  { path: 'loginUser', component: LoginUserComponent },
+
+  // Rutas de registro
   { path: 'register', component: RegisterComponent },
   { path: 'registerAdmin', component: RegisterAdministratorComponent },
   { path: 'registerUser', component: RegisterUserComponent },
   { path: 'registerHost', component: RegisterHostComponent },
-  { path: 'loginHost', component: LoginHostComponent },
-  { path: 'loginAdmin', component: LoginAdministratorComponent },
-  { path: 'loginUser', component: LoginUserComponent },
+
+  // Rutas de gestión de reservas
   { path: 'myReservations', component: MyReservationsComponent },
+  { path: 'createReservation', component: CreateReservationComponent },
+
+  // Rutas de cambio de contraseña (rutas dinámicas con parámetro :id)
   { path: 'changePasswordAdmin/:id', component: ChangePasswordAdminComponent },
   { path: 'changePasswordHost/:id', component: ChangePasswordHostComponent },
   { path: 'changePasswordUser/:id', component: ChangePasswordUserComponent },
+
+  // Rutas de creación de entidades
   { path: 'createAccommodation', component: CreateAccommodationComponent },
   { path: 'createCity', component: CreateCityComponent },
   { path: 'createDepartment', component: CreateDepartmentComponent },
-  { path: 'createReservation', component: CreateReservationComponent },
+  { path: 'createRole', component: CreateRoleComponent },
+
+  // Rutas de edición de perfil
   { path: 'editProfileAdmin/:id', component: EditProfileAdminComponent },
   { path: 'editProfileHost/:id', component: EditProfileHostComponent },
   { path: 'editProfileUser/:id', component: EditProfileUserComponent },
-  { path: 'createRole', component: CreateRoleComponent },
-  { path: 'locationComponent', component: LocationComponent },
+
+  // Rutas de gestión administrativa
   { path: 'managementDepartment', component: ManagementDepartmentComponent },
   { path: 'managementCity', component: ManagementCityComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
   { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
-  { path: 'myAccommodations', component: MyAccommodationsComponent },
   { path: 'managementUser', component: ManagementUserComponent },
   { path: 'managementHost', component: ManagementHostComponent },
+
+  // Rutas de gestión de alojamientos de usuario
+  { path: 'myAccommodations', component: MyAccommodationsComponent },
+
+  // Rutas de edición de entidades (rutas dinámicas con parámetro :id)
   { path: 'editCity/:id', component: EditCityComponent },
   { path: 'editDepartment/:id', component: EditDepartmentComponent },
   { path: 'editAccommodation/:id', component: EditAccommodationComponent },
   { path: 'editRole/:id', component: EditRoleComponent },
+
+  // Ruta de detalles de un alojamiento específico
   { path: 'detailAccommodation/:id', component: DetailAccommodationComponent },
+
+  // Rutas adicionales
   { path: 'responseComment', component: ResponseCommentComponent },
+  { path: 'locationComponent', component: LocationComponent },
 ];

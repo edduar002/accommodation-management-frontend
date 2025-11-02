@@ -1,23 +1,27 @@
+<!-- Sección para crear un nuevo departamento -->
 <div class="departamento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-building fs-3 text-primary me-2"></i> Crear nuevo departamento
-  </h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">Crear nuevo departamento</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-5">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario para crear departamento -->
           <form #createDepartmentForm="ngForm" (ngSubmit)="onSubmit(createDepartmentForm)">
-            <!-- 🔹 Campo nombre del departamento -->
+            
+            <!-- Campo: nombre del departamento -->
             <div class="mb-3">
               <label for="departmentName" class="form-label fw-semibold">Nombre del departamento</label>
               <input type="text" name="departmentName" id="departmentName" class="form-control"
                 placeholder="Ej: Antioquia" #name="ngModel" [(ngModel)]="department.name" required>
+              <!-- Mensaje de error si el nombre es inválido o vacío -->
               <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
                 <small>El nombre del departamento es obligatorio.</small>
               </div>
             </div>
 
-            <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Botón Crear -->
+            <!-- Botón para enviar el formulario -->
             <div class="d-grid mt-4">
               <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
                 [disabled]="createDepartmentForm.invalid">
@@ -29,17 +33,19 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al crear el departamento -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+      <!-- Encabezado del modal -->
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
-          exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Registro exitoso</h5>
       </div>
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <p>El departamento se ha creado correctamente.</p>
       </div>
+      <!-- Pie del modal con botón de cierre -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar

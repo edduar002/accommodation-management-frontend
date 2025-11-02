@@ -9,7 +9,7 @@ import { Department } from '../../models/department';
 import { City } from '../../models/city';
 import { CityService } from '../../services/city.service';
 
-declare var bootstrap: any;
+declare var bootstrap: any; // Permite usar modales de Bootstrap
 
 @Component({
   selector: 'app-edit-accommodation',
@@ -20,16 +20,24 @@ declare var bootstrap: any;
   providers: [AccommodationService, DepartmentService, CityService],
 })
 export class EditAccommodationComponent implements OnInit, AfterViewInit {
-  public accommodation: Accommodation;
-  public departments: Department[] = [];
-  public errorMessage: string = '';
-  ciudades: City[] = [];
-  departamentos: Department[] = [];
-  private successModal: any;
-  private errorModal: any;
-  selectedFile?: File;
-  uploading = false;
+  public accommodation: Accommodation; // Objeto con los datos del alojamiento
+  public departments: Department[] = []; // Lista de departamentos
+  public errorMessage: string = ''; // Mensaje de error global
+  ciudades: City[] = []; // Lista de ciudades filtradas por departamento
+  departamentos: Department[] = []; // Lista de departamentos para select
+  private successModal: any; // Referencia al modal de éxito
+  private errorModal: any; // Referencia al modal de error
+  selectedFile?: File; // Archivo de imagen seleccionado
+  uploading = false; // Estado de subida de archivo
 
+  /**
+   * Constructor del componente
+   * @param _accommodationService Servicio para obtener/editar alojamientos
+   * @param _departmentService Servicio para obtener departamentos
+   * @param _cityService Servicio para obtener ciudades
+   * @param _route Para acceder a parámetros de la ruta (ID alojamiento)
+   * @param _router Para navegación programática
+   */
   constructor(
     private _accommodationService: AccommodationService,
     private _departmentService: DepartmentService,
@@ -57,36 +65,50 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     );
   }
 
+  /**
+   * Inicializa el componente
+   * Carga departamentos y datos del alojamiento
+   */
   ngOnInit(): void {
-    this.loadDepartments();
-    this.getOne();
-    this.onDepartmentChange();
+    this.loadDepartments(); // Cargar lista de departamentos
+    this.getOne(); // Obtener alojamiento por ID
+    this.onDepartmentChange(); // Inicializa ciudades según departamento seleccionado
   }
 
+  /**
+   * Se dispara al seleccionar un archivo de imagen
+   * @param event Evento del input file
+   */
   onFileSelected(event: any) {
-    this.selectedFile = event.target.files[0];
+    this.selectedFile = event.target.files[0]; // Guardar archivo seleccionado
 
     if (this.selectedFile) {
-      // Vista previa inmediata en la imagen de perfil
+      // Vista previa inmediata de la imagen seleccionada
       const reader = new FileReader();
       reader.onload = (e: any) => (this.accommodation.imgUrl = e.target.result);
       reader.readAsDataURL(this.selectedFile);
     }
   }
 
-  // Este método se dispara al cambiar de departamento
+  /**
+   * Método disparado al cambiar el departamento
+   * Actualiza la lista de ciudades disponibles
+   */
   onDepartmentChange() {
-    const selectedId = this.accommodation.departmentsId; // aquí tienes el ID seleccionado
-    console.log('Departamento seleccionado:', selectedId);
+    const selectedId = this.accommodation.departmentsId;
 
-    // Llamas a getCities con ese ID
+    // Llama a getCities para filtrar ciudades por departamento
     this.getCities(Number(selectedId));
   }
 
+  /**
+   * Obtiene las ciudades de un departamento específico
+   * @param departmentId ID del departamento seleccionado
+   */
   getCities(departmentId: number): void {
     this._cityService.getAllForDepartment(departmentId).subscribe({
       next: (response: any) => {
-        this.ciudades = response;
+        this.ciudades = response; // Guardar ciudades obtenidas
       },
       error: (error) => {
         console.error('Error al obtener ciudades:', error);
@@ -94,6 +116,9 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Inicializa los modales de Bootstrap al cargar la vista
+   */
   ngAfterViewInit(): void {
     this.successModal = new bootstrap.Modal(
       document.getElementById('successModal')
@@ -103,7 +128,9 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /** 🔹 Cargar departamentos desde el servicio */
+  /**
+   * Cargar departamentos desde el servicio
+   */
   loadDepartments(): void {
     this._departmentService.getAll().subscribe(
       (response) => (this.departamentos = response),
@@ -111,7 +138,10 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /** 🔹 Obtener alojamiento por ID (desde la URL) */
+  /**
+   * Obtener alojamiento por ID desde la URL
+   * También carga ciudades correspondientes al departamento del alojamiento
+   */
   getOne(): void {
     this._route.params.subscribe((params) => {
       const id = +params['id'];
@@ -124,13 +154,16 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
         },
         error: (error) => {
           console.error('Error al cargar alojamiento:', error);
-          this._router.navigate(['/myAccommodations']);
+          this._router.navigate(['/myAccommodations']); // Redirige si falla
         },
       });
     });
   }
 
-  /** 🔹 Guardar cambios */
+  /**
+   * Guardar los cambios realizados en el alojamiento
+   * @param form Formulario de edición
+   */
   onSubmit(form: NgForm): void {
     if (!form.valid) {
       this.errorMessage = 'Por favor completa todos los campos requeridos.';
@@ -147,7 +180,7 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
     this._accommodationService
       .update(this.accommodation.id, this.accommodation)
       .subscribe({
-        next: () => this.successModal.show(),
+        next: () => this.successModal.show(), // Muestra modal de éxito
         error: () => {
           this.errorMessage =
             'Error al actualizar el alojamiento. Intenta nuevamente.';
@@ -156,7 +189,9 @@ export class EditAccommodationComponent implements OnInit, AfterViewInit {
       });
   }
 
-  /** 🔹 Cerrar modal y regresar */
+  /**
+   * Cierra el modal de éxito y redirige al listado de alojamientos
+   */
   closeModal(): void {
     this.successModal.hide();
     this._router.navigate(['/myAccommodations']);

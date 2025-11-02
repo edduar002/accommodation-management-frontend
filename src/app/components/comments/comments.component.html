@@ -1,11 +1,16 @@
+<!-- Contenedor principal de la sección de comentarios -->
 <div class="comments-container mt-5 mb-5">
-  <h4 class="fw-bold mb-4"><i class="bi bi-chat-fill text-primary" aria-hidden="true"></i> Comentarios</h4>
+  <!-- Título de la sección -->
+  <h4 class="fw-bold mb-4">Comentarios</h4>
 
   <!-- Lista de comentarios -->
   <div *ngIf="comments.length > 0; else noComments">
     <div *ngFor="let c of comments" class="comment mb-3 p-3 rounded-4 shadow-sm bg-light">
+      <!-- Contenido del comentario -->
       <p class="mb-1">{{ c.content }}</p>
+      <!-- Información del autor del comentario -->
       <small class="text-muted">Usuario: {{ c.userName }}</small>
+      <!-- Componente hijo para respuestas a este comentario -->
       <app-response-comment [commentId]="c.id"></app-response-comment>
     </div>
   </div>
@@ -13,17 +18,18 @@
   <!-- Mensaje si no hay comentarios -->
   <ng-template #noComments>
     <div class="alert alert-secondary text-center" role="alert">
-      No hay comentarios todavía. ¡Sé el primero en comentar! <i class="bi bi-file-text-fill" aria-hidden="true"></i>
+      No hay comentarios todavía. ¡Sé el primero en comentar!
     </div>
   </ng-template>
 
-  <!-- Formulario de nuevo comentario -->
+  <!-- Formulario para crear un nuevo comentario -->
   <div class="new-comment mt-4 p-4 rounded-4 shadow-sm bg-white">
-    <h5 class="fw-semibold mb-3 text-secondary"><i class="bi bi-pencil-square" aria-hidden="true"></i> Deja tu
-      comentario</h5>
+    <h5 class="fw-semibold mb-3 text-secondary">Deja tu comentario</h5>
     <form #commentForm="ngForm" (ngSubmit)="onSubmit(commentForm)">
+      <!-- Área de texto para escribir el comentario -->
       <textarea class="form-control mb-3" rows="3" name="content" [(ngModel)]="comment.content"
         placeholder="Cuéntanos tu experiencia..." required></textarea>
+      <!-- Botón para publicar el comentario -->
       <div class="text-end">
         <input type="submit" class="btn btn-success rounded-pill px-4" value="Publicar comentario"
           [disabled]="commentForm.invalid" />
@@ -32,18 +38,18 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al publicar un comentario -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i>
-          Comentario publicado</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Comentario publicado</h5>
       </div>
       <div class="modal-body">
         <p>Tu comentario se ha publicado correctamente.</p>
       </div>
       <div class="modal-footer justify-content-center">
+        <!-- Botón para cerrar el modal y ejecutar función adicional -->
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar
         </button>
@@ -52,17 +58,19 @@
   </div>
 </div>
 
-<!-- ❌ Modal de error -->
+<!-- Modal de error al publicar comentario -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
       <div class="modal-header bg-danger text-white">
-        <h5 class="modal-title w-100" id="errorModalLabel">⚠️ Error</h5>
+        <h5 class="modal-title w-100" id="errorModalLabel">Error</h5>
       </div>
       <div class="modal-body">
+        <!-- Mensaje dinámico con la razón del error -->
         <p>{{ errorMessage }}</p>
       </div>
       <div class="modal-footer justify-content-center">
+        <!-- Botón para cerrar el modal -->
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">
           Cerrar
         </button>

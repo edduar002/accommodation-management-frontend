@@ -14,20 +14,32 @@ import { HttpClient } from '@angular/common/http';
   providers: [CityService],
 })
 export class ManagementCityComponent implements OnInit {
+  // Array que almacena todas las ciudades
   cities: City[] = [];
+
+  // ID de la ciudad seleccionada para eliminar
   selectedCityId?: number;
 
   constructor(private http: HttpClient, private _cityService: CityService) {}
 
+  /**
+   * Método del ciclo de vida OnInit
+   * Se ejecuta al inicializar el componente
+   * Llama a la función para obtener todas las ciudades
+   */
   ngOnInit(): void {
     this.getAll();
   }
 
+  /**
+   * Obtener todas las ciudades desde el servicio
+   * Suscribe a la respuesta y maneja errores
+   */
   getAll(): void {
     this._cityService.getAll().subscribe({
       next: (response: any) => {
+        // Guardar las ciudades obtenidas en el array
         this.cities = response;
-        console.log('Ciudades cargadas:', this.cities);
       },
       error: (error) => {
         console.error('Error al obtener ciudades:', error);
@@ -35,19 +47,29 @@ export class ManagementCityComponent implements OnInit {
     });
   }
 
+  /**
+   * Asignar el ID de la ciudad seleccionada al abrir el modal de eliminación
+   * @param id ID de la ciudad
+   */
   openDeleteModal(id?: number) {
     if (!id) return;
     this.selectedCityId = id;
   }
 
+  /**
+   * Confirmar eliminación de la ciudad seleccionada
+   * Llama al servicio para eliminar y luego actualiza la lista
+   */
   confirmDelete() {
     if (!this.selectedCityId) return;
     this._cityService.delete(this.selectedCityId).subscribe({
       next: () => {
+        // Actualizar lista de ciudades después de eliminar
         this.getAll();
+        // Limpiar el ID seleccionado
         this.selectedCityId = undefined;
       },
-      error: (error) => console.error(error),
+      error: (error) => console.error('Error al eliminar ciudad:', error),
     });
   }
 }

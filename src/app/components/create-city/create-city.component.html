@@ -1,35 +1,43 @@
+<!-- Sección para crear una nueva ciudad -->
 <div class="ciudad-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-building fs-3 text-primary me-2"></i> Crear nueva ciudad</h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">Crear nueva ciudad</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario para crear ciudad -->
           <form #createCityForm="ngForm" (ngSubmit)="onSubmit(createCityForm)">
-            <!-- 🔹 Campo nombre de la ciudad -->
+            
+            <!-- Campo: nombre de la ciudad -->
             <div class="mb-3">
               <label for="cityName" class="form-label fw-semibold">Nombre de la ciudad</label>
               <input type="text" name="cityName" id="cityName" class="form-control" placeholder="Ej: Medellín"
                 #name="ngModel" [(ngModel)]="city.name" required>
+              <!-- Mensaje de error si el nombre es inválido o vacío -->
               <div *ngIf="name.invalid && name.touched" class="text-danger mt-1">
                 <small>El nombre de la ciudad es obligatorio.</small>
               </div>
             </div>
 
-            <!-- Departamento dinámico -->
+            <!-- Campo: selección de departamento -->
             <div class="mb-3">
               <label for="department" class="form-label fw-bold">Departamento</label>
               <select class="form-select" id="department" name="department" #department="ngModel"
                 [(ngModel)]="city.departmentsId" required>
+                <!-- Opción por defecto -->
                 <option value="" disabled selected>Seleccione un departamento</option>
+                <!-- Opciones dinámicas desde la lista de departamentos -->
                 <option *ngFor="let dep of departamentos" [ngValue]="dep.id">{{ dep.name }}</option>
               </select>
+              <!-- Mensaje de error si no se selecciona un departamento -->
               <div *ngIf="department.invalid && department.touched" class="text-danger mt-1">
                 <small>Seleccione un departamento.</small>
               </div>
             </div>
 
-            <!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Botón deshabilitado hasta que el formulario sea válido -->
+            <!-- Botón para enviar el formulario -->
             <div class="d-grid mt-4">
               <input type="submit" value="Crear" class="btn btn-primary btn-lg text-white px-5"
                 [disabled]="createCityForm.invalid" data-bs-toggle="modal" data-bs-target="#successModal">
@@ -41,17 +49,19 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal de éxito -->
+<!-- Modal de éxito al crear la ciudad -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center">
+      <!-- Encabezado del modal -->
       <div class="modal-header bg-success text-white">
-        <h5 class="modal-title w-100" id="successModalLabel"><i class="bi bi-check-lg" aria-hidden="true"></i> Registro
-          exitoso</h5>
+        <h5 class="modal-title w-100" id="successModalLabel">Registro exitoso</h5>
       </div>
+      <!-- Cuerpo del modal -->
       <div class="modal-body">
         <p>La ciudad se ha creado correctamente.</p>
       </div>
+      <!-- Pie del modal con botón de cierre -->
       <div class="modal-footer justify-content-center">
         <button type="button" class="btn btn-success" data-bs-dismiss="modal" (click)="closeModal()">
           Aceptar

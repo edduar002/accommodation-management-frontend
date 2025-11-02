@@ -1,12 +1,15 @@
+<!-- Sección para editar alojamiento existente -->
 <div class="alojamiento-section mt-5">
-  <h2 class="text-center mb-5 fw-bold"><i class="bi bi-pencil-fill text-primary" aria-hidden="true"></i> Editar
-    alojamiento existente</h2>
+  <!-- Título de la sección -->
+  <h2 class="text-center mb-5 fw-bold">Editar alojamiento existente</h2>
 
   <div class="row justify-content-center">
     <div class="col-md-8">
       <div class="card shadow-sm border-0 rounded-4 p-4">
         <div class="card-body">
+          <!-- Formulario para editar alojamiento -->
           <form #accommodationForm="ngForm" (ngSubmit)="onSubmit(accommodationForm)">
+            
             <!-- Imagen actual y campo para cambiarla -->
             <div class="mb-4 text-center">
               <label class="form-label fw-semibold d-block mb-2">Imagen del alojamiento</label>
@@ -24,18 +27,21 @@
               </small>
             </div>
 
-            <!-- Descripción -->
+            <!-- Descripción detallada -->
             <div class="mb-3">
               <label for="detailedDescription" class="form-label fw-semibold">Descripción detallada</label>
               <textarea id="detailedDescription" class="form-control" rows="3" name="detailedDescription"
                 [(ngModel)]="accommodation.detailedDescription" required></textarea>
             </div>
-            <!-- ✅ Servicios -->
+
+            <!-- Servicios del alojamiento -->
             <div class="mb-3">
               <label for="services" class="form-label fw-semibold">Servicios</label>
-              <textarea id="services" class="form-control" rows="3" name="services" [(ngModel)]="accommodation.services"
+              <textarea id="services" class="form-control" rows="3" name="services" 
+                [(ngModel)]="accommodation.services"
                 placeholder="Ej: Wifi, Parqueadero, Aire acondicionado, Lavadora..." required></textarea>
             </div>
+
             <!-- Dirección -->
             <div class="mb-3">
               <label for="direction" class="form-label fw-semibold">Dirección</label>
@@ -43,7 +49,7 @@
                 [(ngModel)]="accommodation.direction" required />
             </div>
 
-            <!-- Ubicación -->
+            <!-- Ubicación exacta -->
             <div class="mb-3">
               <label for="exactLocation" class="form-label fw-semibold">Ubicación exacta</label>
               <input type="text" id="exactLocation" class="form-control" name="exactLocation"
@@ -54,8 +60,8 @@
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="price" class="form-label fw-semibold">Precio por noche (COP)</label>
-                <input type="number" id="price" class="form-control" name="price" [(ngModel)]="accommodation.price"
-                  required />
+                <input type="number" id="price" class="form-control" name="price"
+                  [(ngModel)]="accommodation.price" required />
               </div>
 
               <div class="col-md-6 mb-3">
@@ -65,7 +71,7 @@
               </div>
             </div>
 
-            <!-- Departamento dinámico -->
+            <!-- Selección de departamento -->
             <div class="mb-3">
               <label for="department" class="form-label fw-bold">Departamento</label>
               <select class="form-select" id="department" name="department" #department="ngModel"
@@ -78,7 +84,7 @@
               </div>
             </div>
 
-            <!-- Ciudad dinámico -->
+            <!-- Selección de ciudad -->
             <div class="mb-3">
               <label for="city" class="form-label fw-bold">Ciudad</label>
               <select class="form-select" id="city" name="city" #city="ngModel" [(ngModel)]="accommodation.citiesId"
@@ -91,17 +97,18 @@
               </div>
             </div>
 
-            <!-- Botón Guardar -->
+            <!-- Botón Guardar cambios -->
             <div class="d-grid mt-4">
               <button type="submit" class="btn btn-primary btn-lg rounded-pill text-white"
                 [disabled]="!accommodationForm.valid">
-                <i class="bi bi-save-fill" aria-hidden="true"></i> Guardar cambios
+                Guardar cambios
               </button>
             </div>
 
+            <!-- Enlace para volver a la gestión de alojamientos -->
             <div class="text-center mt-3">
               <a routerLink="/managementAccommodations" class="text-decoration-none text-secondary fw-semibold">
-                <i class="bi bi-arrow-left-short" aria-hidden="true"></i> Volver a la gestión de alojamientos
+                Volver a la gestión de alojamientos
               </a>
             </div>
           </form>
@@ -111,7 +118,7 @@
   </div>
 </div>
 
-<!-- <i class="bi bi-check-lg" aria-hidden="true"></i> Modal Éxito -->
+<!-- Modal de éxito -->
 <div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">
@@ -122,7 +129,7 @@
   </div>
 </div>
 
-<!-- ❌ Modal Error -->
+<!-- Modal de error -->
 <div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-center p-4">

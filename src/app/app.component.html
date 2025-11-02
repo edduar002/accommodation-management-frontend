@@ -1,84 +1,125 @@
+<!-- Contenedor principal de la aplicación -->
 <div class="container">
+
+  <!-- Barra de navegación superior -->
   <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm rounded-3 mt-3">
+
+    <!-- Logo y nombre de la aplicación -->
     <a class="navbar-brand fw-bold text-primary d-flex align-items-center" routerLink="/">
       <img src="img/logos/logo.png" alt="StayFinder Logo" width="35" height="35" class="me-2">
       StayFinder
     </a>
 
-
+    <!-- Botón para colapsar la barra de navegación en pantallas pequeñas -->
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
+    <!-- Menú colapsable -->
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+      <!-- Enlaces de navegación principales -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="nav-link" routerLink="/">Inicio</a>
         </li>
+        <!-- Mostrar Login solo si el usuario no ha iniciado sesión -->
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/login">Login</a>
         </li>
+        <!-- Mostrar Registro solo si el usuario no ha iniciado sesión -->
         <li class="nav-item" *ngIf="!isLoggedIn()">
           <a class="nav-link" routerLink="/register">Registro</a>
         </li>
       </ul>
 
+      <!-- Menú de usuario, visible solo si ha iniciado sesión -->
       <ul class="navbar-nav" *ngIf="isLoggedIn()">
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            👤 Cuenta
+
+          <!-- Botón de dropdown con foto y nombre del usuario -->
+          <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+
+            <!-- Icono para administrador -->
+            <i *ngIf="isAdministratorLoggedIn()" class="bi bi-person-badge-fill fs-4 text-primary me-2"></i>
+
+            <!-- Imagen para anfitrión -->
+            <img *ngIf="isHostLoggedIn()" [src]="hostService.getHost()?.imgUrl || 'assets/img/default-user.png'"
+              alt="Foto anfitrión" class="rounded-circle me-2 border border-2 border-primary" width="35" height="35"
+              style="object-fit: cover;" />
+
+            <!-- Imagen para usuario -->
+            <img *ngIf="isUserLoggedIn()" [src]="userService.getUser()?.imgUrl || 'assets/img/default-user.png'"
+              alt="Foto usuario" class="rounded-circle me-2 border border-2 border-primary" width="35" height="35"
+              style="object-fit: cover;" />
+
+            <!-- Nombre dinámico según el tipo de usuario -->
+            <span class="fw-semibold">
+              {{
+              isAdministratorLoggedIn()
+              ? administratorService.getAdministrator()?.name || 'Administrador'
+              : isHostLoggedIn()
+              ? hostService.getHost()?.name || 'Anfitrión'
+              : isUserLoggedIn()
+              ? userService.getUser()?.name || 'Usuario'
+              : 'Cuenta'
+              }}
+            </span>
           </a>
+
+          <!-- Menú desplegable del usuario -->
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+
+            <!-- Opción cambiar clave para administrador -->
             <li *ngIf="isAdministratorLoggedIn()">
               <a class="dropdown-item"
                 [routerLink]="['/changePasswordAdmin', administratorService.getAdministrator()?.id]">Cambiar clave</a>
             </li>
 
+            <!-- Opción cambiar clave para anfitrión -->
             <li *ngIf="isHostLoggedIn()">
-              <a class="dropdown-item" [routerLink]="['/changePasswordHost', hostService.getHost()?.id]">Cambiar
-                clave</a>
+              <a class="dropdown-item" [routerLink]="['/changePasswordHost', hostService.getHost()?.id]">Cambiar clave</a>
             </li>
 
+            <!-- Opción cambiar clave para usuario -->
             <li *ngIf="isUserLoggedIn()">
-              <a class="dropdown-item" [routerLink]="['/changePasswordUser', userService.getUser()?.id]">Cambiar clave
-                (user)</a>
+              <a class="dropdown-item" [routerLink]="['/changePasswordUser', userService.getUser()?.id]">Cambiar clave</a>
             </li>
 
+            <!-- Opciones de gestión para administrador -->
             <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item"
                 routerLink="/managementAccommodations">Gestión de alojamientos</a></li>
-            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a>
-            </li>
-            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementCity">Gestión de
-                ciudades</a></li>
-            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementUser">Gestión de
-                usuarios</a></li>
-            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementHost">Gestión de
-                anfitriones</a></li>
-            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementDepartment">Gestión de
-                departamentos</a></li>
-            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementRole">Gestión de
-                roles</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementCity">Gestión de ciudades</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementUser">Gestión de usuarios</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementHost">Gestión de anfitriones</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementDepartment">Gestión de departamentos</a></li>
+            <li *ngIf="isAdministratorLoggedIn()"><a class="dropdown-item" routerLink="/managementRole">Gestión de roles</a></li>
+
+            <!-- Opciones para usuario -->
+            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myAccommodations">Mis alojamientos</a></li>
             <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/createReservation">Reservar</a></li>
+            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
+
+            <!-- Opciones de edición de perfil según el tipo de usuario -->
             <li *ngIf="isAdministratorLoggedIn()">
               <a class="dropdown-item"
                 [routerLink]="['/editProfileAdmin', administratorService.getAdministrator()?.id]">Editar perfil</a>
             </li>
-
             <li *ngIf="isHostLoggedIn()">
               <a class="dropdown-item" [routerLink]="['/editProfileHost', hostService.getHost()?.id]">Editar perfil</a>
             </li>
-
             <li *ngIf="isUserLoggedIn()">
-              <a class="dropdown-item" [routerLink]="['/editProfileUser', userService.getUser()?.id]">
-                Editar perfil (user)
-              </a>
+              <a class="dropdown-item" [routerLink]="['/editProfileUser', userService.getUser()?.id]">Editar perfil</a>
             </li>
-            <li *ngIf="isUserLoggedIn()"><a class="dropdown-item" routerLink="/myReservations">Ver mis reservas</a></li>
+
+            <!-- Separador -->
             <li>
               <hr class="dropdown-divider">
             </li>
+
+            <!-- Opción de cierre de sesión -->
             <li *ngIf="isLoggedIn()">
               <a class="dropdown-item text-danger" href="#" data-bs-toggle="modal" data-bs-target="#logoutModal">
                 Salir
@@ -91,17 +132,24 @@
     </div>
   </nav>
 </div>
-<!-- 🔒 Modal de Confirmación de Cierre de Sesión -->
+
+<!-- Modal de confirmación de cierre de sesión -->
 <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content border-0 shadow-lg rounded-4">
+      
+      <!-- Header del modal -->
       <div class="modal-header bg-primary text-white rounded-top-4">
         <h5 class="modal-title" id="logoutModalLabel">Confirmar cierre de sesión</h5>
         <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Cerrar"></button>
       </div>
+
+      <!-- Body del modal -->
       <div class="modal-body text-center">
         <p class="fs-5 mb-0">¿Estás seguro de que deseas cerrar sesión?</p>
       </div>
+
+      <!-- Footer con botones -->
       <div class="modal-footer d-flex justify-content-center">
         <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Cancelar</button>
         <button type="button" class="btn btn-danger px-4" (click)="confirmLogout()" data-bs-dismiss="modal">
@@ -112,11 +160,12 @@
   </div>
 </div>
 
-<!-- Aquí Angular carga cada vista -->
+<!-- Contenedor para cargar vistas de Angular -->
 <div class="container mt-4">
   <router-outlet></router-outlet>
 </div>
 
+<!-- Footer de la aplicación -->
 <footer class="bg-primary text-white text-center py-3 mt-5 rounded-top shadow">
   <div class="container">
     <p class="mb-1 fw-bold">© 2025 - Todos los derechos reservados</p>
