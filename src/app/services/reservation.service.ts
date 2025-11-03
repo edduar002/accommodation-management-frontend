@@ -108,4 +108,22 @@ export class ReservationService {
       { headers }
     );
   }
+
+  /**
+   * Actualiza la calificacion de una reserva existente
+   * @param id ID de la reserva a actualizar
+   * @param reservation Objeto Reservation con los nuevos datos
+   * @returns Observable con la respuesta del servidor
+   */
+  saveRating(id: number, reservation: Reservation): Observable<any> {
+    // Se crean los headers indicando que el contenido es JSON
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // Se realiza la petición PUT al endpoint de edición pasando el ID y los nuevos datos de la reserva
+    return this._http.put<any>(
+      `${this.url}reservations/saveRating/${id}`,
+      reservation,
+      { headers }
+    );
+  }
 }

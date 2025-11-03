@@ -1,4 +1,5 @@
-<!-- Sección principal de la página de inicio para los usuarios -->
+<!-- Sección principal de la página de inicio para los usuarios
+     Se muestra solo si el usuario está logueado o si no hay sesión iniciada. -->
 <div *ngIf="isUserLoggedIn() || !isLoggedIn()" class="home-section mt-5">
 
   <!-- Filtro de búsqueda -->
@@ -35,19 +36,32 @@
         <div class="card-body">
           <!-- Descripción detallada -->
           <h5 class="card-title fw-semibold">{{ alojamiento.detailedDescription }}</h5>
+
           <!-- Dirección -->
           <p class="card-text text-muted">{{ alojamiento.direction }}</p>
+
           <!-- Ubicación exacta -->
           <p class="text-primary fw-bold mb-2">
             {{ alojamiento.exactLocation }}
           </p>
+
           <!-- Precio por noche -->
           <p class="fw-semibold">{{ alojamiento.price | number }} / noche</p>
+
+          <!-- Calificación del alojamiento -->
+          <p class="mb-2">
+            <strong>Calificación:</strong>
+            <span class="badge bg-warning text-dark">
+              {{ averageRatings[alojamiento.id!] ?? 'Sin calificaciones' }}
+            </span>
+          </p>
+
           <!-- Botón para ver detalles -->
           <a class="btn btn-outline-primary w-100" [routerLink]="['/detailAccommodation', alojamiento.id]">
             Ver detalles
           </a>
         </div>
+
       </div>
     </div>
   </div>
@@ -56,18 +70,15 @@
   <ng-template #noAccommodations>
     <div class="text-center mt-5 d-flex flex-column justify-content-center align-items-center"
       style="min-height: 50vh;">
-
       <div class="p-4 border rounded-4 shadow-sm" style="max-width: 500px;">
         <h4 class="fw-bold text-primary mb-3">
           No encontramos alojamientos
         </h4>
-
         <p class="text-muted mb-4">
           No hay alojamientos disponibles en este momento.
           Vuelve más tarde o ajusta el texto de búsqueda.
         </p>
       </div>
-
     </div>
   </ng-template>
 
@@ -127,6 +138,8 @@
 
 <!-- Sección principal de la página de inicio para los administradores -->
 <div *ngIf="isAdministratorLoggedIn()" class="home-section mt-5">
+
+  <!-- Título y descripción del panel de administrador -->
   <h2 class="fw-bold mb-4 text-primary text-center">Panel de Administrador</h2>
   <p class="text-muted mb-5 text-center">
     Como administrador, puedes supervisar, gestionar y mantener el correcto funcionamiento de la plataforma.
@@ -203,14 +216,16 @@
   </div>
 </div>
 
-
 <!-- Sección principal de la página de inicio para los anfitriones -->
 <div *ngIf="isHostLoggedIn()" class="home-section mt-5">
+
+  <!-- Título y descripción del panel de anfitrión -->
   <h2 class="fw-bold mb-4 text-primary">Panel de Anfitrión</h2>
   <p class="text-muted mb-5">Como anfitrión, puedes gestionar tus alojamientos y visualizar tus reservas.</p>
 
   <div class="row g-4 justify-content-center">
 
+    <!-- Publicar Alojamientos -->
     <div class="col-md-4">
       <div class="card shadow-sm h-100 text-center border-0 role-card">
         <div class="card-body">
@@ -221,6 +236,7 @@
       </div>
     </div>
 
+    <!-- Ver Reservas -->
     <div class="col-md-4">
       <div class="card shadow-sm h-100 text-center border-0 role-card">
         <div class="card-body">

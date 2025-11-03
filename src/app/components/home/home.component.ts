@@ -12,6 +12,14 @@ import { HostService } from '../../services/host.service';
 // Declaración de variable global para modales de Bootstrap
 declare var bootstrap: any;
 
+/**
+ * Componente HomeComponent
+ *
+ * Se encarga de mostrar la página principal con:
+ * - Alojamientos destacados
+ * - Filtros de búsqueda
+ * - Paneles dinámicos según tipo de usuario (usuario, administrador, anfitrión)
+ */
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -26,22 +34,30 @@ declare var bootstrap: any;
   ],
 })
 export class HomeComponent implements OnInit, AfterViewInit {
-  // Array de alojamientos que se mostrarán en la página
+  /** Array de alojamientos que se mostrarán en la página */
   public accommodations: Accommodation[] = [];
 
-  // Texto de búsqueda para filtrar alojamientos
+  /** Texto de búsqueda para filtrar alojamientos */
   public searchText: string = '';
 
-  // Mensaje de error para modales
+  /** Mensaje de error mostrado en modales */
   public errorMessage: string = '';
 
-  // Referencias a modales de Bootstrap
+  /** Referencia al modal de éxito de Bootstrap */
   private successModal: any;
+
+  /** Referencia al modal de error de Bootstrap */
   private errorModal: any;
+
+  /** Mapa que almacena la calificación promedio de cada alojamiento por su ID */
+  public averageRatings: { [key: number]: number | null } = {};
 
   /**
    * Constructor del componente
    * @param _accommodationService Servicio para obtener alojamientos
+   * @param userService Servicio para manejar datos del usuario
+   * @param administratorService Servicio para manejar datos del administrador
+   * @param hostService Servicio para manejar datos del anfitrión
    */
   constructor(
     private _accommodationService: AccommodationService,
@@ -51,95 +67,114 @@ export class HomeComponent implements OnInit, AfterViewInit {
   ) {}
 
   /**
-   * Método de Angular que se ejecuta al inicializar el componente
-   * Carga todos los alojamientos desde el servicio
+   * Método de Angular que se ejecuta al inicializar el componente.
+   * Se encarga de cargar todos los alojamientos disponibles.
    */
   ngOnInit(): void {
     this.loadAccommodations();
   }
 
   /**
-   * Método de Angular que se ejecuta después de renderizar la vista
-   * Se utiliza para inicializar los modales de Bootstrap
+   * Método de Angular que se ejecuta después de renderizar la vista.
+   * Inicializa los modales de Bootstrap.
    */
   ngAfterViewInit(): void {
-    // Inicializar modal de éxito
     this.successModal = new bootstrap.Modal(
       document.getElementById('successModal')
     );
 
-    // Inicializar modal de error
     this.errorModal = new bootstrap.Modal(
       document.getElementById('errorModal')
     );
   }
 
   /**
-   * Cargar todos los alojamientos desde el servicio
+   * Cargar todos los alojamientos desde el servicio.
+   * Para cada alojamiento, también obtiene la calificación promedio.
    */
   loadAccommodations(): void {
     this._accommodationService.getAll().subscribe({
-      next: (response) => {
-        // Asignar lista de alojamientos obtenida
+      next: (response: Accommodation[]) => {
         this.accommodations = response;
+
+        // Obtener calificación promedio para cada alojamiento
+        this.accommodations.forEach((acc) => {
+          if (acc.id !== undefined) {
+            this._accommodationService
+              .getAverageCalification(acc.id)
+              .subscribe({
+                next: (res: any) => {
+                  this.averageRatings[acc.id!] = res ?? null;
+                },
+                error: (err) => {
+                  console.error(
+                    'Error al cargar calificación de alojamiento',
+                    acc.id,
+                    err
+                  );
+                  this.averageRatings[acc.id!] = null;
+                },
+              });
+          }
+        });
       },
       error: (err) => {
-        // Mostrar error en consola si falla la carga
         console.error('Error al cargar alojamientos:', err);
       },
     });
   }
 
   /**
-   * Método para verificar si el usuario logueado es un anfitrión.
-   * Retorna true solo si no hay usuario ni administrador logueado, y sí hay anfitrión.
+   * Verifica si el usuario logueado es un anfitrión.
+   * Retorna true solo si no hay usuario ni administrador logueado,
+   * y sí hay un anfitrión logueado.
    */
   isHostLoggedIn(): boolean {
     return (
-      this.userService.getToken() === null && // Usuario no logueado
-      this.administratorService.getToken() === null && // Administrador no logueado
-      this.hostService.getToken() !== null // Anfitrión logueado
+      this.userService.getToken() === null &&
+      this.administratorService.getToken() === null &&
+      this.hostService.getToken() !== null
     );
   }
 
   /**
-   * Método para verificar si el usuario logueado es un administrador.
-   * Retorna true solo si no hay usuario ni anfitrión logueado, y sí hay administrador.
+   * Verifica si el usuario logueado es un administrador.
+   * Retorna true solo si no hay usuario ni anfitrión logueado,
+   * y sí hay un administrador logueado.
    */
   isAdministratorLoggedIn(): boolean {
     return (
-      this.userService.getToken() === null && // Usuario no logueado
-      this.administratorService.getToken() !== null && // Administrador logueado
-      this.hostService.getToken() === null // Anfitrión no logueado
+      this.userService.getToken() === null &&
+      this.administratorService.getToken() !== null &&
+      this.hostService.getToken() === null
     );
   }
 
   /**
-   * Método para verificar si el usuario logueado es un usuario normal.
+   * Verifica si el usuario logueado es un usuario normal.
    * Retorna true solo si hay token de usuario y no hay administrador ni anfitrión logueado.
    */
   isUserLoggedIn(): boolean {
     return (
-      this.userService.getToken() !== null && // Usuario logueado
-      this.administratorService.getToken() === null && // Administrador no logueado
-      this.hostService.getToken() === null // Anfitrión no logueado
+      this.userService.getToken() !== null &&
+      this.administratorService.getToken() === null &&
+      this.hostService.getToken() === null
     );
   }
 
   /**
-   * Método para verificar si hay algún usuario logueado.
-   * Retorna true si alguno de los servicios tiene un token válido.
+   * Verifica si hay algún tipo de usuario logueado (usuario, administrador o anfitrión)
    */
   isLoggedIn(): boolean {
     return (
-      this.userService.getToken() !== null || // Verifica token de usuario
-      this.administratorService.getToken() !== null || // Verifica token de administrador
-      this.hostService.getToken() !== null // Verifica token de anfitrión
+      this.userService.getToken() !== null ||
+      this.administratorService.getToken() !== null ||
+      this.hostService.getToken() !== null
     );
   }
 
   /**
-   * Cerrar modal de éxito
+   * Cierra el modal de éxito
    */
   closeModal(): void {
     this.successModal.hide();

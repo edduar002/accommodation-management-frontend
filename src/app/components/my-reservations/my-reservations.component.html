@@ -1,55 +1,124 @@
+<!-- Contenedor principal de la sección "Mis Reservas" -->
 <div class="container mt-5">
 
-  <!-- Encabezado principal de la página -->
+  <!-- Encabezado de la sección -->
   <div class="text-center mb-4">
     <h2 class="fw-bold">Mis Reservas</h2>
     <p class="text-muted">Consulta el estado de tus reservas realizadas, canceladas o rechazadas</p>
   </div>
 
+  <!-- Listado de reservas -->
   <div class="row g-4">
-
-    <!-- Listado dinámico de reservas (una tarjeta por cada reserva) -->
     <div class="col-md-4" *ngFor="let reservation of reservations">
+
+      <!-- Card individual de reserva -->
       <div class="card border-0 shadow-sm rounded-4">
 
-        <!-- Imagen del alojamiento (placeholder si no existe imagen real) -->
+        <!-- Imagen del alojamiento asociado a la reserva -->
         <img [src]="reservation.imgUrl" class="card-img-top rounded-top-4" alt="Imagen del alojamiento">
 
+        <!-- Cuerpo de la card con información de la reserva -->
         <div class="card-body">
 
-          <!-- Nombre del alojamiento -->
+          <!-- Descripción detallada del alojamiento -->
           <h5 class="card-title fw-bold">{{ reservation.detailedDescription }}</h5>
 
-          <!-- Ciudad o ubicación del alojamiento -->
+          <!-- Ciudad del alojamiento -->
           <p class="card-text text-muted mb-2">{{ reservation.cityName }}</p>
 
-          <!-- Fechas de la reserva -->
+          <!-- Fechas de la reserva y estado -->
           <p class="card-text small">
             <strong>Fechas:</strong>
-            {{ reservation.checkIn | date:'dd/MM/yyyy' }} -
-            {{ reservation.checkOut | date:'dd/MM/yyyy' }} <br>
-
-            <!-- Estado actual de la reserva con estilo según su valor -->
+            {{ reservation.checkIn | date:'dd/MM/yyyy' }} - {{ reservation.checkOut | date:'dd/MM/yyyy' }} <br>
             <strong>Estado:</strong>
-          <span class="badge" [ngClass]="{
+            <span class="badge" [ngClass]="{
               'bg-success': reservation.state == 'Aprobado',
-              'bg-primary': reservation.state == 'Realizado',
+              'bg-primary': reservation.state == 'Concluida',
               'bg-danger': reservation.state == 'Denegado',
               'bg-warning text-dark': reservation.state == 'Pendiente'
             }">
-            {{ reservation.state }}
-          </span>
+              {{ reservation.state }}
+            </span>
           </p>
 
-          <!-- Botón para ver detalle de la reserva -->
+          <!-- Botón para ver detalles de la reserva -->
           <button class="btn btn-outline-primary btn-sm mt-2" [routerLink]="['/detailReservation', reservation.id]">
             Ver Detalle
           </button>
 
-        </div>
+          <!-- Botón para calificar reserva (solo si está concluida y no tiene calificación) -->
+          <button
+            *ngIf="reservation.state === 'Concluida' && (!reservation.calification || reservation.calification <= 0)"
+            class="btn btn-success btn-sm mt-2 ms-2" (click)="openRatingModal(reservation)">
+            Calificar
+          </button>
 
+        </div>
       </div>
     </div>
+  </div>
+</div>
 
+<!-- Modal de calificación de reserva -->
+<div class="modal fade" id="ratingModal" tabindex="-1" aria-labelledby="ratingModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Encabezado del modal -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="ratingModalLabel">Calificar Reserva</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Cuerpo del modal: input para calificación -->
+      <div class="modal-body">
+        <label>Calificación (0 a 5)</label>
+        <input type="number" class="form-control" [(ngModel)]="ratingValue" min="0" max="5">
+      </div>
+
+      <!-- Pie del modal: botones para cancelar o guardar -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary" (click)="submitRating()">Guardar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de éxito al guardar calificación -->
+<div class="modal fade" id="successModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-success">
+
+      <!-- Encabezado del modal de éxito -->
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title">¡Éxito!</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body">
+        La calificación se ha guardado correctamente.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de error al guardar calificación -->
+<div class="modal fade" id="errorModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content border-danger">
+
+      <!-- Encabezado del modal de error -->
+      <div class="modal-header bg-danger text-white">
+        <h5 class="modal-title">Error</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+
+      <!-- Cuerpo del modal -->
+      <div class="modal-body">
+        Ocurrió un error al guardar la calificación. Intenta de nuevo.
+      </div>
+    </div>
   </div>
 </div>

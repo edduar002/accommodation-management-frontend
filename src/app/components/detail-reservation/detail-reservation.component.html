@@ -1,44 +1,66 @@
-<!-- Vista que muestra los detalles completos de una reserva específica -->
+<!-- Vista de Detalle de Reserva
+     Esta plantilla muestra la información completa de una reserva
+     específica, incluyendo imagen, descripción, fechas, número
+     de huéspedes y estado de la reserva. -->
 
 <div class="container mt-5">
 
-  <!-- Encabezado de la página -->
+  <!-- Encabezado de la página
+       Contiene el título principal y una breve descripción
+       sobre el contenido de la página. -->
   <div class="text-center mb-4">
     <h2 class="fw-bold">Detalle de la Reserva</h2>
     <p class="text-muted">Información completa de esta reserva.</p>
   </div>
 
-  <!-- Tarjeta principal con la información de la reserva -->
+  <!-- Tarjeta principal de la reserva
+       Presenta la información de la reserva dentro de un
+       contenedor estilizado con sombra y bordes redondeados.
+       Limita el ancho máximo a 700px y centra la tarjeta. -->
   <div class="card shadow-sm rounded-4 p-4" style="max-width: 700px; margin: 0 auto;">
 
-    <!-- Imagen del alojamiento asociado (actualmente fija o placeholder) -->
+    <!-- Imagen del alojamiento
+         Fuente: reservation.imgUrl (viene del backend)
+         Estilos: imagen responsiva, bordes redondeados, sombra ligera,
+         tamaño máximo de altura 300px, object-fit cover -->
     <div class="text-center mb-4">
       <img [src]="reservation.imgUrl" alt="Imagen del alojamiento" class="img-fluid rounded-4 shadow-sm"
         style="max-height: 300px; object-fit: cover;">
     </div>
 
-    <!-- Título con nombre del alojamiento o etiqueta de la reserva -->
-    <!-- Si reservation.name proviene del backend, cambiar texto por {{ reservation.name }} -->
+    <!-- Título de la reserva
+         Muestra una descripción detallada o nombre del alojamiento
+         proveniente de la propiedad reservation.detailedDescription.
+         Se puede reemplazar por reservation.name si se desea mostrar
+         el nombre del alojamiento. -->
     <h4 class="fw-bold mb-3">{{ reservation.detailedDescription }}</h4>
 
-    <!-- Fechas de la reserva -->
+    <!-- Fechas de la reserva
+         Muestra check-in y check-out obtenidos de la reserva. -->
     <p class="text-muted mb-1"><strong>Check-in:</strong> {{ reservation.checkIn }}</p>
     <p class="text-muted mb-1"><strong>Check-out:</strong> {{ reservation.checkOut }}</p>
 
-    <!-- Cantidad de huéspedes -->
+    <!-- Número de huéspedes
+         Muestra la cantidad de personas para la reserva. -->
     <p class="text-muted mb-1"><strong>Huéspedes:</strong> {{ reservation.numberGuests }} personas</p>
 
-    <!-- Estado de la reserva con estilos visuales dinámicos -->
+    <!-- Estado de la reserva
+         Muestra un badge con estilo dinámico según el estado:
+           'Aprobado'  => verde
+           'Concluida' => azul
+           'Denegado'  => rojo
+           'Pendiente' => amarillo -->
     <p class="small mb-3">
       <strong>Estado:</strong>
       <span class="badge" [ngClass]="{
-              'bg-success': reservation.state == 'Aprobado',
-              'bg-primary': reservation.state == 'Realizado',
-              'bg-danger': reservation.state == 'Denegado',
-              'bg-warning text-dark': reservation.state == 'Pendiente'
-            }">
+        'bg-success': reservation.state == 'Aprobado',
+        'bg-primary': reservation.state == 'Concluida',
+        'bg-danger': reservation.state == 'Denegado',
+        'bg-warning text-dark': reservation.state == 'Pendiente',
+      }">
         {{ reservation.state }}
       </span>
     </p>
+
   </div>
 </div>

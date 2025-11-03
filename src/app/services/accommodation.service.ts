@@ -82,6 +82,19 @@ export class AccommodationService {
   }
 
   /**
+   * Obtiene el promedio de calificaciones de un alojamiento.
+   * @param id ID del alojamiento
+   * @returns Observable con el promedio de calificación
+   */
+  getAverageCalification(id: number): Observable<number> {
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+    return this._http.get<number>(
+      `${this.url}accommodations/averageCalification/${id}`,
+      { headers }
+    );
+  }
+
+  /**
    * Actualiza los datos de un alojamiento existente
    * @param id Identificador del alojamiento a actualizar
    * @param accommodation Objeto Accommodation con los nuevos datos

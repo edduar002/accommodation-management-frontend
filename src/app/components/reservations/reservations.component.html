@@ -1,6 +1,6 @@
 <div class="row g-4">
 
-  <!-- Encabezado principal -->
+  <!-- Encabezado principal de la sección -->
   <div class="text-center mb-4">
     <h2 class="fw-bold">Reservas</h2>
     <p class="text-muted">Consulta el estado de las reservas realizadas de tus alojamientos</p>
@@ -8,20 +8,22 @@
 
   <!-- Listado dinámico de reservas -->
   <div class="col-md-4" *ngFor="let reservation of reservations">
+
+    <!-- Card individual de reserva -->
     <div class="card border-0 shadow-sm rounded-4">
 
-      <!-- Imagen del alojamiento (placeholder si no existe imagen real) -->
+      <!-- Imagen del alojamiento asociado a la reserva -->
       <img [src]="reservation.imgUrl" class="card-img-top rounded-top-4" alt="Imagen del alojamiento">
 
       <div class="card-body">
 
-        <!-- Nombre del alojamiento -->
+        <!-- Nombre o descripción detallada del alojamiento -->
         <h5 class="card-title fw-bold">{{ reservation.detailedDescription }}</h5>
 
-        <!-- Ciudad o ubicación -->
+        <!-- Ciudad del alojamiento -->
         <p class="card-text text-muted mb-2">{{ reservation.cityName }}</p>
 
-        <!-- Fechas y estado actual de la reserva -->
+        <!-- Fechas de la reserva y estado actual -->
         <p class="card-text small">
           <strong>Fechas:</strong>
           {{ reservation.checkIn | date:'dd/MM/yyyy' }} -
@@ -29,24 +31,25 @@
 
           <strong>Estado:</strong>
           <span class="badge" [ngClass]="{
-              'bg-success': reservation.state == 'Aprobado',
-              'bg-primary': reservation.state == 'Realizado',
-              'bg-danger': reservation.state == 'Denegado',
-              'bg-warning text-dark': reservation.state == 'Pendiente'
-            }">
+            'bg-success': reservation.state == 'Aprobado',
+            'bg-primary': reservation.state == 'Concluida',
+            'bg-danger': reservation.state == 'Denegado',
+            'bg-warning text-dark': reservation.state == 'Pendiente',
+            'bg-secondary': reservation.state == 'Concluida'
+          }">
             {{ reservation.state }}
           </span>
         </p>
 
-        <!-- Campo desplegable para actualizar el estado de la reserva -->
-        <div class="mb-3">
+        <!-- Selector para cambiar el estado de la reserva (solo si NO está concluida) -->
+        <div class="mb-3" *ngIf="reservation.state !== 'Concluida'">
           <label class="form-label small fw-semibold">Cambiar estado:</label>
           <select class="form-select form-select-sm" [(ngModel)]="reservation.state"
             (change)="updateStatus(reservation, reservation.state)">
             <option value="Pendiente">Pendiente</option>
             <option value="Aprobado">Aprobado</option>
             <option value="Denegado">Denegado</option>
-            <option value="Realizado">Realizado</option>
+            <option value="Concluida">Concluida</option>
           </select>
         </div>
 
@@ -58,5 +61,4 @@
       </div>
     </div>
   </div>
-
 </div>

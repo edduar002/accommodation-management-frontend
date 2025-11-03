@@ -5,27 +5,43 @@ import { HttpClient } from '@angular/common/http';
 import { Reservation } from '../../models/reservation';
 import { ReservationService } from '../../services/reservation.service';
 import { UserService } from '../../services/user.service';
+import { FormsModule } from '@angular/forms';
 
+// Declaración de variable global para modales de Bootstrap
+declare var bootstrap: any;
+
+/**
+ * Componente MyReservationsComponent
+ *
+ * Permite al usuario autenticado visualizar todas sus reservas,
+ * consultar su estado y calificar reservas concluidas.
+ */
 @Component({
-  selector: 'app-my-reservations', // Identificador del componente
-  standalone: true, // Se usa como componente independiente
-  imports: [CommonModule, RouterLink], // Módulos necesarios para el template
-  templateUrl: './my-reservations.component.html', // Archivo HTML asociado
-  styleUrls: ['./my-reservations.component.css'], // Estilos del componente
-  providers: [ReservationService], // Servicio inyectado de forma local
+  selector: 'app-my-reservations',
+  standalone: true,
+  imports: [CommonModule, RouterLink, FormsModule],
+  templateUrl: './my-reservations.component.html',
+  styleUrls: ['./my-reservations.component.css'],
+  providers: [ReservationService],
 })
 export class MyReservationsComponent implements OnInit {
-  // Arreglo que almacena las reservas del usuario autenticado
+  /** Lista de reservas del usuario */
   reservations: Reservation[] = [];
 
-  // ID temporal para acciones como eliminar una reserva (si fuera necesario)
+  /** ID de la reserva seleccionada */
   selectedReservationId?: number;
+
+  /** Reserva actualmente seleccionada para calificación */
+  selectedReservation: any = null;
+
+  /** Valor de calificación ingresado por el usuario (0 a 5) */
+  ratingValue: number = 0;
 
   /**
    * Constructor del componente
-   * @param http Cliente HTTP para solicitudes
-   * @param _reservationService Servicio para manejar operaciones con reservas
-   * @param _userService Servicio para acceder a la información del usuario actual
+   * @param http Cliente HTTP para llamadas al backend
+   * @param _reservationService Servicio para gestionar reservas
+   * @param _userService Servicio para obtener información del usuario
    */
   constructor(
     private http: HttpClient,
@@ -34,35 +50,117 @@ export class MyReservationsComponent implements OnInit {
   ) {}
 
   /**
-   * Método que se ejecuta al inicializar el componente.
-   * Aquí se obtienen las reservas del usuario.
+   * Método de Angular que se ejecuta al inicializar el componente
+   * Obtiene todas las reservas del usuario autenticado
    */
   ngOnInit(): void {
     this.getAll();
   }
 
   /**
-   * Obtiene todas las reservas del usuario actualmente autenticado.
-   * Primero verifica si existe un usuario cargado en el sistema.
-   * Si se tiene un ID válido, se llama al servicio para cargar sus reservas.
+   * Obtiene todas las reservas del usuario autenticado
+   * Hace una llamada al backend usando el servicio ReservationService
    */
   getAll(): void {
-    const user = this._userService.getUser(); // Obtener usuario del servicio
+    const user = this._userService.getUser();
 
-    // Validación de existencia del usuario
     if (!user || user.id === undefined) {
       console.error('No se pudo obtener el ID del usuario.');
       return;
     }
 
-    // Solicitud al backend para obtener reservas del usuario
     this._reservationService.getMyReservations(user.id).subscribe({
-      next: (response: any) => {
-        this.reservations = response; // Se asigna la respuesta al arreglo
+      next: (response: Reservation[]) => {
+        this.reservations = response;
       },
       error: (error) => {
         console.error('Error al obtener reservas:', error);
       },
     });
+  }
+
+  /**
+   * Abre el modal de calificación para una reserva específica
+   * @param reservation Reserva seleccionada para calificar
+   */
+  openRatingModal(reservation: any) {
+    this.selectedReservation = reservation;
+    this.ratingValue = 0;
+
+    const modalElement = document.getElementById('ratingModal');
+    if (modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show();
+    }
+  }
+
+  /**
+   * Envía la calificación ingresada por el usuario
+   * Valida el rango de calificación antes de enviarla
+   */
+  submitRating() {
+    if (this.ratingValue < 0 || this.ratingValue > 5) {
+      console.warn('Calificación fuera de rango (0-5)');
+      return;
+    }
+
+    console.log('Reserva calificada:', this.selectedReservation);
+    console.log('Calificación:', this.ratingValue);
+
+    // Guardar calificación en el backend
+    this.saveRating(this.selectedReservation, this.ratingValue);
+
+    // Cerrar el modal
+    const modalEl = document.getElementById('ratingModal');
+    if (modalEl) {
+      const modal = bootstrap.Modal.getInstance(modalEl);
+      modal.hide();
+    }
+  }
+
+  /**
+   * Guarda la calificación en el backend usando el servicio ReservationService
+   * @param reservation Reserva a actualizar
+   * @param rating Valor de calificación (0 a 5)
+   */
+  saveRating(reservation: Reservation, rating: number): void {
+    if (rating < 0 || rating > 5) {
+      console.warn('La calificación debe estar entre 0 y 5');
+      this.showErrorModal();
+      return;
+    }
+
+    // Actualizar objeto localmente
+    reservation.calification = rating;
+
+    // Guardar en backend
+    this._reservationService
+      .saveRating(reservation.id!, reservation)
+      .subscribe({
+        next: () => {
+          console.log('Calificación guardada con éxito');
+          this.showSuccessModal();
+        },
+        error: () => {
+          console.error('Error al guardar calificación');
+          this.showErrorModal();
+        },
+      });
+  }
+
+  /**
+   * Muestra el modal de éxito al guardar calificación correctamente
+   */
+  showSuccessModal() {
+    const modalEl = document.getElementById('successModal');
+    if (modalEl) new bootstrap.Modal(modalEl).show();
+  }
+
+  /**
+   * Muestra el modal de error si ocurre un fallo al guardar calificación
+   */
+  showErrorModal() {
+    const modalEl = document.getElementById('errorModal');
+    if (modalEl) new bootstrap.Modal(modalEl).show();
   }
 }
