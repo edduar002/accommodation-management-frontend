@@ -1,62 +1,56 @@
 <div class="container mt-5">
+
+  <!-- Encabezado principal de la página -->
   <div class="text-center mb-4">
     <h2 class="fw-bold">Mis Reservas</h2>
     <p class="text-muted">Consulta el estado de tus reservas realizadas, canceladas o rechazadas</p>
   </div>
 
   <div class="row g-4">
-    <!-- Card 1 -->
-    <div class="col-md-4">
+
+    <!-- Listado dinámico de reservas (una tarjeta por cada reserva) -->
+    <div class="col-md-4" *ngFor="let reservation of reservations">
       <div class="card border-0 shadow-sm rounded-4">
-        <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&w=800&q=80"
-             class="card-img-top rounded-top-4" alt="Hotel San Carlos">
+
+        <!-- Imagen del alojamiento (placeholder si no existe imagen real) -->
+        <img [src]="'https://via.placeholder.com/400x250?text=Sin+Imagen'" class="card-img-top rounded-top-4"
+          alt="Imagen del alojamiento">
+
         <div class="card-body">
-          <h5 class="card-title fw-bold">Hotel San Carlos</h5>
-          <p class="card-text text-muted mb-2">Medellín, Colombia</p>
+
+          <!-- Nombre del alojamiento -->
+          <h5 class="card-title fw-bold">reservation.name</h5>
+
+          <!-- Ciudad o ubicación del alojamiento -->
+          <p class="card-text text-muted mb-2">reservation.city</p>
+
+          <!-- Fechas de la reserva -->
           <p class="card-text small">
-            <strong>Fechas:</strong> 10/11/2025 - 13/11/2025<br>
-            <strong>Estado:</strong> <span class="badge bg-success">Confirmada</span>
+            <strong>Fechas:</strong>
+            {{ reservation.checkIn | date:'dd/MM/yyyy' }} -
+            {{ reservation.checkOut | date:'dd/MM/yyyy' }} <br>
+
+            <!-- Estado actual de la reserva con estilo según su valor -->
+            <strong>Estado:</strong>
+            <span class="badge" [ngClass]="{
+                'bg-success': reservation.state == 'confirmada',
+                'bg-primary': reservation.state == 'realizada',
+                'bg-danger': reservation.state == 'cancelada',
+                'bg-warning text-dark': reservation.state == 'pendiente'
+              }">
+              {{ reservation.state | titlecase }}
+            </span>
           </p>
-          <!-- Botón para ver detalle -->
-          <button class="btn btn-outline-primary btn-sm mt-2" onclick="viewDetail(1)">Ver Detalle</button>
+
+          <!-- Botón para ver detalle de la reserva -->
+          <button class="btn btn-outline-primary btn-sm mt-2" [routerLink]="['/detailReservation', reservation.id]">
+            Ver Detalle
+          </button>
+
         </div>
+
       </div>
     </div>
 
-    <!-- Card 2 -->
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm rounded-4">
-        <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80"
-             class="card-img-top rounded-top-4" alt="Resort Playa Blanca">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">Resort Playa Blanca</h5>
-          <p class="card-text text-muted mb-2">Cartagena, Colombia</p>
-          <p class="card-text small">
-            <strong>Fechas:</strong> 05/10/2025 - 10/10/2025<br>
-            <strong>Estado:</strong> <span class="badge bg-primary">Realizada</span>
-          </p>
-          <!-- Botón para ver detalle -->
-          <button class="btn btn-outline-primary btn-sm mt-2" onclick="viewDetail(2)">Ver Detalle</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="col-md-4">
-      <div class="card border-0 shadow-sm rounded-4">
-        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-             class="card-img-top rounded-top-4" alt="ApartaHotel Central">
-        <div class="card-body">
-          <h5 class="card-title fw-bold">ApartaHotel Central</h5>
-          <p class="card-text text-muted mb-2">Bogotá, Colombia</p>
-          <p class="card-text small">
-            <strong>Fechas:</strong> 20/09/2025 - 25/09/2025<br>
-            <strong>Estado:</strong> <span class="badge bg-danger">Cancelada</span>
-          </p>
-          <!-- Botón para ver detalle -->
-          <button class="btn btn-outline-primary btn-sm mt-2" onclick="viewDetail(3)">Ver Detalle</button>
-        </div>
-      </div>
-    </div>
   </div>
 </div>

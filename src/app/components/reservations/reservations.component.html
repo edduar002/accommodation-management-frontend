@@ -1,85 +1,63 @@
 <div class="row g-4">
-  <!-- Card 1 -->
-  <div class="col-md-4">
+
+  <!-- Encabezado principal -->
+  <div class="text-center mb-4">
+    <h2 class="fw-bold">Reservas</h2>
+    <p class="text-muted">Consulta el estado de las reservas realizadas de tus alojamientos</p>
+  </div>
+
+  <!-- Listado dinámico de reservas -->
+  <div class="col-md-4" *ngFor="let reservation of reservations">
     <div class="card border-0 shadow-sm rounded-4">
-      <img src="https://images.unsplash.com/photo-1590490359683-658d3d23f972?auto=format&fit=crop&w=800&q=80"
-           class="card-img-top rounded-top-4" alt="Hotel San Carlos">
+
+      <!-- Imagen del alojamiento (placeholder si no existe imagen real) -->
+      <img [src]="'https://via.placeholder.com/400x250?text=Sin+Imagen'" class="card-img-top rounded-top-4"
+        alt="Imagen del alojamiento">
+
       <div class="card-body">
-        <h5 class="card-title fw-bold">Hotel San Carlos</h5>
-        <p class="card-text text-muted mb-2">Medellín, Colombia</p>
+
+        <!-- Nombre del alojamiento -->
+        <h5 class="card-title fw-bold">reservation.name</h5>
+
+        <!-- Ciudad o ubicación -->
+        <p class="card-text text-muted mb-2">reservation.city</p>
+
+        <!-- Fechas y estado actual de la reserva -->
         <p class="card-text small">
-          <strong>Fechas:</strong> 10/11/2025 - 13/11/2025<br>
-          <strong>Estado:</strong> <span class="badge bg-success" id="status-1">Confirmada</span>
+          <strong>Fechas:</strong>
+          {{ reservation.checkIn | date:'dd/MM/yyyy' }} -
+          {{ reservation.checkOut | date:'dd/MM/yyyy' }} <br>
+
+          <strong>Estado:</strong>
+          <span class="badge" [ngClass]="{
+              'bg-success': reservation.state == 'Aprobado',
+              'bg-primary': reservation.state == 'Realizado',
+              'bg-danger': reservation.state == 'Denegado',
+              'bg-warning text-dark': reservation.state == 'Pendiente'
+            }">
+            {{ reservation.state }}
+          </span>
         </p>
 
+        <!-- Campo desplegable para actualizar el estado de la reserva -->
         <div class="mb-3">
-          <label for="selectStatus1" class="form-label small fw-semibold">Cambiar estado:</label>
-          <select class="form-select form-select-sm" id="selectStatus1">
+          <label class="form-label small fw-semibold">Cambiar estado:</label>
+          <select class="form-select form-select-sm" [(ngModel)]="reservation.state"
+            (change)="updateStatus(reservation, reservation.state)">
             <option value="Pendiente">Pendiente</option>
             <option value="Aprobado">Aprobado</option>
             <option value="Denegado">Denegado</option>
             <option value="Realizado">Realizado</option>
           </select>
         </div>
-        <button class="btn btn-primary btn-sm me-2" onclick="updateStatus(1)">Actualizar Estado</button>
-        <button class="btn btn-outline-secondary btn-sm" onclick="viewDetail(1)">Ver Detalle</button>
+
+        <!-- Botón para ver detalles de la reserva -->
+        <button class="btn btn-outline-secondary btn-sm" [routerLink]="['/detailReservation', reservation.id]">
+          Ver Detalle
+        </button>
+
       </div>
     </div>
   </div>
 
-  <!-- Card 2 -->
-  <div class="col-md-4">
-    <div class="card border-0 shadow-sm rounded-4">
-      <img src="https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=800&q=80"
-           class="card-img-top rounded-top-4" alt="Resort Playa Blanca">
-      <div class="card-body">
-        <h5 class="card-title fw-bold">Resort Playa Blanca</h5>
-        <p class="card-text text-muted mb-2">Cartagena, Colombia</p>
-        <p class="card-text small">
-          <strong>Fechas:</strong> 05/10/2025 - 10/10/2025<br>
-          <strong>Estado:</strong> <span class="badge bg-primary" id="status-2">Realizada</span>
-        </p>
-
-        <div class="mb-3">
-          <label for="selectStatus2" class="form-label small fw-semibold">Cambiar estado:</label>
-          <select class="form-select form-select-sm" id="selectStatus2">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Aprobado">Aprobado</option>
-            <option value="Denegado">Denegado</option>
-            <option value="Realizado">Realizado</option>
-          </select>
-        </div>
-        <button class="btn btn-primary btn-sm me-2" onclick="updateStatus(2)">Actualizar Estado</button>
-        <button class="btn btn-outline-secondary btn-sm" onclick="viewDetail(2)">Ver Detalle</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Card 3 -->
-  <div class="col-md-4">
-    <div class="card border-0 shadow-sm rounded-4">
-      <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80"
-           class="card-img-top rounded-top-4" alt="ApartaHotel Central">
-      <div class="card-body">
-        <h5 class="card-title fw-bold">ApartaHotel Central</h5>
-        <p class="card-text text-muted mb-2">Bogotá, Colombia</p>
-        <p class="card-text small">
-          <strong>Fechas:</strong> 20/09/2025 - 25/09/2025<br>
-          <strong>Estado:</strong> <span class="badge bg-danger" id="status-3">Cancelada</span>
-        </p>
-
-        <div class="mb-3">
-          <label for="selectStatus3" class="form-label small fw-semibold">Cambiar estado:</label>
-          <select class="form-select form-select-sm" id="selectStatus3">
-            <option value="Pendiente">Pendiente</option>
-            <option value="Aprobado">Aprobado</option>
-            <option value="Denegado">Denegado</option>
-            <option value="Realizado">Realizado</option>
-          </select>
-        </div>
-        <button class="btn btn-primary btn-sm me-2" onclick="updateStatus(3)">Actualizar Estado</button>
-        <button class="btn btn-outline-secondary btn-sm" onclick="viewDetail(3)">Ver Detalle</button>
-      </div>
-    </div>
-  </div>
 </div>

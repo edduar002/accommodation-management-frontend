@@ -17,7 +17,6 @@ import { ChangePasswordUserComponent } from './components/change-password-user/c
 import { CreateAccommodationComponent } from './components/create-accommodation/create-accommodation.component';
 import { CreateCityComponent } from './components/create-city/create-city.component';
 import { CreateDepartmentComponent } from './components/create-department/create-department.component';
-import { CreateReservationComponent } from './components/create-reservation/create-reservation.component';
 import { EditProfileAdminComponent } from './components/edit-profile-admin/edit-profile-admin.component';
 import { EditProfileHostComponent } from './components/edit-profile-host/edit-profile-host.component';
 import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
@@ -61,8 +60,7 @@ export const routes: Routes = [
 
   // Rutas de gestión de reservas
   { path: 'myReservations', component: MyReservationsComponent },
-  { path: 'detailReservation', component: DetailReservationComponent },
-  { path: 'createReservation', component: CreateReservationComponent },
+  { path: 'detailReservation/:id', component: DetailReservationComponent },
   { path: 'reservations', component: ReservationsComponent },
 
   // Rutas de cambio de contraseña (rutas dinámicas con parámetro :id)
@@ -85,7 +83,10 @@ export const routes: Routes = [
   { path: 'managementDepartment', component: ManagementDepartmentComponent },
   { path: 'managementCity', component: ManagementCityComponent },
   { path: 'managementRole', component: ManagementRoleComponent },
-  { path: 'managementAccommodations', component: ManagementAccommodationsComponent },
+  {
+    path: 'managementAccommodations',
+    component: ManagementAccommodationsComponent,
+  },
   { path: 'managementUser', component: ManagementUserComponent },
   { path: 'managementHost', component: ManagementHostComponent },
 
