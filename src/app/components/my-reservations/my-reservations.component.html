@@ -13,16 +13,15 @@
       <div class="card border-0 shadow-sm rounded-4">
 
         <!-- Imagen del alojamiento (placeholder si no existe imagen real) -->
-        <img [src]="'https://via.placeholder.com/400x250?text=Sin+Imagen'" class="card-img-top rounded-top-4"
-          alt="Imagen del alojamiento">
+        <img [src]="reservation.imgUrl" class="card-img-top rounded-top-4" alt="Imagen del alojamiento">
 
         <div class="card-body">
 
           <!-- Nombre del alojamiento -->
-          <h5 class="card-title fw-bold">reservation.name</h5>
+          <h5 class="card-title fw-bold">{{ reservation.detailedDescription }}</h5>
 
           <!-- Ciudad o ubicación del alojamiento -->
-          <p class="card-text text-muted mb-2">reservation.city</p>
+          <p class="card-text text-muted mb-2">{{ reservation.cityName }}</p>
 
           <!-- Fechas de la reserva -->
           <p class="card-text small">
@@ -32,14 +31,14 @@
 
             <!-- Estado actual de la reserva con estilo según su valor -->
             <strong>Estado:</strong>
-            <span class="badge" [ngClass]="{
-                'bg-success': reservation.state == 'confirmada',
-                'bg-primary': reservation.state == 'realizada',
-                'bg-danger': reservation.state == 'cancelada',
-                'bg-warning text-dark': reservation.state == 'pendiente'
-              }">
-              {{ reservation.state | titlecase }}
-            </span>
+          <span class="badge" [ngClass]="{
+              'bg-success': reservation.state == 'Aprobado',
+              'bg-primary': reservation.state == 'Realizado',
+              'bg-danger': reservation.state == 'Denegado',
+              'bg-warning text-dark': reservation.state == 'Pendiente'
+            }">
+            {{ reservation.state }}
+          </span>
           </p>
 
           <!-- Botón para ver detalle de la reserva -->

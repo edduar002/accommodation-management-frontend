@@ -36,7 +36,10 @@ export class DetailReservationComponent implements OnInit {
       1, // accommodationsId
       1, // usersId
       1, // hostsId
-      0 // calification
+      0, // calification
+      '', // url de la imagen
+      '', // descripcon detallada
+      '' // ciudad
     );
   }
 

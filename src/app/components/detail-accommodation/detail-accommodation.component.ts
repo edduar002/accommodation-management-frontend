@@ -65,7 +65,10 @@ export class DetailAccommodationComponent implements OnInit, AfterViewInit {
       1, // accommodationsId (se actualizará luego)
       1, // usersId
       1, // hostsId
-      0 // calification
+      0, // calification
+      '', // url de la imagen
+      '', // descripcon detallada
+      '' // ciudad
     );
   }
 

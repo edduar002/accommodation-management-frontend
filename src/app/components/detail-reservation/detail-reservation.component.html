@@ -13,13 +13,13 @@
 
     <!-- Imagen del alojamiento asociado (actualmente fija o placeholder) -->
     <div class="text-center mb-4">
-      <img [src]="'https://via.placeholder.com/800x400?text=Sin+Imagen'" alt="Imagen del alojamiento"
-        class="img-fluid rounded-4 shadow-sm" style="max-height: 300px; object-fit: cover;">
+      <img [src]="reservation.imgUrl" alt="Imagen del alojamiento" class="img-fluid rounded-4 shadow-sm"
+        style="max-height: 300px; object-fit: cover;">
     </div>
 
     <!-- Título con nombre del alojamiento o etiqueta de la reserva -->
     <!-- Si reservation.name proviene del backend, cambiar texto por {{ reservation.name }} -->
-    <h4 class="fw-bold mb-3">reservation.name</h4>
+    <h4 class="fw-bold mb-3">{{ reservation.detailedDescription }}</h4>
 
     <!-- Fechas de la reserva -->
     <p class="text-muted mb-1"><strong>Check-in:</strong> {{ reservation.checkIn }}</p>
@@ -32,10 +32,11 @@
     <p class="small mb-3">
       <strong>Estado:</strong>
       <span class="badge" [ngClass]="{
-          'bg-success': reservation.state === 'CONFIRMADA',
-          'bg-warning': reservation.state === 'PENDIENTE',
-          'bg-danger': reservation.state === 'CANCELADA'
-        }">
+              'bg-success': reservation.state == 'Aprobado',
+              'bg-primary': reservation.state == 'Realizado',
+              'bg-danger': reservation.state == 'Denegado',
+              'bg-warning text-dark': reservation.state == 'Pendiente'
+            }">
         {{ reservation.state }}
       </span>
     </p>
