@@ -22,6 +22,7 @@ import { EditProfileAdminComponent } from './components/edit-profile-admin/edit-
 import { EditProfileHostComponent } from './components/edit-profile-host/edit-profile-host.component';
 import { EditProfileUserComponent } from './components/edit-profile-user/edit-profile-user.component';
 import { CreateRoleComponent } from './components/create-role/create-role.component';
+import { DetailReservationComponent } from './components/detail-reservation/detail-reservation.component';
 import { ManagementDepartmentComponent } from './components/management-department/management-department.component';
 import { ManagementCityComponent } from './components/management-city/management-city.component';
 import { ManagementRoleComponent } from './components/management-role/management-role.component';
@@ -30,6 +31,7 @@ import { MyAccommodationsComponent } from './components/my-accommodations/my-acc
 import { ManagementUserComponent } from './components/management-user/management-user.component';
 import { ManagementHostComponent } from './components/management-host/management-host.component';
 import { EditCityComponent } from './components/edit-city/edit-city.component';
+import { ReservationsComponent } from './components/reservations/reservations.component';
 import { EditDepartmentComponent } from './components/edit-department/edit-department.component';
 import { EditAccommodationComponent } from './components/edit-accommodation/edit-accommodation.component';
 import { EditRoleComponent } from './components/edit-role/edit-role.component';
@@ -59,7 +61,9 @@ export const routes: Routes = [
 
   // Rutas de gestión de reservas
   { path: 'myReservations', component: MyReservationsComponent },
+  { path: 'detailReservation', component: DetailReservationComponent },
   { path: 'createReservation', component: CreateReservationComponent },
+  { path: 'reservations', component: ReservationsComponent },
 
   // Rutas de cambio de contraseña (rutas dinámicas con parámetro :id)
   { path: 'changePasswordAdmin/:id', component: ChangePasswordAdminComponent },
